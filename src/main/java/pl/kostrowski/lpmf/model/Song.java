@@ -30,7 +30,6 @@ public class Song {
             joinColumns = {@JoinColumn(name = "song_id")},
             inverseJoinColumns = {@JoinColumn(name = "artist_id")}
     )
-
     private List<Artist> authors;
 
     public String getId() {

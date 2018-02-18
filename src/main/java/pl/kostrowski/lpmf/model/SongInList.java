@@ -17,7 +17,7 @@ public class SongInList {
     @Column(name = "pos")
     private Integer pos;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     Song song;
 
     public String getId() {

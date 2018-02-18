@@ -21,7 +21,7 @@ public class FullList {
     @Column(name = "date")
     private String date;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "full_list_id")},
             inverseJoinColumns = {@JoinColumn(name = "song_in_list_id")}

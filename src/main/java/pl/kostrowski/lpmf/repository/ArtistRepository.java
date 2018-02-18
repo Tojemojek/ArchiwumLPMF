@@ -7,6 +7,6 @@ import pl.kostrowski.lpmf.model.Artist;
 @Repository
 public interface ArtistRepository extends CrudRepository<Artist, String> {
 
-    Artist findArtistByNameAndSurname(String name, String surname);
+    Artist findArtistByName(String name);
 
 }

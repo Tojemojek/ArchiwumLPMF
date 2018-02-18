@@ -18,8 +18,12 @@ public class Artist {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
+    public Artist() {
+    }
+
+    public Artist(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -35,22 +39,5 @@ public class Artist {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
     }
 }

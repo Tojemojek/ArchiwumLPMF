@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface SongRepository extends CrudRepository<Song, String> {
 
-    Song findSongByTitleAndMovieAndAuthors (String title, Movie movie, List<Artist> artistList);
+    Song findSongByTitleAndMovie (String title, Movie movie);
 
 }
