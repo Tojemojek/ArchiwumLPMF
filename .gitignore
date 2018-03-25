@@ -3,6 +3,7 @@ target/
 **/mvnw
 **/mvnw.cmd
 **/.mvn
+**/Servers/
 
 ### STS ###
 .apt_generated
@@ -26,3 +27,5 @@ dist/
 nbdist/
 .nb-gradle/
 
+/.metadata/
+/.metadata/

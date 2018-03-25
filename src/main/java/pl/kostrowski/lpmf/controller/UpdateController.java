@@ -3,35 +3,29 @@ package pl.kostrowski.lpmf.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.kostrowski.lpmf.jsoup.JsoupGetArtist;
+import org.springframework.web.bind.annotation.RestController;
+import pl.kostrowski.lpmf.dto.SingleSongInListDto;
+import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
 import pl.kostrowski.lpmf.service.ToDonwloadHtml;
-//import pl.kostrowski.lpmf.service.ToSaveToDb;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Controller
+//import pl.kostrowski.lpmf.service.ToSaveToDb;
+
+@RestController
 public class UpdateController {
 
     Logger LOG = LoggerFactory.getLogger(UpdateController.class);
-//
-//    @Autowired
-//    ToSaveToDb toSaveToDb;
 
     @Autowired
     ToDonwloadHtml toDonwloadHtml;
 
     @Autowired
-    JsoupGetArtist jsoupGetArtist;
-
-//    @RequestMapping(value = "/makeFullUpdate/{noOfLists}", method = RequestMethod.GET)
-//    public void makeFullUpdate(@PathVariable("noOfLists") Integer noOfLists) {
-//        for (int i = 0; i <= noOfLists; i++) {
-////            toSaveToDb.save(i);
-//        }
-//    }
+    JsoupFileParser jsoupFileParser;
 
     @RequestMapping(value = "/download/{noOfLists}", method = RequestMethod.GET)
     public void downloadListsToDrive(@PathVariable("noOfLists") Integer noOfLists) {
@@ -42,21 +36,21 @@ public class UpdateController {
 
         long endDownload = System.currentTimeMillis();
 
-        LOG.info("Download time: "+TimeUnit.MILLISECONDS.toMinutes(startDownload- endDownload));
-
+        LOG.info("Czas pobrania listy numer : " + noOfLists + " wynosi " + TimeUnit.MILLISECONDS.toSeconds(startDownload - endDownload));
     }
 
-
     @RequestMapping(value = "/jsoup/{noOfList}", method = RequestMethod.GET)
-    public void jsouParse(@PathVariable("noOfList") Integer noOfList) {
+    public List<SingleSongInListDto> jsouParse(@PathVariable("noOfList") Integer noOfList) {
 
         long startDownload = System.currentTimeMillis();
 
-        jsoupGetArtist.makeDOMfor(noOfList);
+        List<SingleSongInListDto> singleSongInListDto = jsoupFileParser.makeDOMfor(noOfList);
 
         long endDownload = System.currentTimeMillis();
 
-        LOG.info("Parsing time: "+TimeUnit.MILLISECONDS.toMinutes(startDownload- endDownload));
+        LOG.info("Parsing time: " + TimeUnit.MILLISECONDS.toSeconds(startDownload - endDownload));
+
+        return singleSongInListDto;
 
     }
 

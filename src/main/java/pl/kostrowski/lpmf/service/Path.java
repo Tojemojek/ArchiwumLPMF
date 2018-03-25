@@ -3,9 +3,7 @@ package pl.kostrowski.lpmf.service;
 public enum Path {
 
     PATH_FOR_REMOTE_HTML("http://www.rmfclassic.pl/lista-przebojow/notowanie/"),
-    PATH_FOR_LOCAL_HTML("c:/temp/listarmf/");
-
-
+    PATH_FOR_LOCAL_HTML("/media/ko/Dane/Temp/lista/dane/");
 
     private String path;
 
