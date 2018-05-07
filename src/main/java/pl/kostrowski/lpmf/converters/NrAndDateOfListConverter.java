@@ -1,19 +1,31 @@
 package pl.kostrowski.lpmf.converters;
 
-import pl.kostrowski.lpmf.model.FullList;
 
+import org.springframework.stereotype.Service;
+import pl.kostrowski.lpmf.model.ListInfo;
+
+import java.time.LocalDate;
+
+@Service
 public class NrAndDateOfListConverter {
 
-    public FullList convert (String nrAndDateOfList){
+    public ListInfo convert (String nrAndDateOfList){
 
-        FullList fullList = new FullList();
+        ListInfo listInfo = new ListInfo();
 
-        String[] split = nrAndDateOfList.split("|");
-        split[0].length();
+        String[] split = nrAndDateOfList.split(" ");
 
+        Integer noOfList = Integer.parseInt(split[2]);
+        int day = Integer.parseInt(split[5]);
+        int month = MonthsNubers.valueOf(split[6].toUpperCase()).getMonthNumber();
+        int year = Integer.parseInt(split[7]);
 
-        return null;
+        LocalDate date = LocalDate.of(year,month,day);
 
+        listInfo.setDate(date);
+        listInfo.setNoOfList(noOfList);
+
+        return listInfo;
 
     }
 }

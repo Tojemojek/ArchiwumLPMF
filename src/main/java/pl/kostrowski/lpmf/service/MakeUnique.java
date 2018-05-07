@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.kostrowski.lpmf.converters.ArtistConverter;
-import pl.kostrowski.lpmf.converters.FilmTitleConverter;
+import pl.kostrowski.lpmf.converters.MovieConverter;
 import pl.kostrowski.lpmf.converters.SongTitleConverter;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
@@ -26,7 +26,7 @@ public class MakeUnique {
     JsoupFileParser jsoupFileParser;
 
     @Autowired
-    FilmTitleConverter filmTitleConverter;
+    MovieConverter movieConverter;
 
     @Autowired
     ArtistConverter artistConverter;
@@ -47,7 +47,7 @@ public class MakeUnique {
 
         for (int i = 0; i <= maxList; i++) {
             singleEntryInListDtos = jsoupFileParser.makeDOMfor(i);
-            movies = filmTitleConverter.convert(singleEntryInListDtos);
+            movies = movieConverter.convertOLD(singleEntryInListDtos);
 
             newMoviesBefore = PersistUnique.getNewMoviesCount();
 
@@ -72,7 +72,7 @@ public class MakeUnique {
 
         for (int i = 0; i <= maxList; i++) {
             singleEntryInListDtos = jsoupFileParser.makeDOMfor(i);
-            artists = artistConverter.convert(singleEntryInListDtos);
+            artists = artistConverter.convertFullList(singleEntryInListDtos);
 
             newArtistsBefore = PersistUnique.getNewArtistCount();
 
@@ -100,7 +100,7 @@ public class MakeUnique {
 
         for (int i = 0; i <= maxList; i++) {
             singleEntryInListDtos = jsoupFileParser.makeDOMfor(i);
-            songs = songTitleConverter.convert(singleEntryInListDtos);
+            songs = songTitleConverter.convertOld(singleEntryInListDtos);
 
             newSongsBefore = PersistUnique.getNewSongCount();
 

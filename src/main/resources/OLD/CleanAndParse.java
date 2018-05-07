@@ -10,7 +10,7 @@
 //import pl.kostrowski.lpmf.model.Song;
 //import pl.kostrowski.lpmf.repository.SongInListRepository;
 //import pl.kostrowski.lpmf.repository.SongRepository;
-//import pl.kostrowski.lpmf.model.SongInList;
+//import pl.kostrowski.lpmf.model.LPMFPosition;
 //import pl.kostrowski.lpmf.repository.ArtistRepository;
 //import pl.kostrowski.lpmf.repository.MovieRepository;
 //
@@ -39,7 +39,7 @@
 //    @Autowired
 //    private ParseSong parseSong;
 //
-//    private final String path = Path.PATH_FOR_LOCAL_HTML.getPath();
+//    private final String path = Path.PATH_FOR_LOCAL_HTML_COPY.getPath();
 //
 //    public String readFromFile(Integer noOfList) {
 //
@@ -117,7 +117,7 @@
 //
 //    }
 //
-//    public SongInList getSingleSongInList(String posOnly){
+//    public LPMFPosition getSingleSongInList(String posOnly){
 //
 //        String posEnd = "</b>";
 //
@@ -160,7 +160,7 @@
 //
 //        Song song = parseSong.makeSong(artistsList, movie,songCoverArtLink, songTitle);
 //
-//        SongInList songInList= new SongInList();
+//        LPMFPosition songInList= new LPMFPosition();
 //
 //        songInList.setPos(Integer.valueOf(pos));
 //        songInList.setSong(song);

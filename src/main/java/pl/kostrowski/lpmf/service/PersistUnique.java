@@ -1,19 +1,20 @@
 package pl.kostrowski.lpmf.service;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import pl.kostrowski.lpmf.model.Artist;
+import pl.kostrowski.lpmf.model.ListInfo;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
-import pl.kostrowski.lpmf.model.dictionaries.AllDictionaries;
 import pl.kostrowski.lpmf.repository.ArtistRepository;
+import pl.kostrowski.lpmf.repository.ListInfoRepository;
 import pl.kostrowski.lpmf.repository.MovieRepository;
 import pl.kostrowski.lpmf.repository.SongRepository;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class PersistUnique {
@@ -24,27 +25,31 @@ public class PersistUnique {
     private static int newSongCount = 0;
 
     @Autowired
-    MovieRepository mr;
+    MovieRepository movieRepository;
 
     @Autowired
-    ArtistRepository ar;
+    ArtistRepository artistRepository;
 
     @Autowired
-    SongRepository sr;
+    SongRepository songRepository;
+
+    @Autowired
+    ListInfoRepository listInfoRepository;
+
 
     public Movie persistMovie(Movie movie) {
 
         Movie movieFromDB = null;
 
         try {
-            movieFromDB = mr.findMovieByTitle(movie.getTitle());
+            movieFromDB = movieRepository.findMovieByTitle(movie.getTitle());
         } catch (Exception e) {
 
         }
         if (movieFromDB != null) {
             movie = movieFromDB;
         } else {
-            mr.save(movie);
+            movieRepository.save(movie);
             LOG.debug(movie + "dodano do bazy danych");
             newMoviesCount++;
         }
@@ -57,14 +62,14 @@ public class PersistUnique {
         Artist artistFromDB = null;
 
         try {
-            artistFromDB = ar.findArtistByFullName(artist.getFullName());
+            artistFromDB = artistRepository.findArtistByFullName(artist.getFullName());
         } catch (Exception e) {
 
         }
         if (artistFromDB != null) {
             artist = artistFromDB;
         } else {
-            ar.save(artist);
+            artistRepository.save(artist);
             LOG.debug(artist + "dodano do bazy danych");
             newArtistCount++;
         }
@@ -72,24 +77,84 @@ public class PersistUnique {
         return artist;
     }
 
+    public List<Artist> persistArtists(List<Artist> artists) {
+
+        List<Artist> artistsFromDb = new LinkedList<>();
+
+        for (Artist artist : artists) {
+            artistsFromDb.add(persistArtist(artist));
+        }
+        return artistsFromDb;
+    }
+
+
     public Song persistSong(Song song) {
 
-        Song songFromDb = null;
+        List<Song> songsFromDb = null;
 
         try {
-            songFromDb = sr.findSongByTitleAndMovie(song.getTitle(), song.getMovie());
+            songsFromDb = songRepository.findAllByTitle(song.getTitle());
         } catch (Exception e) {
 
         }
-        if (songFromDb != null) {
-            song = songFromDb;
-        } else {
-            sr.save(song);
-            LOG.debug(song + "dodano do bazy danych");
-            newSongCount++;
+
+        for (Song songFromDb : songsFromDb) {
+            if (songFromDb != null && titleAreSame(songFromDb, song) && twoAuthorsListsAreSame(songFromDb, song)) {
+                song = songFromDb;
+                return song;
+            }
         }
 
+        songRepository.save(song);
+        LOG.debug(song + "dodano do bazy danych");
+        newSongCount++;
+
         return song;
+    }
+
+
+    public ListInfo persistListInfo(ListInfo listInfo) {
+
+        ListInfo listInfoDb = null;
+
+        try {
+            listInfoDb = listInfoRepository.findByNoOfList(listInfo.getNoOfList());
+        } catch (Exception e) {
+
+        }
+        if (listInfoDb != null) {
+            listInfo = listInfoDb;
+        } else {
+            listInfoRepository.save(listInfo);
+            LOG.debug(listInfo + "dodano do bazy danych");
+        }
+
+        return listInfo;
+    }
+
+
+    private boolean twoAuthorsListsAreSame(Song fromDB, Song song) {
+        List<Artist> authorsdb = fromDB.getAuthors();
+        List<Artist> authors = song.getAuthors();
+
+        if (authorsdb.size() != authors.size()){
+            return false;
+        }
+
+        for (Artist author : authors) {
+            if (!authorsdb.contains(author)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean titleAreSame(Song fromDB, Song song) {
+
+        String titleDb = fromDB.getMovie().getTitle();
+        String title = song.getMovie().getTitle();
+
+        return title.equals(titleDb);
     }
 
 
@@ -98,9 +163,11 @@ public class PersistUnique {
     public static int getNewMoviesCount() {
         return newMoviesCount;
     }
+
     public static int getNewArtistCount() {
         return newArtistCount;
     }
+
     public static int getNewSongCount() {
         return newSongCount;
     }

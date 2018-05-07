@@ -17,7 +17,7 @@ public class ToDonwloadHtml {
     private final Logger LOG = LoggerFactory.getLogger(RestApiClientApplication.class);
 
     private final String URL_ADDRESS = Path.PATH_FOR_REMOTE_HTML.getPath();
-    private String pathToSaveFiles = Path.PATH_FOR_LOCAL_HTML.getPath();
+    private String pathToSaveFiles = Path.PATH_FOR_LOCAL_HTML_COPY.getPath();
 
     @Autowired
     private RestTemplate restTemplate;

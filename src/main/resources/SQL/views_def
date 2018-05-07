@@ -1,0 +1,10 @@
+Create /*replace*/ view inny (SONG_TITLE, MOVIE_TITLE, ARTIST) as
+select
+s.title,
+m.title,
+a.full_Name
+from
+song s
+left join movie m on s.movie_id = m.id
+left join song_has_artist sha on sha.song_id = s.id
+left join artist a on a.id = sha.artist_id;

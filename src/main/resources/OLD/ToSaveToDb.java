@@ -5,8 +5,8 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
 //import pl.kostrowski.lpmf.model.FullList;
-//import pl.kostrowski.lpmf.model.SongInList;
-//import pl.kostrowski.lpmf.repository.FullListRepository;
+//import pl.kostrowski.lpmf.model.LPMFPosition;
+//import pl.kostrowski.lpmf.repository.ListInfo;
 //
 //import java.util.LinkedList;
 //import java.util.List;
@@ -17,10 +17,10 @@
 //    Logger LOG = LoggerFactory.getLogger(ToSaveToDb.class);
 //
 //
-//    private FullListRepository fullListRepository;
+//    private ListInfo fullListRepository;
 //
 //    @Autowired
-//    public ToSaveToDb(FullListRepository fullListRepository) {
+//    public ToSaveToDb(ListInfo fullListRepository) {
 //        this.fullListRepository = fullListRepository;
 //    }
 //
@@ -41,7 +41,7 @@
 //        fullList.setNoOfList(Integer.valueOf(listNoAndDate.get(0)));
 //        fullList.setDate(listNoAndDate.get(1));
 //
-//        List<SongInList> lsin = new LinkedList<>();
+//        List<LPMFPosition> lsin = new LinkedList<>();
 //
 //        try {
 //            for (int i = 1; i < stringArray.length; i++) {

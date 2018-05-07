@@ -3,19 +3,15 @@ package pl.kostrowski.lpmf.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
+import pl.kostrowski.lpmf.service.ConvertSingleLPMFFile;
 import pl.kostrowski.lpmf.service.MakeUnique;
 import pl.kostrowski.lpmf.service.ToDonwloadHtml;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-//import pl.kostrowski.lpmf.service.ToSaveToDb;
 
 @RestController
 public class UpdateController {
@@ -29,8 +25,25 @@ public class UpdateController {
     JsoupFileParser jsoupFileParser;
 
     @Autowired
+    ConvertSingleLPMFFile convertSingleLPMFFile;
+
+    @Autowired
     MakeUnique makeUnique;
 
+
+    @RequestMapping(value = "/persist/manyFiles", method = RequestMethod.GET)
+    public void processOneFile(@RequestParam("from") Integer fromList,
+                               @RequestParam Integer toList) {
+        for (int i = fromList; i <= toList; i++) {
+            convertSingleLPMFFile.convertAndPersistSingleLPMFFile(i);
+        }
+    }
+
+
+    @RequestMapping(value = "/persist/singleFile/{singleListNo}", method = RequestMethod.GET)
+    public void processOneFile(@PathVariable("singleListNo") Integer singleListNo) {
+        convertSingleLPMFFile.convertAndPersistSingleLPMFFile(singleListNo);
+    }
 
     @RequestMapping(value = "/persist/movies/{noOfLists}", method = RequestMethod.GET)
     public void persistUniquleMoviesFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
@@ -53,7 +66,6 @@ public class UpdateController {
         makeUnique.persistUniqueMovies(noOfLists);
         makeUnique.persistUniqueSongs(noOfLists);
     }
-
 
     @RequestMapping(value = "/download/{noOfLists}", method = RequestMethod.GET)
     public void downloadListsToDrive(@PathVariable("noOfLists") Integer noOfLists) {

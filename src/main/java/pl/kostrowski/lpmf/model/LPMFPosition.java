@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "songs_in_list")
-public class SongInList {
+public class LPMFPosition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
@@ -16,6 +16,9 @@ public class SongInList {
 
     @Column(name = "pos")
     private Integer pos;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    ListInfo listInfo;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     Song song;
@@ -44,12 +47,11 @@ public class SongInList {
         this.song = song;
     }
 
-    @Override
-    public String toString() {
-        return "SongInList{" +
-                "id=" + id +
-                ", pos=" + pos +
-                ", song=" + song +
-                '}';
+    public ListInfo getListInfo() {
+        return listInfo;
+    }
+
+    public void setListInfo(ListInfo listInfo) {
+        this.listInfo = listInfo;
     }
 }

@@ -2,7 +2,7 @@ package pl.kostrowski.lpmf.converters;
 
 import org.springframework.stereotype.Service;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
-import pl.kostrowski.lpmf.model.Artist;
+import pl.kostrowski.lpmf.model.ListInfo;
 import pl.kostrowski.lpmf.model.Song;
 import pl.kostrowski.lpmf.model.dictionaries.AllDictionaries;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class SongTitleConverter {
 
-    public List<Song> convert(List<SingleEntryInListDto> singleEntryInListDtos) {
+    public List<Song> convertOld(List<SingleEntryInListDto> singleEntryInListDtos) {
 
         Map<String, String> songDictionary = AllDictionaries.getSongDictionary();
         List<Song> songs = new LinkedList<>();
@@ -30,10 +30,28 @@ public class SongTitleConverter {
             }
             Song song = new Song();
             song.setTitle(songTitlefromDto);
-            song.setFirstTimeInList(listNumberAndDate);
+//            song.setFirstTimeInList(listNumberAndDate);
             songs.add(song);
         }
 
         return songs;
     }
+
+    public Song convert(String singleEntryInListDtos, ListInfo listInfo) {
+
+        Map<String, String> songDictionary = AllDictionaries.getSongDictionary();
+
+        String songTitlefromDto = singleEntryInListDtos.trim();
+
+        if (songDictionary.containsKey(songTitlefromDto)) {
+            songTitlefromDto = songDictionary.get(songTitlefromDto);
+        }
+
+        Song song = new Song();
+        song.setTitle(songTitlefromDto);
+        song.setFirstTimeInList(listInfo);
+
+        return song;
+    }
+
 }

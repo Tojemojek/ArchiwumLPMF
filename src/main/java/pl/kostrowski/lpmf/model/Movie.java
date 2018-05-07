@@ -3,7 +3,9 @@ package pl.kostrowski.lpmf.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "movie")
@@ -18,8 +20,8 @@ public class Movie {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "first_time_in_list")
-    private String firstTimeInList;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private ListInfo firstTimeInList;
 
     public String getId() {
         return id;
@@ -37,11 +39,24 @@ public class Movie {
         this.title = title;
     }
 
-    public String getFirstTimeInList() {
+    public ListInfo getFirstTimeInList() {
         return firstTimeInList;
     }
 
-    public void setFirstTimeInList(String firstTimeInList) {
+    public void setFirstTimeInList(ListInfo firstTimeInList) {
         this.firstTimeInList = firstTimeInList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(title, movie.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
     }
 }

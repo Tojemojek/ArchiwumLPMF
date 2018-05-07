@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class JsoupFileParser {
 
-    private final String path = Path.PATH_FOR_LOCAL_HTML.getPath();
+    private final String path = Path.PATH_FOR_LOCAL_HTML_COPY.getPath();
     private final Logger LOG = LoggerFactory.getLogger(JsoupFileParser.class);
 
     public List<SingleEntryInListDto> makeDOMfor(int i) {
