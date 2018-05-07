@@ -1,6 +1,6 @@
 package pl.kostrowski.lpmf.dto;
 
-public class SingleSongInListDto {
+public class SingleEntryInListDto {
 
     String nrIDataListy;
     String position;
@@ -10,10 +10,10 @@ public class SingleSongInListDto {
     String coverLink;
 
 
-    public SingleSongInListDto() {
+    public SingleEntryInListDto() {
     }
 
-    public SingleSongInListDto(String nrIDataListy, String position, String fullArtist, String fullSongTitle, String fullMovieTitle, String coverLink) {
+    public SingleEntryInListDto(String nrIDataListy, String position, String fullArtist, String fullSongTitle, String fullMovieTitle, String coverLink) {
         this.nrIDataListy = nrIDataListy;
         this.position = position;
         this.fullArtist = fullArtist;

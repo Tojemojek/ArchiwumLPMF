@@ -21,6 +21,9 @@ public class Song {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "first_time_in_list")
+    private String firstTimeInList;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     private Movie movie;
 
@@ -72,14 +75,12 @@ public class Song {
         this.authors = authors;
     }
 
-    @Override
-    public String toString() {
-        return "Song{" +
-                "id='" + id + '\'' +
-                ", coverLink='" + coverLink + '\'' +
-                ", title='" + title + '\'' +
-                ", movie=" + movie +
-                ", authors=" + authors +
-                '}';
+    public String getFirstTimeInList() {
+        return firstTimeInList;
     }
+
+    public void setFirstTimeInList(String firstTimeInList) {
+        this.firstTimeInList = firstTimeInList;
+    }
+
 }

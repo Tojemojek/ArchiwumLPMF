@@ -18,6 +18,9 @@ public class Movie {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "first_time_in_list")
+    private String firstTimeInList;
+
     public String getId() {
         return id;
     }
@@ -34,10 +37,11 @@ public class Movie {
         this.title = title;
     }
 
-	@Override
-	public String toString() {
-		return "Movie [id=" + id + ", title=" + title + "]";
-	}
-    
-    
+    public String getFirstTimeInList() {
+        return firstTimeInList;
+    }
+
+    public void setFirstTimeInList(String firstTimeInList) {
+        this.firstTimeInList = firstTimeInList;
+    }
 }

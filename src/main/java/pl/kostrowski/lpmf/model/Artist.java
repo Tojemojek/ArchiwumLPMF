@@ -15,14 +15,13 @@ public class Artist {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "first_time_in_list")
+    private String firstTimeInList;
 
     public Artist() {
-    }
-
-    public Artist(String name) {
-        this.name = name;
     }
 
     public String getId() {
@@ -33,11 +32,19 @@ public class Artist {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getFirstTimeInList() {
+        return firstTimeInList;
+    }
+
+    public void setFirstTimeInList(String firstTimeInList) {
+        this.firstTimeInList = firstTimeInList;
     }
 }

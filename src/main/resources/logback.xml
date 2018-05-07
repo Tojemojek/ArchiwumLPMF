@@ -2,7 +2,7 @@
 
 <configuration>
 
-	<property resource="application.properties"/>
+	<property resource="application-linux.properties"/>
 	
     <appender name="FILE2" class="ch.qos.logback.core.FileAppender">
         <file>${my.logging.path2}</file>

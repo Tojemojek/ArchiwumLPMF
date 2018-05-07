@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.kostrowski.lpmf.dto.SingleSongInListDto;
+import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
+import pl.kostrowski.lpmf.service.MakeUnique;
 import pl.kostrowski.lpmf.service.ToDonwloadHtml;
 
 import java.util.List;
@@ -27,6 +28,33 @@ public class UpdateController {
     @Autowired
     JsoupFileParser jsoupFileParser;
 
+    @Autowired
+    MakeUnique makeUnique;
+
+
+    @RequestMapping(value = "/persist/movies/{noOfLists}", method = RequestMethod.GET)
+    public void persistUniquleMoviesFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
+        makeUnique.persistUniqueMovies(noOfLists);
+    }
+
+    @RequestMapping(value = "/persist/artists/{noOfLists}", method = RequestMethod.GET)
+    public void persistUniquleArtistFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
+        makeUnique.persistUniqueArtists(noOfLists);
+    }
+
+    @RequestMapping(value = "/persist/songs/{noOfLists}", method = RequestMethod.GET)
+    public void persistUniquleSongsFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
+        makeUnique.persistUniqueSongs(noOfLists);
+    }
+
+    @RequestMapping(value = "/persist/all/{noOfLists}", method = RequestMethod.GET)
+    public void persistUniquleAllFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
+        makeUnique.persistUniqueArtists(noOfLists);
+        makeUnique.persistUniqueMovies(noOfLists);
+        makeUnique.persistUniqueSongs(noOfLists);
+    }
+
+
     @RequestMapping(value = "/download/{noOfLists}", method = RequestMethod.GET)
     public void downloadListsToDrive(@PathVariable("noOfLists") Integer noOfLists) {
 
@@ -40,17 +68,17 @@ public class UpdateController {
     }
 
     @RequestMapping(value = "/jsoup/{noOfList}", method = RequestMethod.GET)
-    public List<SingleSongInListDto> jsouParse(@PathVariable("noOfList") Integer noOfList) {
+    public List<SingleEntryInListDto> jsouParse(@PathVariable("noOfList") Integer noOfList) {
 
         long startDownload = System.currentTimeMillis();
 
-        List<SingleSongInListDto> singleSongInListDto = jsoupFileParser.makeDOMfor(noOfList);
+        List<SingleEntryInListDto> singleEntryInListDto = jsoupFileParser.makeDOMfor(noOfList);
 
         long endDownload = System.currentTimeMillis();
 
         LOG.info("Parsing time: " + TimeUnit.MILLISECONDS.toSeconds(startDownload - endDownload));
 
-        return singleSongInListDto;
+        return singleEntryInListDto;
 
     }
 

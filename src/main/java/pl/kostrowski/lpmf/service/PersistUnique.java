@@ -7,48 +7,103 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.Movie;
+import pl.kostrowski.lpmf.model.Song;
 import pl.kostrowski.lpmf.model.dictionaries.AllDictionaries;
+import pl.kostrowski.lpmf.repository.ArtistRepository;
 import pl.kostrowski.lpmf.repository.MovieRepository;
+import pl.kostrowski.lpmf.repository.SongRepository;
 
 @Service
 public class PersistUnique {
 
-	private final Logger LOG = LoggerFactory.getLogger(PersistUnique.class);
-	private static int newMoviesCount = 0;
-	
-	@Autowired
-	MovieRepository mr;
+    private final Logger LOG = LoggerFactory.getLogger(PersistUnique.class);
+    private static int newMoviesCount = 0;
+    private static int newArtistCount = 0;
+    private static int newSongCount = 0;
 
-	public Movie persistMovie(Movie movie) {
+    @Autowired
+    MovieRepository mr;
 
-		Map<String,String> moviesDictionary = AllDictionaries.getMoviesDictionary();
-				
-		Movie movieFromDB = null;
-		
-		if (moviesDictionary.containsKey(movie.getTitle())) {
-			movie.setTitle(moviesDictionary.get(movie.getTitle()));
-		}
-		
-		try {
-			movieFromDB = mr.findMovieByTitle(movie.getTitle());
-		} catch (Exception e) {
+    @Autowired
+    ArtistRepository ar;
 
-		}
-		if (movieFromDB != null) {
-			movie = movieFromDB;
-		} else {
-			mr.save(movie);
-			LOG.debug(movie + "dodano do bazy danych");
-			newMoviesCount++;
-		}
+    @Autowired
+    SongRepository sr;
 
-		return movie;
-	}
+    public Movie persistMovie(Movie movie) {
 
-	public static int getNewMoviesCount() {
-		return newMoviesCount;
-	}
+        Movie movieFromDB = null;
+
+        try {
+            movieFromDB = mr.findMovieByTitle(movie.getTitle());
+        } catch (Exception e) {
+
+        }
+        if (movieFromDB != null) {
+            movie = movieFromDB;
+        } else {
+            mr.save(movie);
+            LOG.debug(movie + "dodano do bazy danych");
+            newMoviesCount++;
+        }
+
+        return movie;
+    }
+
+    public Artist persistArtist(Artist artist) {
+
+        Artist artistFromDB = null;
+
+        try {
+            artistFromDB = ar.findArtistByFullName(artist.getFullName());
+        } catch (Exception e) {
+
+        }
+        if (artistFromDB != null) {
+            artist = artistFromDB;
+        } else {
+            ar.save(artist);
+            LOG.debug(artist + "dodano do bazy danych");
+            newArtistCount++;
+        }
+
+        return artist;
+    }
+
+    public Song persistSong(Song song) {
+
+        Song songFromDb = null;
+
+        try {
+            songFromDb = sr.findSongByTitleAndMovie(song.getTitle(), song.getMovie());
+        } catch (Exception e) {
+
+        }
+        if (songFromDb != null) {
+            song = songFromDb;
+        } else {
+            sr.save(song);
+            LOG.debug(song + "dodano do bazy danych");
+            newSongCount++;
+        }
+
+        return song;
+    }
+
+
+
+
+    public static int getNewMoviesCount() {
+        return newMoviesCount;
+    }
+    public static int getNewArtistCount() {
+        return newArtistCount;
+    }
+    public static int getNewSongCount() {
+        return newSongCount;
+    }
 
 
 }

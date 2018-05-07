@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import pl.kostrowski.lpmf.dto.SingleSongInListDto;
+import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.service.Path;
 
 import java.io.File;
@@ -23,7 +23,7 @@ public class JsoupFileParser {
     private final String path = Path.PATH_FOR_LOCAL_HTML.getPath();
     private final Logger LOG = LoggerFactory.getLogger(JsoupFileParser.class);
 
-    public List<SingleSongInListDto> makeDOMfor(int i) {
+    public List<SingleEntryInListDto> makeDOMfor(int i) {
 
         long start = System.currentTimeMillis();
         File processed = new File(path + "lista" + i + ".html");
@@ -37,7 +37,7 @@ public class JsoupFileParser {
             e.printStackTrace();
         }
 
-        List<SingleSongInListDto> wholeSingleList = new LinkedList<>();
+        List<SingleEntryInListDto> wholeSingleList = new LinkedList<>();
 
 
         String nrIDataListy = doc.getElementsByClass("lpmf-not-head").text();
@@ -52,7 +52,7 @@ public class JsoupFileParser {
         String coverLink = "";
 
         for (Element songDetail : singleList) {
-            SingleSongInListDto singleSongInListDto = new SingleSongInListDto();
+            SingleEntryInListDto singleEntryInListDto = new SingleEntryInListDto();
 
             position = songDetail.getElementsByClass("cfn").get(0).text().trim().replaceAll("(\\s)+", "$1");
             fullArtist = songDetail.getElementsByClass("artist-name").get(0).text().trim().replaceAll("(\\s)+", "$1");
@@ -60,16 +60,16 @@ public class JsoupFileParser {
             fullSongTitle = songDetail.getElementsByClass("song-sub-title").get(0).text().trim().replaceAll("(\\s)+", "$1");
             coverLink = songDetail.getElementsByTag("img").get(0).attributes().get("src").trim();
 
-            singleSongInListDto.setNrIDataListy(nrIDataListy);
-            singleSongInListDto.setPosition(position);
-            singleSongInListDto.setFullArtist(fullArtist);
-            singleSongInListDto.setFullMovieTitle(fullMovieTitle);
-            singleSongInListDto.setFullSongTitle(fullSongTitle);
-            singleSongInListDto.setCoverLink(coverLink);
+            singleEntryInListDto.setNrIDataListy(nrIDataListy);
+            singleEntryInListDto.setPosition(position);
+            singleEntryInListDto.setFullArtist(fullArtist);
+            singleEntryInListDto.setFullMovieTitle(fullMovieTitle);
+            singleEntryInListDto.setFullSongTitle(fullSongTitle);
+            singleEntryInListDto.setCoverLink(coverLink);
 
-            wholeSingleList.add(singleSongInListDto);
+            wholeSingleList.add(singleEntryInListDto);
 
-            LOG.info("Pozycja " + position + " artysta " + fullArtist + " film " + fullMovieTitle + " utwór " + fullSongTitle);
+            LOG.debug("Pozycja " + position + " artysta " + fullArtist + " film " + fullMovieTitle + " utwór " + fullSongTitle);
         }
 
         long end = System.currentTimeMillis();

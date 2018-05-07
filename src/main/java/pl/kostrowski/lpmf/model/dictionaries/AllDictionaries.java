@@ -6,6 +6,8 @@ import java.util.Map;
 public class AllDictionaries {
 
 	private static Map<String, String> moviesDictionary = new HashMap<>();
+	private static Map<String, String> artistDictionary = new HashMap<>();
+	private static Map<String, String> songDictionary = new HashMap<>();
 
 	static {
 		moviesDictionary.put("Afera Tomasza Crowna", "Afera Thomasa Crowna");
@@ -52,12 +54,55 @@ public class AllDictionaries {
 		moviesDictionary.put("Władca pierścieni: Drużyna Pierścienia", "Władca Pierścieni - Drużyna Pierścienia");
 		moviesDictionary.put("Władca pierścieni: Drużyna pierścienia", "Władca Pierścieni - Drużyna Pierścienia");
 		moviesDictionary.put("Władca pierścieni: Dwie wieże", "Władca Pierścieni - Dwie Wieże");
-		moviesDictionary.put("Władca pierścieni: Powrót króla", "Władca pierścieni - Powrót Króla");
+		moviesDictionary.put("Władca pierścieni: Powrót króla", "Władca Pierścieni - Powrót Króla");
+
+		artistDictionary.put("A.R. Rahman","Allah Rakha Rahman");
+		artistDictionary.put("B.J. Thomas","Billy Joe Thomas");
+		artistDictionary.put("Giulia y los Tellarini","Giulia y Los Tellarini");
+		artistDictionary.put("Rodrigo & Gabriela","Rodrigo y Gabriela");
+		artistDictionary.put("Kelly / Reynolds / O'Connor","Gene Kelly / Donald O'Connor / Debbie Reynolds");
+		artistDictionary.put("Komeda/ Osiecka/ Fetting","Agnieszka Osiecka / Krzysztof Komeda / Edmund Fetting");
+		artistDictionary.put("Tykwer / Heil / Klimek","Reinhold Heil / Johnny Klimek / Tom Tykwer");
+		artistDictionary.put("G.Ragni / J.Rado / G.Mc.Dermont","Gerome Ragni / James Rado / Galt MacDermot");
+		artistDictionary.put("Osiecka / Komeda / Edmund Fetting","Agnieszka Osiecka / Krzysztof Komeda / Edmund Fetting");
+		artistDictionary.put("Alan Menken / Celine Dion&Peabo Bryson","Alan Menken / Celine Dion / Peabo Bryson");
+		artistDictionary.put("Hans Zimmer / Rodrigo & Gabriela","Hans Zimmer / Rodrigo y Gabriela");
+		artistDictionary.put("Burt Bacharach / B.J. Thomas","Burt Bacharach / Billy Joe Thomas");
+		artistDictionary.put("Matos Rodriguez / Maroni / Contursi","Matos Rodriguez / Pascual Contursi / Enrique Maroni");
+		artistDictionary.put("Jan A.P. Kaczmarek / Leszek Możdżer","Jan A. P. Kaczmarek / Leszek Możdżer");
+		artistDictionary.put("Django Reinhardt & Stephane Grappelli","Django Reinhardt / Stephane Grappelli");
+		artistDictionary.put("Jamie Cullum, Clint Eastwood","Jamie Cullum / Clint Eastwood");
+		artistDictionary.put("Simon & Garfunkel","Paul Simon / Art Garfunkel");
+		artistDictionary.put("Simon / Garfunkel","Paul Simon / Art Garfunkel");
+		artistDictionary.put("Jan A.P. Kaczmarek","Jan A. P. Kaczmarek");
+		artistDictionary.put("Heil Reinhold, Klimek Johnny & Tykwer Tom","Reinhold Heil / Johnny Klimek / Tom Tykwer");
+		artistDictionary.put("Reinhold / Klimek / Tykwer","Reinhold Heil / Johnny Klimek / Tom Tykwer");
+		artistDictionary.put("Herve Roy","Hervé Roy");
+		artistDictionary.put("Joe Hisaiashi","Joe Hisaishi");
+		artistDictionary.put("Joe Hisaishi","Joe Hisaishi");
+		artistDictionary.put("Randy Newman & Lyle Lovett","Randy Newman / Lyle Lovett");
+		artistDictionary.put("Ryuichi Sakamoto","Ryūichi Sakamoto");
+
+		songDictionary.put("Beauty and the Beast","Beauty and The Beast");
+		songDictionary.put("Cops Or Criminals","Cops or Criminals");
+		songDictionary.put("Lillies of the valley","Lillies of the Valley");
+		songDictionary.put("Over The Rainbow","Over the Rainbow");
+		songDictionary.put("Sleep Safe And Warm","Sleep Safe and Warm");
+		songDictionary.put("Song of The Lonely Mountain","Song of the Lonely Mountain");
+		songDictionary.put("The Sound of Silence","The Sound Of Silence");
+		songDictionary.put("Will And Elizabeth","Will and Elizabeth");
+		songDictionary.put("With A Little Help From My Friends","With a Little Help From My Friends");
+		songDictionary.put("Young And Beautiful","Young and Beautiful");
 
 	}
+
+
+
 
 	public static Map<String, String> getMoviesDictionary() {
 		return moviesDictionary;
 	}
+	public static Map<String, String> getArtistDictionary() {return artistDictionary;}
+	public static Map<String, String> getSongDictionary() {return songDictionary;}
 
 }
