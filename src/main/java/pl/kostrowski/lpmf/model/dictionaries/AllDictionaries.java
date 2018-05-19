@@ -93,10 +93,11 @@ public class AllDictionaries {
 		songDictionary.put("Will And Elizabeth","Will and Elizabeth");
 		songDictionary.put("With A Little Help From My Friends","With a Little Help From My Friends");
 		songDictionary.put("Young And Beautiful","Young and Beautiful");
+		songDictionary.put("temat","Temat");
+		songDictionary.put("czołówka","Czołówka");
+		songDictionary.put("Sound of Silence","The Sound of Silence");
 
 	}
-
-
 
 
 	public static Map<String, String> getMoviesDictionary() {

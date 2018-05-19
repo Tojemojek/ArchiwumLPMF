@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
+import pl.kostrowski.lpmf.model.Song;
+import pl.kostrowski.lpmf.repository.SongRepository;
 import pl.kostrowski.lpmf.service.ConvertSingleLPMFFile;
 import pl.kostrowski.lpmf.service.MakeUnique;
 import pl.kostrowski.lpmf.service.ToDonwloadHtml;
@@ -30,13 +32,17 @@ public class UpdateController {
     @Autowired
     MakeUnique makeUnique;
 
+    @Autowired
+    SongRepository songRepository;
+
 
     @RequestMapping(value = "/persist/manyFiles", method = RequestMethod.GET)
-    public void processOneFile(@RequestParam("from") Integer fromList,
-                               @RequestParam Integer toList) {
+    public List<Song> processOneFile(@RequestParam("from") Integer fromList,
+                                     @RequestParam("toList") Integer toList) {
         for (int i = fromList; i <= toList; i++) {
             convertSingleLPMFFile.convertAndPersistSingleLPMFFile(i);
         }
+        return (songRepository.findAll());
     }
 
 

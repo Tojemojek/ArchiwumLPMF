@@ -99,7 +99,7 @@ public class PersistUnique {
         }
 
         for (Song songFromDb : songsFromDb) {
-            if (songFromDb != null && titleAreSame(songFromDb, song) && twoAuthorsListsAreSame(songFromDb, song)) {
+            if (songFromDb != null && movieTitleAreSame(songFromDb, song) && twoAuthorsListsAreSame(songFromDb, song)) {
                 song = songFromDb;
                 return song;
             }
@@ -149,7 +149,7 @@ public class PersistUnique {
         return true;
     }
 
-    private boolean titleAreSame(Song fromDB, Song song) {
+    private boolean movieTitleAreSame(Song fromDB, Song song) {
 
         String titleDb = fromDB.getMovie().getTitle();
         String title = song.getMovie().getTitle();
