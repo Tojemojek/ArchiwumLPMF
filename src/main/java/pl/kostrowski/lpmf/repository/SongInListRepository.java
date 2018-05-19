@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.kostrowski.lpmf.model.LPMFPosition;
 
 @Repository
-public interface SongInListRepository extends CrudRepository<LPMFPosition, String> {
+public interface SongInListRepository extends CrudRepository<LPMFPosition, Long> {
 
 
 }

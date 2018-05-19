@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.kostrowski.lpmf.model.Movie;
 
 @Repository
-public interface MovieRepository extends CrudRepository<Movie, String> {
+public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     Movie findMovieByTitle(String title);
 

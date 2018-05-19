@@ -12,11 +12,11 @@ import java.util.Objects;
 public class ListInfo{
 
     @Id
-    @Column(name = "noOfList")
+    @Column(name = "no_Of_List")
     private Integer noOfList;
 
-    @Column(name = "date")
-    private LocalDate date;
+    @Column(name = "date_of_list")
+    private LocalDate dateOfList;
 
     public ListInfo() {
     }
@@ -29,12 +29,12 @@ public class ListInfo{
         this.noOfList = noOfList;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDateOfList() {
+        return dateOfList;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateOfList(LocalDate dateOfList) {
+        this.dateOfList = dateOfList;
     }
 
     @Override
@@ -43,11 +43,11 @@ public class ListInfo{
         if (o == null || getClass() != o.getClass()) return false;
         ListInfo listInfo = (ListInfo) o;
         return Objects.equals(noOfList, listInfo.noOfList) &&
-                Objects.equals(date, listInfo.date);
+                Objects.equals(dateOfList, listInfo.dateOfList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(noOfList, date);
+        return Objects.hash(noOfList, dateOfList);
     }
 }

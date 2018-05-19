@@ -17,12 +17,12 @@ public class NrAndDateOfListConverter {
 
         Integer noOfList = Integer.parseInt(split[2]);
         int day = Integer.parseInt(split[5]);
-        int month = MonthsNubers.valueOf(split[6].toUpperCase()).getMonthNumber();
+        int month = MonthsNumbers.valueOf(split[6].toUpperCase()).getMonthNumber();
         int year = Integer.parseInt(split[7]);
 
         LocalDate date = LocalDate.of(year,month,day);
 
-        listInfo.setDate(date);
+        listInfo.setDateOfList(date);
         listInfo.setNoOfList(noOfList);
 
         return listInfo;

@@ -46,7 +46,7 @@ public class MakeUnique {
         int deltaMovies = 0;
 
         for (int i = 0; i <= maxList; i++) {
-            singleEntryInListDtos = jsoupFileParser.makeDOMfor(i);
+            singleEntryInListDtos = jsoupFileParser.parseSingleFileToObjects(i);
             movies = movieConverter.convertOLD(singleEntryInListDtos);
 
             newMoviesBefore = PersistUnique.getNewMoviesCount();
@@ -71,7 +71,7 @@ public class MakeUnique {
         int deltaArtists = 0;
 
         for (int i = 0; i <= maxList; i++) {
-            singleEntryInListDtos = jsoupFileParser.makeDOMfor(i);
+            singleEntryInListDtos = jsoupFileParser.parseSingleFileToObjects(i);
             artists = artistConverter.convertFullList(singleEntryInListDtos);
 
             newArtistsBefore = PersistUnique.getNewArtistCount();
@@ -99,7 +99,7 @@ public class MakeUnique {
         int deltaSongs = 0;
 
         for (int i = 0; i <= maxList; i++) {
-            singleEntryInListDtos = jsoupFileParser.makeDOMfor(i);
+            singleEntryInListDtos = jsoupFileParser.parseSingleFileToObjects(i);
             songs = songTitleConverter.convertOld(singleEntryInListDtos);
 
             newSongsBefore = PersistUnique.getNewSongCount();

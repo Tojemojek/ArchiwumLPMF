@@ -12,10 +12,9 @@ import java.util.Objects;
 public class Song {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "coverLink")
     private String coverLink;
@@ -37,11 +36,11 @@ public class Song {
     )
     private List<Artist> authors;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

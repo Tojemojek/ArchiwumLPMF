@@ -1,6 +1,6 @@
 package pl.kostrowski.lpmf.converters;
 
-public enum MonthsNubers {
+public enum MonthsNumbers {
 
     STYCZNIA(1),
     LUTEGO(2),
@@ -17,7 +17,7 @@ public enum MonthsNubers {
 
     private int monthNumber;
 
-    MonthsNubers(int monthNumber) {
+    MonthsNumbers(int monthNumber) {
         this.monthNumber = monthNumber;
     }
 

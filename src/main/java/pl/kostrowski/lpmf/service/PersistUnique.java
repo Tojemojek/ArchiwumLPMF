@@ -4,14 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.model.Artist;
-import pl.kostrowski.lpmf.model.ListInfo;
-import pl.kostrowski.lpmf.model.Movie;
-import pl.kostrowski.lpmf.model.Song;
-import pl.kostrowski.lpmf.repository.ArtistRepository;
-import pl.kostrowski.lpmf.repository.ListInfoRepository;
-import pl.kostrowski.lpmf.repository.MovieRepository;
-import pl.kostrowski.lpmf.repository.SongRepository;
+import pl.kostrowski.lpmf.model.*;
+import pl.kostrowski.lpmf.repository.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,10 +13,10 @@ import java.util.List;
 @Service
 public class PersistUnique {
 
-    private final Logger LOG = LoggerFactory.getLogger(PersistUnique.class);
     private static int newMoviesCount = 0;
     private static int newArtistCount = 0;
     private static int newSongCount = 0;
+    private final Logger LOG = LoggerFactory.getLogger(PersistUnique.class);
 
     @Autowired
     MovieRepository movieRepository;
@@ -36,6 +30,20 @@ public class PersistUnique {
     @Autowired
     ListInfoRepository listInfoRepository;
 
+    @Autowired
+    LPMFPositionRepository lpmfPositionRepository;
+
+    public static int getNewMoviesCount() {
+        return newMoviesCount;
+    }
+
+    public static int getNewArtistCount() {
+        return newArtistCount;
+    }
+
+    public static int getNewSongCount() {
+        return newSongCount;
+    }
 
     public Movie persistMovie(Movie movie) {
 
@@ -87,7 +95,6 @@ public class PersistUnique {
         return artistsFromDb;
     }
 
-
     public Song persistSong(Song song) {
 
         List<Song> songsFromDb = null;
@@ -112,7 +119,6 @@ public class PersistUnique {
         return song;
     }
 
-
     public ListInfo persistListInfo(ListInfo listInfo) {
 
         ListInfo listInfoDb = null;
@@ -132,17 +138,34 @@ public class PersistUnique {
         return listInfo;
     }
 
+    public LPMFPosition persistLPMFPosition(LPMFPosition lpmfPosition) {
+
+        LPMFPosition lpmfPositionDb = null;
+
+        try {
+            lpmfPositionDb = lpmfPositionRepository.findByNoOfListAndPos(lpmfPosition.getNoOfList(), lpmfPosition.getPos());
+        } catch (Exception e) {
+
+        }
+        if (lpmfPositionDb != null) {
+            lpmfPosition = lpmfPositionDb;
+        } else {
+            lpmfPositionRepository.save(lpmfPosition);
+            LOG.debug(lpmfPosition + "dodano do bazy danych");
+        }
+        return lpmfPosition;
+    }
 
     private boolean twoAuthorsListsAreSame(Song fromDB, Song song) {
         List<Artist> authorsdb = fromDB.getAuthors();
         List<Artist> authors = song.getAuthors();
 
-        if (authorsdb.size() != authors.size()){
+        if (authorsdb.size() != authors.size()) {
             return false;
         }
 
         for (Artist author : authors) {
-            if (!authorsdb.contains(author)){
+            if (!authorsdb.contains(author)) {
                 return false;
             }
         }
@@ -156,21 +179,5 @@ public class PersistUnique {
 
         return title.equals(titleDb);
     }
-
-
-
-
-    public static int getNewMoviesCount() {
-        return newMoviesCount;
-    }
-
-    public static int getNewArtistCount() {
-        return newArtistCount;
-    }
-
-    public static int getNewSongCount() {
-        return newSongCount;
-    }
-
 
 }

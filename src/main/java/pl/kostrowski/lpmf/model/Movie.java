@@ -12,10 +12,9 @@ import java.util.Objects;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -23,11 +22,11 @@ public class Movie {
     @ManyToOne(cascade = CascadeType.MERGE)
     private ListInfo firstTimeInList;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

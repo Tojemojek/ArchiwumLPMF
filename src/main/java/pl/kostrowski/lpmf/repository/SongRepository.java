@@ -9,7 +9,7 @@ import pl.kostrowski.lpmf.model.Song;
 import java.util.List;
 
 @Repository
-public interface SongRepository extends CrudRepository<Song, String> {
+public interface SongRepository extends CrudRepository<Song, Long> {
 
     Song findSongByTitleAndMovieAndAuthors (String title, Movie movie, List<Artist> authors);
     Song findSongByTitleAndMovie (String title, Movie movie);

@@ -3,31 +3,34 @@ package pl.kostrowski.lpmf.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "songs_in_list")
 public class LPMFPosition {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "pos")
     private Integer pos;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    ListInfo listInfo;
+    @Column(name = "no_Of_List")
+    private Integer noOfList;
+
+    @Column(name = "date_of_list")
+    private LocalDate dateOfList;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     Song song;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,11 +50,19 @@ public class LPMFPosition {
         this.song = song;
     }
 
-    public ListInfo getListInfo() {
-        return listInfo;
+    public Integer getNoOfList() {
+        return noOfList;
     }
 
-    public void setListInfo(ListInfo listInfo) {
-        this.listInfo = listInfo;
+    public void setNoOfList(Integer noOfList) {
+        this.noOfList = noOfList;
+    }
+
+    public LocalDate getDateOfList() {
+        return dateOfList;
+    }
+
+    public void setDateOfList(LocalDate dateOfList) {
+        this.dateOfList = dateOfList;
     }
 }

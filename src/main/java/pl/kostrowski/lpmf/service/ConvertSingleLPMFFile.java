@@ -10,10 +10,8 @@ import pl.kostrowski.lpmf.converters.NrAndDateOfListConverter;
 import pl.kostrowski.lpmf.converters.SongTitleConverter;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
-import pl.kostrowski.lpmf.model.Artist;
-import pl.kostrowski.lpmf.model.ListInfo;
-import pl.kostrowski.lpmf.model.Movie;
-import pl.kostrowski.lpmf.model.Song;
+import pl.kostrowski.lpmf.model.*;
+import pl.kostrowski.lpmf.repository.LPMFPositionRepository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,7 +43,7 @@ public class ConvertSingleLPMFFile {
     public void convertAndPersistSingleLPMFFile(Integer noOfProcessedFile) {
 
         List<SingleEntryInListDto> parsedFile = new LinkedList<>();
-        parsedFile = jsoupFileParser.makeDOMfor(noOfProcessedFile);
+        parsedFile = jsoupFileParser.parseSingleFileToObjects(noOfProcessedFile);
 
         ListInfo listInfo = nrAndDateOfListConverter.convert(parsedFile.get(0).getNrAndDateOfList());
         listInfo = persistUnique.persistListInfo(listInfo);
@@ -55,6 +53,7 @@ public class ConvertSingleLPMFFile {
             Movie movie = new Movie();
             List<Artist> artists = new LinkedList<>();
             Song song = new Song();
+            LPMFPosition lpmfPosition = new LPMFPosition();
 
             movie = movieConverter.convert(singleEntryInListDto.getFullMovieTitle(), listInfo);
             movie = persistUnique.persistMovie(movie);
@@ -65,9 +64,16 @@ public class ConvertSingleLPMFFile {
             song = songTitleConverter.convert(singleEntryInListDto.getFullSongTitle(), listInfo);
             song.setAuthors(artists);
             song.setMovie(movie);
+            song.setCoverLink(singleEntryInListDto.getCoverLink());
 
             song = persistUnique.persistSong(song);
-            song.setCoverLink(singleEntryInListDto.getCoverLink());
+
+            lpmfPosition.setNoOfList(listInfo.getNoOfList());
+            lpmfPosition.setDateOfList(listInfo.getDateOfList());
+            lpmfPosition.setSong(song);
+            lpmfPosition.setPos(singleEntryInListDto.getPosition());
+            persistUnique.persistLPMFPosition(lpmfPosition);
+
         }
     }
 }

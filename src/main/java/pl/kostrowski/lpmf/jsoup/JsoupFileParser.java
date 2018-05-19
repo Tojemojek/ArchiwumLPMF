@@ -23,12 +23,12 @@ public class JsoupFileParser {
     private final String path = Path.PATH_FOR_LOCAL_HTML_COPY.getPath();
     private final Logger LOG = LoggerFactory.getLogger(JsoupFileParser.class);
 
-    public List<SingleEntryInListDto> makeDOMfor(int i) {
+    public List<SingleEntryInListDto> parseSingleFileToObjects(int i) {
 
         long start = System.currentTimeMillis();
         File processed = new File(path + "lista" + i + ".html");
 
-        LOG.info("Przetwarzenie pliku:" + processed.toString());
+        LOG.debug("Przetwarzenie pliku:" + processed.toString());
 
         Document doc = null;
         try {
@@ -61,7 +61,7 @@ public class JsoupFileParser {
             coverLink = songDetail.getElementsByTag("img").get(0).attributes().get("src").trim();
 
             singleEntryInListDto.setNrIDataListy(nrIDataListy);
-            singleEntryInListDto.setPosition(position);
+            singleEntryInListDto.setPosition(Integer.parseInt(position));
             singleEntryInListDto.setFullArtist(fullArtist);
             singleEntryInListDto.setFullMovieTitle(fullMovieTitle);
             singleEntryInListDto.setFullSongTitle(fullSongTitle);
@@ -76,7 +76,7 @@ public class JsoupFileParser {
 
         long totalTime = TimeUnit.MILLISECONDS.toSeconds(end - start);
 
-        LOG.info("Czas przetwarzania: " + totalTime + "s");
+        LOG.debug("Czas przetwarzania: " + totalTime + "s");
 
         return wholeSingleList;
     }

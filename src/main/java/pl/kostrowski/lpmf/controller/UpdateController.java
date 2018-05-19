@@ -39,38 +39,26 @@ public class UpdateController {
     @RequestMapping(value = "/persist/manyFiles", method = RequestMethod.GET)
     public List<Song> processOneFile(@RequestParam("from") Integer fromList,
                                      @RequestParam("toList") Integer toList) {
+
+        long start = System.currentTimeMillis();
+
         for (int i = fromList; i <= toList; i++) {
+            long startIn = System.currentTimeMillis();
             convertSingleLPMFFile.convertAndPersistSingleLPMFFile(i);
+            long stopIn = System.currentTimeMillis();
+            LOG.info("Konwersja pliku nr " + i + " zajęła " +TimeUnit.MILLISECONDS.toMicros(stopIn - startIn) + " s." );
         }
+
+        long stop = System.currentTimeMillis();
+
+        LOG.info("Konwersja od pliku nr " + fromList + " do pliku numer " + toList + " zajęła " +(stop - start) + " milisekund." );
+
         return (songRepository.findAll());
     }
-
 
     @RequestMapping(value = "/persist/singleFile/{singleListNo}", method = RequestMethod.GET)
     public void processOneFile(@PathVariable("singleListNo") Integer singleListNo) {
         convertSingleLPMFFile.convertAndPersistSingleLPMFFile(singleListNo);
-    }
-
-    @RequestMapping(value = "/persist/movies/{noOfLists}", method = RequestMethod.GET)
-    public void persistUniquleMoviesFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
-        makeUnique.persistUniqueMovies(noOfLists);
-    }
-
-    @RequestMapping(value = "/persist/artists/{noOfLists}", method = RequestMethod.GET)
-    public void persistUniquleArtistFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
-        makeUnique.persistUniqueArtists(noOfLists);
-    }
-
-    @RequestMapping(value = "/persist/songs/{noOfLists}", method = RequestMethod.GET)
-    public void persistUniquleSongsFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
-        makeUnique.persistUniqueSongs(noOfLists);
-    }
-
-    @RequestMapping(value = "/persist/all/{noOfLists}", method = RequestMethod.GET)
-    public void persistUniquleAllFromHtmlFiles(@PathVariable("noOfLists") Integer noOfLists) {
-        makeUnique.persistUniqueArtists(noOfLists);
-        makeUnique.persistUniqueMovies(noOfLists);
-        makeUnique.persistUniqueSongs(noOfLists);
     }
 
     @RequestMapping(value = "/download/{noOfLists}", method = RequestMethod.GET)
@@ -82,22 +70,6 @@ public class UpdateController {
 
         long endDownload = System.currentTimeMillis();
 
-        LOG.info("Czas pobrania listy numer : " + noOfLists + " wynosi " + TimeUnit.MILLISECONDS.toSeconds(startDownload - endDownload));
+        LOG.info("Czas pobrania " + noOfLists + "  list wynosi " + TimeUnit.MILLISECONDS.toSeconds(endDownload - startDownload) + " sekund");
     }
-
-    @RequestMapping(value = "/jsoup/{noOfList}", method = RequestMethod.GET)
-    public List<SingleEntryInListDto> jsouParse(@PathVariable("noOfList") Integer noOfList) {
-
-        long startDownload = System.currentTimeMillis();
-
-        List<SingleEntryInListDto> singleEntryInListDto = jsoupFileParser.makeDOMfor(noOfList);
-
-        long endDownload = System.currentTimeMillis();
-
-        LOG.info("Parsing time: " + TimeUnit.MILLISECONDS.toSeconds(startDownload - endDownload));
-
-        return singleEntryInListDto;
-
-    }
-
 }

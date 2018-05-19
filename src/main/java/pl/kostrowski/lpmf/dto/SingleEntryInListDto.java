@@ -2,18 +2,18 @@ package pl.kostrowski.lpmf.dto;
 
 public class SingleEntryInListDto {
 
-    String nrIDataListy;
-    String position;
-    String fullArtist;
-    String fullSongTitle;
-    String fullMovieTitle;
-    String coverLink;
+    private String nrIDataListy;
+    private Integer position;
+    private String fullArtist;
+    private String fullSongTitle;
+    private String fullMovieTitle;
+    private String coverLink;
 
 
     public SingleEntryInListDto() {
     }
 
-    public SingleEntryInListDto(String nrIDataListy, String position, String fullArtist, String fullSongTitle, String fullMovieTitle, String coverLink) {
+    public SingleEntryInListDto(String nrIDataListy, Integer position, String fullArtist, String fullSongTitle, String fullMovieTitle, String coverLink) {
         this.nrIDataListy = nrIDataListy;
         this.position = position;
         this.fullArtist = fullArtist;
@@ -30,11 +30,11 @@ public class SingleEntryInListDto {
         this.nrIDataListy = nrIDataListy;
     }
 
-    public String getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
