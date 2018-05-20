@@ -7,8 +7,8 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import pl.kostrowski.lpmf.dictionaries.PathsToUrls;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
-import pl.kostrowski.lpmf.service.Path;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +20,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class JsoupFileParser {
 
-    private final String path = Path.PATH_FOR_LOCAL_HTML_COPY.getPath();
     private final Logger LOG = LoggerFactory.getLogger(JsoupFileParser.class);
+
+    private final String path = PathsToUrls.LOCAL_COPY_OF_HTML.getPath();
 
     public List<SingleEntryInListDto> parseSingleFileToObjects(int i) {
 

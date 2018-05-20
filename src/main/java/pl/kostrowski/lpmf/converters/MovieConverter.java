@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.model.ListInfo;
 import pl.kostrowski.lpmf.model.Movie;
-import pl.kostrowski.lpmf.model.dictionaries.AllDictionaries;
+import pl.kostrowski.lpmf.dictionaries.AllDictionaries;
 
 import java.util.LinkedList;
 import java.util.List;

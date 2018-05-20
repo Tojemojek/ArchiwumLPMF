@@ -11,7 +11,6 @@ import pl.kostrowski.lpmf.converters.SongTitleConverter;
 import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
 import pl.kostrowski.lpmf.model.*;
-import pl.kostrowski.lpmf.repository.LPMFPositionRepository;
 
 import java.util.LinkedList;
 import java.util.List;

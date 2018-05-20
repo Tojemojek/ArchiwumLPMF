@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import pl.kostrowski.lpmf.RestApiClientApplication;
+import pl.kostrowski.lpmf.HistorOfLPMFApp;
+import pl.kostrowski.lpmf.dictionaries.PathsToUrls;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,10 +15,10 @@ import java.io.IOException;
 @Service
 public class ToDonwloadHtml {
 
-    private final Logger LOG = LoggerFactory.getLogger(RestApiClientApplication.class);
+    private final Logger LOG = LoggerFactory.getLogger(HistorOfLPMFApp.class);
 
-    private final String URL_ADDRESS = Path.PATH_FOR_REMOTE_HTML.getPath();
-    private String pathToSaveFiles = Path.PATH_FOR_LOCAL_HTML_COPY.getPath();
+    private final String URL_ADDRESS = PathsToUrls.REMOTE_URL.getPath();
+    private String pathToSaveFiles = PathsToUrls.LOCAL_COPY_OF_HTML.getPath();
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,6 +38,10 @@ public class ToDonwloadHtml {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void downloadSingleList(int noOfList) {
+            writeToFile(noOfList);
     }
 
     private void writeToFile(Integer noOfList) {

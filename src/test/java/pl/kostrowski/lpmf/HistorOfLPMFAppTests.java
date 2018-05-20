@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RestApiClientApplicationTests {
+public class HistorOfLPMFAppTests {
 
 	@Test
 	public void contextLoads() {

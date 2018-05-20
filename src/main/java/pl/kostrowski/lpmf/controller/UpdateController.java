@@ -4,12 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
 import pl.kostrowski.lpmf.model.Song;
 import pl.kostrowski.lpmf.repository.SongRepository;
 import pl.kostrowski.lpmf.service.ConvertSingleLPMFFile;
-import pl.kostrowski.lpmf.service.MakeUnique;
 import pl.kostrowski.lpmf.service.ToDonwloadHtml;
 
 import java.util.List;
@@ -28,9 +26,6 @@ public class UpdateController {
 
     @Autowired
     ConvertSingleLPMFFile convertSingleLPMFFile;
-
-    @Autowired
-    MakeUnique makeUnique;
 
     @Autowired
     SongRepository songRepository;
@@ -71,5 +66,10 @@ public class UpdateController {
         long endDownload = System.currentTimeMillis();
 
         LOG.info("Czas pobrania " + noOfLists + "  list wynosi " + TimeUnit.MILLISECONDS.toSeconds(endDownload - startDownload) + " sekund");
+    }
+
+    @RequestMapping(value = "/download/single", method = RequestMethod.GET)
+    public void downloadSingleListToDrive(@RequestParam("noOfList") Integer noOfLists) {
+        toDonwloadHtml.downloadSingleList(noOfLists);
     }
 }
