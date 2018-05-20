@@ -1,4 +1,4 @@
-package pl.kostrowski.lpmf.model.dictionaries;
+package pl.kostrowski.lpmf.dictionaries;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,13 +1,13 @@
-package pl.kostrowski.lpmf.service;
+package pl.kostrowski.lpmf.dictionaries;
 
-public enum Path {
+public enum PathsToUrls {
 
-    PATH_FOR_REMOTE_HTML("http://www.rmfclassic.pl/lista-przebojow/notowanie/"),
-    PATH_FOR_LOCAL_HTML_COPY("/media/Dane/LPMF/dane/");
+    REMOTE_URL("http://www.rmfclassic.pl/lista-przebojow/notowanie/"),
+    LOCAL_COPY_OF_HTML("/media/Dane/LPMF/dane/");
 
     private String path;
 
-    Path(String path) {
+    PathsToUrls(String path) {
         this.path = path;
     }
 
