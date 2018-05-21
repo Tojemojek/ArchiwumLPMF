@@ -10,5 +10,9 @@ import java.util.List;
 public interface LPMFPositionRepository extends CrudRepository<LPMFPosition, Long> {
 
     List<LPMFPosition> findAllByPos(Integer position);
+
+    List<LPMFPosition> findByNoOfList(Integer noOfList);
+
     LPMFPosition findByNoOfListAndPos(Integer pos, Integer noOfList);
+
 }

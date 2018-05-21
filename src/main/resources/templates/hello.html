@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Losowy tytuł</title>
+    <meta charset="UTF-8" />
+    <title>Historia Listy Przebojów Muzyki Filmowej</title>
+    <th:block th:include="layout/header"></th:block>
 </head>
 
 <body>
-Twoja wiadomość brzmi:
+Twoja wiadomość brzmi:<span th:text="${message}"/>
+
+<th:block th:include="layout/footer"></th:block>
 </body>
 
 </html>

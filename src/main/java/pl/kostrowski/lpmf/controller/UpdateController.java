@@ -32,8 +32,8 @@ public class UpdateController {
 
 
     @RequestMapping(value = "/persist/manyFiles", method = RequestMethod.GET)
-    public List<Song> processOneFile(@RequestParam("from") Integer fromList,
-                                     @RequestParam("toList") Integer toList) {
+    public List<Song> processManyFiles(@RequestParam(value = "fromList", defaultValue = "1") Integer fromList,
+                                       @RequestParam(value = "toList", defaultValue = "1") Integer toList) {
 
         long start = System.currentTimeMillis();
 
@@ -51,25 +51,26 @@ public class UpdateController {
         return (songRepository.findAll());
     }
 
-    @RequestMapping(value = "/persist/singleFile/{singleListNo}", method = RequestMethod.GET)
-    public void processOneFile(@PathVariable("singleListNo") Integer singleListNo) {
-        convertSingleLPMFFile.convertAndPersistSingleLPMFFile(singleListNo);
+    @RequestMapping(value = "/persist/singleFile", method = RequestMethod.GET)
+    public void processOneFile(@RequestParam(value = "noOfList", defaultValue = "1") Integer noOfList) {
+        convertSingleLPMFFile.convertAndPersistSingleLPMFFile(noOfList);
     }
 
-    @RequestMapping(value = "/download/{noOfLists}", method = RequestMethod.GET)
-    public void downloadListsToDrive(@PathVariable("noOfLists") Integer noOfLists) {
+    @RequestMapping(value = "/download/many", method = RequestMethod.GET)
+    public void downloadListsToDrive(@RequestParam(value = "fromList", defaultValue = "1") Integer fromList,
+                                     @RequestParam(value = "toList", defaultValue = "1") Integer toList) {
 
         long startDownload = System.currentTimeMillis();
 
-        toDonwloadHtml.downloadLists(noOfLists);
+        toDonwloadHtml.downloadLists(fromList, toList);
 
         long endDownload = System.currentTimeMillis();
 
-        LOG.info("Czas pobrania " + noOfLists + "  list wynosi " + TimeUnit.MILLISECONDS.toSeconds(endDownload - startDownload) + " sekund");
+        LOG.info("Czas pobrania " + (toList - fromList) + "  list wynosi " + TimeUnit.MILLISECONDS.toSeconds(endDownload - startDownload) + " sekund");
     }
 
     @RequestMapping(value = "/download/single", method = RequestMethod.GET)
-    public void downloadSingleListToDrive(@RequestParam("noOfList") Integer noOfLists) {
+    public void downloadSingleListToDrive(@RequestParam(value = "noOfList", defaultValue = "1") Integer noOfLists) {
         toDonwloadHtml.downloadSingleList(noOfLists);
     }
 }
