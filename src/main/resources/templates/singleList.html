@@ -10,28 +10,32 @@
 
         <h2>Lista przebojow</h2>
 
+        <span th:each="pos,iter : ${lists}">
+        <!--<p th:text="${'Notowanie numer' + lists.get(iterStat).getNoOfList() + ' z dnia ' + lists.get(iterStat).getDateOfList()}"></p>-->
+        <p th:text="${'Notowanie nr ' +lists.get(iter.index).getNoOfList()}"></p>
+
         <table class="table table-striped">
             <tr>
-                <th>Notowanie</th>
-                <th>Data notowania</th>
                 <th>Pozycja</th>
                 <th>Tytuł filmu</th>
                 <th>Tytuł listy</th>
                 <th>Autorzy</th>
             </tr>
             <tr th:each="pos : ${lists}">
-                <td th:text="${pos.getNoOfList()}">id</td>
-                <td th:text="${pos.getDateOfList()}">id</td>
                 <td th:text="${pos.getPos()}">id</td>
                 <td th:text="${pos.getSong().getMovie().getTitle()}">id</td>
                 <td th:text="${pos.getSong().getTitle()}">id</td>
                 <td>
-                    <span th:each="artist: ${pos.getSong().getAuthors()}">
-                    <span th:text="${artist.getFullName()}"> ></span>
+                    <span th:each="artist, iter: ${pos.getSong().getAuthors()}">
+                        <span th:text="${artist.getFullName()}"></span>
+                        <span th:if="${iter.index+1!=pos.getSong().getAuthors().size()}">
+                            <br></br>
+                        </span>
                     </span>
                 </td>
             </tr>
         </table>
+        </span>
     </div>
 </div>
 
