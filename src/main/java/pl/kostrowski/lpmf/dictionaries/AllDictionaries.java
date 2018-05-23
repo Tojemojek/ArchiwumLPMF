@@ -95,7 +95,10 @@ public class AllDictionaries {
 		songDictionary.put("Young And Beautiful","Young and Beautiful");
 		songDictionary.put("temat","Temat");
 		songDictionary.put("czołówka","Czołówka");
-		songDictionary.put("Sound of Silence","The Sound of Silence");
+		songDictionary.put("Gabriel`s Oboe","Gabriel's Oboe");
+		songDictionary.put("Gabriel\\'s Oboe / Falls","Gabriel's Oboe / Falls");
+		songDictionary.put("suita","Suita");
+		songDictionary.put("Leaving Wallbrok/ On the Road","Leaving Wallbrok / On the Road");
 
 	}
 

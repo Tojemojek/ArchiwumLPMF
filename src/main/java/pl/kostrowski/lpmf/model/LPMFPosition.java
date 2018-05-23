@@ -1,12 +1,47 @@
 package pl.kostrowski.lpmf.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import pl.kostrowski.lpmf.dto.MedalTableSongs;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Map;
+
 
 @Entity
 @Table(name = "songs_in_list")
+@SqlResultSetMapping(
+        name= "medalTableMapping",
+        classes = @ConstructorResult(
+        targetClass = MedalTableSongs.class,
+                columns = {
+                                @ColumnResult(name="poz1",type = Integer.class),
+                                @ColumnResult(name="poz2",type = Integer.class),
+                                @ColumnResult(name="poz3",type = Integer.class),
+                                @ColumnResult(name="poz4",type = Integer.class),
+                                @ColumnResult(name="poz5",type = Integer.class),
+                                @ColumnResult(name="poz6",type = Integer.class),
+                                @ColumnResult(name="poz7",type = Integer.class),
+                                @ColumnResult(name="poz8",type = Integer.class),
+                                @ColumnResult(name="poz9",type = Integer.class),
+                                @ColumnResult(name="poz10",type = Integer.class),
+                                @ColumnResult(name="poz11",type = Integer.class),
+                                @ColumnResult(name="poz12",type = Integer.class),
+                                @ColumnResult(name="poz13",type = Integer.class),
+                                @ColumnResult(name="poz14",type = Integer.class),
+                                @ColumnResult(name="poz15",type = Integer.class),
+                                @ColumnResult(name="poz16",type = Integer.class),
+                                @ColumnResult(name="poz17",type = Integer.class),
+                                @ColumnResult(name="poz18",type = Integer.class),
+                                @ColumnResult(name="poz19",type = Integer.class),
+                                @ColumnResult(name="poz20",type = Integer.class),
+                                @ColumnResult(name="totalInList",type = Integer.class),
+                                @ColumnResult(name="songTitle",type = String.class),
+                                @ColumnResult(name="movieTitle",type = String.class)
+
+                        }
+                )
+        )
 public class LPMFPosition {
 
     @Id

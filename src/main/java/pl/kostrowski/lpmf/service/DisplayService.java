@@ -2,10 +2,12 @@ package pl.kostrowski.lpmf.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.kostrowski.lpmf.dto.MedalTableSongs;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
 import pl.kostrowski.lpmf.repository.ArtistRepository;
+import pl.kostrowski.lpmf.repository.MedalTableSongsRepository;
 import pl.kostrowski.lpmf.repository.MovieRepository;
 import pl.kostrowski.lpmf.repository.SongRepository;
 
@@ -23,6 +25,9 @@ public class DisplayService {
     @Autowired
     MovieRepository movieRepository;
 
+    @Autowired
+    MedalTableSongsRepository medalTableSongsRepository;
+
 
     public List<Song> showAllSongs() {
         List<Song> songs = songRepository.findAll();
@@ -37,5 +42,10 @@ public class DisplayService {
     public List<Artist> showAllArtists() {
         List<Artist> artists = artistRepository.findAll();
         return artists;
+    }
+
+    public List<MedalTableSongs> medalTable() {
+        List<MedalTableSongs> medalTableDataFromDb = medalTableSongsRepository.createMedalTableDataFromDb();
+        return medalTableDataFromDb;
     }
 }

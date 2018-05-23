@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.kostrowski.lpmf.dto.MedalTableSongs;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.LPMFPosition;
 import pl.kostrowski.lpmf.model.Movie;
@@ -64,5 +65,6 @@ public class MainController {
         model.addAttribute("allArtists", allArtists);
         return "/all/artists";
     }
+
 
 }
