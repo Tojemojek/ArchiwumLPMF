@@ -10,9 +10,7 @@
 
         <h2>Lista przebojow</h2>
 
-        <span th:each="pos,iter : ${lists}">
-        <!--<p th:text="${'Notowanie numer' + lists.get(iterStat).getNoOfList() + ' z dnia ' + lists.get(iterStat).getDateOfList()}"></p>-->
-        <p th:text="${'Notowanie nr ' +lists.get(iter.index).getNoOfList()}"></p>
+        <p th:text="${'Notowanie nr ' +lists.get(0).getNoOfList()}"></p>
 
         <table class="table table-striped">
             <tr>
@@ -35,7 +33,6 @@
                 </td>
             </tr>
         </table>
-        </span>
     </div>
 </div>
 

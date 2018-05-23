@@ -8,8 +8,6 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(singleSong)}">
 
-
-
         <h2>Pozycje jednego utworu</h2>
 
         <p th:text="${'Utwór ' + singleSong.get(0).getSong().getTitle()
