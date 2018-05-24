@@ -2,12 +2,14 @@ package pl.kostrowski.lpmf.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.kostrowski.lpmf.dto.MedalTableArtist;
+import pl.kostrowski.lpmf.dto.MedalTableMovie;
 import pl.kostrowski.lpmf.dto.MedalTableSongs;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
 import pl.kostrowski.lpmf.repository.ArtistRepository;
-import pl.kostrowski.lpmf.repository.MedalTableSongsRepository;
+import pl.kostrowski.lpmf.repository.MedalTablesRepository;
 import pl.kostrowski.lpmf.repository.MovieRepository;
 import pl.kostrowski.lpmf.repository.SongRepository;
 
@@ -26,7 +28,7 @@ public class DisplayService {
     MovieRepository movieRepository;
 
     @Autowired
-    MedalTableSongsRepository medalTableSongsRepository;
+    MedalTablesRepository medalTablesRepository;
 
 
     public List<Song> showAllSongs() {
@@ -44,8 +46,19 @@ public class DisplayService {
         return artists;
     }
 
-    public List<MedalTableSongs> medalTable() {
-        List<MedalTableSongs> medalTableDataFromDb = medalTableSongsRepository.createMedalTableDataFromDb();
+    public List<MedalTableSongs> medalTableSongs() {
+        List<MedalTableSongs> medalTableDataFromDb = medalTablesRepository.createMedalTableSongsFromDb();
         return medalTableDataFromDb;
     }
+
+    public List<MedalTableArtist> medalTableArtists() {
+        List<MedalTableArtist> medalTableDataFromDb = medalTablesRepository.createMedalTableArtistFromDb();
+        return medalTableDataFromDb;
+    }
+
+    public List<MedalTableMovie> medalTableMovies() {
+        List<MedalTableMovie> medalTableDataFromDb = medalTablesRepository.createMedalTableMoviesFromDb();
+        return medalTableDataFromDb;
+    }
+
 }
