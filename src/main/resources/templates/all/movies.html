@@ -21,7 +21,7 @@
                 <td th:text="${pos.getTitle()}"></td>
                 <td th:text="${pos.getFirstTimeInList().getDateOfList()}"></td>
                 <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
-                <td><a th:href="@{/movie(movieId=${pos.getId()})}">Link</a></td>
+                <td><a th:href="@{/single/movie(movieId=${pos.getId()})}">Link</a></td>
             </tr>
         </table>
         </span>

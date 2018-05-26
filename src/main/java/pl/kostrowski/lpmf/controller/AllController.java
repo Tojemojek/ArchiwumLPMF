@@ -16,7 +16,7 @@ import pl.kostrowski.lpmf.service.DisplayService;
 import java.util.List;
 
 @Controller
-public class MainController {
+public class AllController {
 
     @Autowired
     LPMFPositionRepository lpmfPositionRepository;
@@ -29,7 +29,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/lists")
+    @RequestMapping(value = "/single/lists")
     public String showSingleList(@RequestParam(value = "fromList", defaultValue = "1") Integer fromList,
                                  @RequestParam(value = "toList", defaultValue = "1") Integer toList,
                                  Model model) {
@@ -38,7 +38,7 @@ public class MainController {
         return "/singleList";
     }
 
-    @RequestMapping(value = "/songPos")
+    @RequestMapping(value = "/single/songPos")
     public String showMe(@RequestParam(value = "songId", defaultValue = "32") Integer songId, Model model) {
         List<LPMFPosition> findOne = lpmfPositionRepository.customFindBySong(Long.valueOf(songId));
         model.addAttribute("singleSong",findOne);

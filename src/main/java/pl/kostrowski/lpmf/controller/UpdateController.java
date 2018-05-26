@@ -43,7 +43,7 @@ public class UpdateController {
             long startIn = System.currentTimeMillis();
             convertSingleLPMFFile.convertAndPersistSingleLPMFFile(i);
             long stopIn = System.currentTimeMillis();
-            LOG.info("Konwersja pliku nr " + i + " zajęła " + TimeUnit.MILLISECONDS.toSeconds(stopIn - startIn) + " s.");
+            LOG.info("Konwersja pliku nr " + i + " zajęła " + (stopIn - startIn) + " milisekund.");
         }
 
         long stop = System.currentTimeMillis();
