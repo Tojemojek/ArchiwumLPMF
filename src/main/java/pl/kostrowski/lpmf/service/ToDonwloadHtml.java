@@ -28,9 +28,9 @@ public class ToDonwloadHtml {
         return new RestTemplate();
     }
 
-    public void downloadLists(int howManyLists) {
+    public void downloadLists(int fromList, int toList) {
 
-        for (int i = 0; i <= howManyLists; i++) {
+        for (int i = fromList; i <= toList; i++) {
             writeToFile(i);
             try {
                 Thread.sleep(50);

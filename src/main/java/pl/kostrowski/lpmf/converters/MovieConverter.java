@@ -1,7 +1,7 @@
 package pl.kostrowski.lpmf.converters;
 
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
+import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 import pl.kostrowski.lpmf.model.ListInfo;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.dictionaries.AllDictionaries;
@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class MovieConverter {
 
-    public List<Movie> convertOLD(List<SingleEntryInListDto> singleEntryInListDtos) {
+    public List<Movie> convertOLD(List<SingleLpmfDto> singleEntryInListDtos) {
 
         Map<String, String> moviesDictionary = AllDictionaries.getMoviesDictionary();
 
@@ -21,7 +21,7 @@ public class MovieConverter {
         String listNumberAndDate;
 
 
-        for (SingleEntryInListDto singleEntryInListDto : singleEntryInListDtos) {
+        for (SingleLpmfDto singleEntryInListDto : singleEntryInListDtos) {
             Movie movie = new Movie();
             String title = singleEntryInListDto.getFullMovieTitle();
             listNumberAndDate = singleEntryInListDto.getNrAndDateOfList();

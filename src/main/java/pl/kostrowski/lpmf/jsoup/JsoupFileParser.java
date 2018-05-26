@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.kostrowski.lpmf.dictionaries.PathsToUrls;
-import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
+import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class JsoupFileParser {
 
     private final String path = PathsToUrls.LOCAL_COPY_OF_HTML.getPath();
 
-    public List<SingleEntryInListDto> parseSingleFileToObjects(int i) {
+    public List<SingleLpmfDto> parseSingleFileToObjects(int i) {
 
         long start = System.currentTimeMillis();
         File processed = new File(path + "lista" + i + ".html");
@@ -38,7 +38,7 @@ public class JsoupFileParser {
             e.printStackTrace();
         }
 
-        List<SingleEntryInListDto> wholeSingleList = new LinkedList<>();
+        List<SingleLpmfDto> wholeSingleList = new LinkedList<>();
 
 
         String nrIDataListy = doc.getElementsByClass("lpmf-not-head").text();
@@ -53,7 +53,7 @@ public class JsoupFileParser {
         String coverLink = "";
 
         for (Element songDetail : singleList) {
-            SingleEntryInListDto singleEntryInListDto = new SingleEntryInListDto();
+            SingleLpmfDto singleEntryInListDto = new SingleLpmfDto();
 
             position = songDetail.getElementsByClass("cfn").get(0).text().trim().replaceAll("(\\s)+", "$1");
             fullArtist = songDetail.getElementsByClass("artist-name").get(0).text().trim().replaceAll("(\\s)+", "$1");

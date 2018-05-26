@@ -8,7 +8,7 @@ import pl.kostrowski.lpmf.converters.ArtistConverter;
 import pl.kostrowski.lpmf.converters.MovieConverter;
 import pl.kostrowski.lpmf.converters.NrAndDateOfListConverter;
 import pl.kostrowski.lpmf.converters.SongTitleConverter;
-import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
+import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
 import pl.kostrowski.lpmf.model.*;
 
@@ -41,13 +41,13 @@ public class ConvertSingleLPMFFile {
 
     public void convertAndPersistSingleLPMFFile(Integer noOfProcessedFile) {
 
-        List<SingleEntryInListDto> parsedFile = new LinkedList<>();
+        List<SingleLpmfDto> parsedFile = new LinkedList<>();
         parsedFile = jsoupFileParser.parseSingleFileToObjects(noOfProcessedFile);
 
         ListInfo listInfo = nrAndDateOfListConverter.convert(parsedFile.get(0).getNrAndDateOfList());
         listInfo = persistUnique.persistListInfo(listInfo);
 
-        for (SingleEntryInListDto singleEntryInListDto : parsedFile) {
+        for (SingleLpmfDto singleEntryInListDto : parsedFile) {
 
             Movie movie = new Movie();
             List<Artist> artists = new LinkedList<>();

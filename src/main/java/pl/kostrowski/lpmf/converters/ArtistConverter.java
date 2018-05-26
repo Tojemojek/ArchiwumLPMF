@@ -1,7 +1,7 @@
 package pl.kostrowski.lpmf.converters;
 
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.dto.SingleEntryInListDto;
+import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.ListInfo;
 import pl.kostrowski.lpmf.dictionaries.AllDictionaries;
@@ -13,14 +13,14 @@ import java.util.Map;
 @Service
 public class ArtistConverter {
 
-    public List<Artist> convertFullList(List<SingleEntryInListDto> singleEntryInListDtos) {
+    public List<Artist> convertFullList(List<SingleLpmfDto> singleEntryInListDtos) {
 
         Map<String, String> artistDictionary = AllDictionaries.getArtistDictionary();
         List<Artist> allArtists = new LinkedList<>();
         String listNumberAndDate;
 
 
-        for (SingleEntryInListDto singleEntryInListDto : singleEntryInListDtos) {
+        for (SingleLpmfDto singleEntryInListDto : singleEntryInListDtos) {
             String artistNameFromDto = singleEntryInListDto.getFullArtist();
 
             listNumberAndDate = singleEntryInListDto.getNrAndDateOfList();

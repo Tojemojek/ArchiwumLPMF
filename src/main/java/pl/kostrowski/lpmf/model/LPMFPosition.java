@@ -1,9 +1,12 @@
 package pl.kostrowski.lpmf.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import pl.kostrowski.lpmf.dto.MedalTableSongs;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Map;
+
 
 @Entity
 @Table(name = "songs_in_list")
