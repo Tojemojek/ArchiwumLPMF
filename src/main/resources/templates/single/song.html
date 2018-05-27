@@ -8,11 +8,15 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(singleSong)}">
 
+        <h3 th:text="${'Utwór '}"></h3>
         <h2>
-            <span th:text="${'Utwór '}"></span>
             <b th:text="${singleSong.get(0).getSong().getTitle()}"></b>
-            <span th:text="${' z filmu '}"></span>
-            <b th:text="${singleSong.get(0).getSong().getMovie().getTitle()}"></b>
+        </h2>
+        <h3 th:text="${' z filmu '}"></h3>
+        <h2>
+            <b>
+            <a th:href="@{/single/movie(movieId=${singleSong.get(0).getSong().getMovie().getId()})}"  th:text="${singleSong.get(0).getSong().getMovie().getTitle()}"></a>
+            </b>
         </h2>
 
         <h3>

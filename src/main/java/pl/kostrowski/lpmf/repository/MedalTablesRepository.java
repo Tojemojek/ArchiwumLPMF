@@ -83,7 +83,8 @@ public class MedalTablesRepository {
     public List<MedalTableArtist> createMedalTableArtistFromDb() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("a.full_name ");
+        sb.append("a.full_name, ");
+        sb.append("a.id ");
         sb.append("FROM songs_in_list sig ");
         sb.append("LEFT JOIN song s ON sig.song_id = s.id ");
         sb.append("LEFT JOIN song_has_artist sag on sag.song_id = s.id ");
@@ -107,6 +108,7 @@ public class MedalTablesRepository {
             medalTableArtist.setMedals(posMap);
             medalTableArtist.setTotalInList(((BigInteger) tempResult[20]).intValue());
             medalTableArtist.setArtistName((String) tempResult[21]);
+            medalTableArtist.setArtistId(((BigInteger) tempResult[22]).longValue());
 
             medalTableArtists.add(medalTableArtist);
         }
@@ -116,7 +118,8 @@ public class MedalTablesRepository {
     public List<MedalTableMovie> createMedalTableMoviesFromDb() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("m.title ");
+        sb.append("m.title, ");
+        sb.append("m.id ");
         sb.append("FROM songs_in_list sig ");
         sb.append("LEFT JOIN song s ON sig.song_id = s.id ");
         sb.append("LEFT JOIN movie m ON m.id = s.movie_id ");
@@ -139,6 +142,7 @@ public class MedalTablesRepository {
             medalTableMovie.setMedals(posMap);
             medalTableMovie.setTotalInList(((BigInteger) tempResult[20]).intValue());
             medalTableMovie.setMovieTitle((String) tempResult[21]);
+            medalTableMovie.setMovieId(((BigInteger) tempResult[22]).longValue());
 
             medalTableMovies.add(medalTableMovie);
         }

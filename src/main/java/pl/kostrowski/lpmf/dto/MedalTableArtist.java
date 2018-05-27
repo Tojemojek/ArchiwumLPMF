@@ -6,16 +6,18 @@ import java.util.Map;
 public class MedalTableArtist {
 
     private String artistName;
+    private Long artistId;
     private Integer totalInList;
     private Map<Integer, Integer> medals = new HashMap<>();
 
     public MedalTableArtist() {
     }
 
-    public MedalTableArtist(String artistName, Map<Integer, Integer> medals, Integer totalInList) {
+    public MedalTableArtist(String artistName, Long artistId, Integer totalInList, Map<Integer, Integer> medals) {
         this.artistName = artistName;
-        this.medals = medals;
+        this.artistId = artistId;
         this.totalInList = totalInList;
+        this.medals = medals;
     }
 
     public String getArtistName() {
@@ -26,12 +28,12 @@ public class MedalTableArtist {
         this.artistName = artistName;
     }
 
-    public Map<Integer, Integer> getMedals() {
-        return medals;
+    public Long getArtistId() {
+        return artistId;
     }
 
-    public void setMedals(Map<Integer, Integer> medals) {
-        this.medals = medals;
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 
     public Integer getTotalInList() {
@@ -40,5 +42,13 @@ public class MedalTableArtist {
 
     public void setTotalInList(Integer totalInList) {
         this.totalInList = totalInList;
+    }
+
+    public Map<Integer, Integer> getMedals() {
+        return medals;
+    }
+
+    public void setMedals(Map<Integer, Integer> medals) {
+        this.medals = medals;
     }
 }

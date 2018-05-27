@@ -75,9 +75,9 @@ public class DisplayService {
         List<LPMFPosition> all = lpmfPositionRepository.findAll();
         List<LPMFPositionWrapperDto> allDto = new LinkedList<>();
         LPMFPositionWrapperDto tmpWrapper;
+
         int counter = 0;
         List<LPMFPosition> tmp = new LinkedList<>();
-
         for (LPMFPosition lpmfPosition : all) {
             counter++;
             tmp.add(lpmfPosition);

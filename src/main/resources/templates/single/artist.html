@@ -8,6 +8,9 @@
 <div class="container">
     <div th:if="${singleArtist != null}">
 
+        <h3>
+            Utwory artysty:
+        </h3>
         <h2>
             <b th:text="${singleArtist.getArtist().getFullName()}"></b>
         </h2>
@@ -21,14 +24,20 @@
 
         <table class="table table-striped">
             <tr>
-                <th>Tytuł</th>
+                <th>Utwór</th>
                 <th>Film</th>
                 <th>Pierwszy raz w liście nr</th>
                 <th>Data Listy</th>
             </tr>
             <tr th:each="pos : ${singleArtist.getSongList()}">
-                <td th:text="${pos.getTitle()}"></td>
-                <td th:text="${pos.getMovie().getTitle()}"></td>
+                <td>
+                    <a th:href="@{/single/song(songId=${pos.getId()})}" th:text="${pos.getTitle()}">
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/single/movie(movieId=${pos.getMovie().getId()})}" th:text="${pos.getMovie().getTitle()}">
+                    </a>
+                </td>
                 <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
                 <td th:text="${pos.getFirstTimeInList().getDateOfList()}"></td>
             </tr>

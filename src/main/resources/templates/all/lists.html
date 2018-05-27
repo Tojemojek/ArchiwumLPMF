@@ -8,31 +8,42 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(allLists)}">
 
-        <h2>Wszystkie notowania</h2>
+        <h2>Wszystkie notowania <i>Listy Przebojów Muzyki Filmowej RMF Classic</i></h2>
 
         <span th:each="pos : ${allLists}">
-            <br><br>
-            <span>Notowanie numer </span>
-            <b th:text="${' ' + pos.getNoOfList()+ ' '}"></b>
-            <span>z dnia</span>
-            <b th:text="${'20' + pos.getDateOfList()}"></b>
-            <br><br>
+
+            <h3>
+            <span th:text="${'Notowanie numer '}"></span>
+            <b th:text="${pos.getNoOfList()}"></b>
+            <span th:text="${' z dnia '}"></span>
+            <b th:text="${pos.getDateOfList()}"></b>
+            </h3>
+
 
             <table class="table table-striped">
                 <tr>
                     <th>Pozycja</th>
-                    <th>Film</th>
                     <th>Tytuł utworu</th>
+                    <th>Film</th>
                     <th>Artyści</th>
                 </tr>
                 <span th:each="list : ${pos.getLpmfPositionList()}" th:remove="tag">
                     <tr>
                         <td th:text="${list.getPos()}"></td>
-                        <td th:text="${list.getSong().getMovie().getTitle()}"></td>
-                        <td th:text="${list.getSong().getTitle()}"></td>
+
+                        <td>
+                            <a th:href="@{/single/song(songId=${list.getSong().getId()})}" th:text="${list.getSong().getTitle()}"></a>
+                        </td>
+
+                        <td>
+                            <a th:href="@{/single/movie(movieId=${list.getSong().getMovie().getId()})}" th:text="${list.getSong().getMovie().getTitle()}"> </a>
+                        </td>
+
                          <td>
-                            <span th:each="artist, iter: ${list.getSong().getAuthors()}">
-                                <span th:text="${artist.getFullName()}"></span>
+                            <span th:each="artist, iter: ${list.getSong().getAuthors()}" th:remove="tag">
+                                <span >
+                                    <a th:href="@{/single/artist(artistId=${artist.getId()})}" th:text="${artist.getFullName()}"></a>
+                                </span>
                                 <span th:if="${iter.index+1!=list.getSong().getAuthors().size()}">
                                     <br></br>
                                 </span>
@@ -41,6 +52,7 @@
                     </tr>
                 </span>
             </table>
+            <br><br>
         </span>
     </div>
 </div>

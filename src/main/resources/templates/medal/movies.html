@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-    <title>Lista artystów</title>
+    <title>Medale filmów</title>
     <th:block th:include="layout/header"></th:block>
 </head>
 <body>
 <div class="container">
     <div th:if="${not #lists.isEmpty(allMedalMovies)}">
 
-        <h2>Wszyscy artyści</h2>
+        <h2>Medale filmów</h2>
 
         <table class="table table-striped">
             <tr>
@@ -20,7 +20,9 @@
                 <th>Pozostałe pozycje</th>
             </tr>
             <tr th:each="pos : ${allMedalMovies}">
-                <td th:text="${pos.getMovieTitle()}"></td>
+                <td>
+                    <a th:href="@{/single/movie(movieId=${pos.getMovieId()})}" th:text="${pos.getMovieTitle()}"></a>
+                </td>
                 <td th:text="${pos.getTotalInList()}"></td>
                 <td th:text="${pos.getMedals().get(1)}"></td>
                 <td th:text="${pos.getMedals().get(2)}"></td>
