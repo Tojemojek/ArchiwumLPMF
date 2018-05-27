@@ -8,20 +8,18 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(allMovies)}">
 
-        <h2>Wszystkie utwory</h2>
+        <h2>Wszystkie filmy Listy</h2>
 
         <table class="table table-striped">
             <tr>
                 <th>Tytuł filmu</th>
                 <th>Data pierwszego wystąpienia w liście</th>
                 <th>Nr listy w której wystąpił po raz pierwszy</th>
-                <th>Link do statystyk filmu</th>
             </tr>
             <tr th:each="pos : ${allMovies}">
-                <td th:text="${pos.getTitle()}"></td>
+                <td><a th:href="@{/single/movie(movieId=${pos.getId()})}" th:text="${pos.getTitle()}">Link</a></td>
                 <td th:text="${pos.getFirstTimeInList().getDateOfList()}"></td>
                 <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
-                <td><a th:href="@{/single/movie(movieId=${pos.getId()})}">Link</a></td>
             </tr>
         </table>
         </span>

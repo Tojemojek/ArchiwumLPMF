@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Lista przebojow</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:if="${singleMovie != null}">
+
+        <h2>
+            <b th:text="${singleMovie.getMovie().getTitle()}"></b>
+        </h2>
+
+        <h3>
+            <span th:text="${'Pierwszy raz w liście nr '}"></span>
+            <b th:text="${singleMovie.getMovie().getFirstTimeInList().getNoOfList()}"></b>
+            <span th:text="${' z dnia '}"></span>
+            <b th:text="${singleMovie.getMovie().getFirstTimeInList().getDateOfList()}"></b>
+        </h3>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Utwór</th>
+                <th>Pierwszy raz w liście nr</th>
+                <th>Data Listy</th>
+            </tr>
+            <tr th:each="pos : ${singleMovie.getSongList()}">
+                <td th:text="${pos.getTitle()}">id</td>
+                <td th:text="${pos.getFirstTimeInList().getNoOfList()}">id</td>
+                <td th:text="${pos.getFirstTimeInList().getDateOfList()}">id</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<th:block th:include="layout/footer"></th:block>
+</body>
+</html>

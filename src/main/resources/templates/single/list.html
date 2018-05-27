@@ -8,9 +8,10 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(lists)}">
 
-        <h2>Lista przebojow</h2>
-
-        <p th:text="${'Notowanie nr ' +lists.get(0).getNoOfList()}"></p>
+        <h2 th:text="${'Notowanie nr ' + lists.get(0).getNoOfList()}"> >
+            <span th:text="${'Notowanie nr '}"></span>
+            <b th:text="${lists.get(0).getNoOfList()}"></b>
+        </h2>
 
         <table class="table table-striped">
             <tr>

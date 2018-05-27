@@ -8,12 +8,19 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(singleSong)}">
 
-        <h2>Pozycje jednego utworu</h2>
+        <h2>
+            <span th:text="${'Utwór '}"></span>
+            <b th:text="${singleSong.get(0).getSong().getTitle()}"></b>
+            <span th:text="${' z filmu '}"></span>
+            <b th:text="${singleSong.get(0).getSong().getMovie().getTitle()}"></b>
+        </h2>
 
-        <p th:text="${'Utwór ' + singleSong.get(0).getSong().getTitle()
-        + ' z filmu '
-        + singleSong.get(0).getSong().getMovie().getTitle()}"></p>
-
+        <h3>
+            <span th:text="${'Pierwszy raz w liście nr '}"></span>
+            <b th:text="${singleSong.get(0).getSong().getFirstTimeInList().getNoOfList()}"></b>
+            <span th:text="${' z dnia '}"></span>
+            <b th:text="${singleSong.get(0).getSong().getFirstTimeInList().getDateOfList()}"></b>
+        </h3>
 
         <table class="table table-striped">
             <tr>

@@ -21,11 +21,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Klasyfikacje medalowe
+                            Klasyfikacje medalowe
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/medals/movies}">Filmy</a>
                             <a class="dropdown-item" th:href="@{/medals/songs}">Utwory</a>
+                            <a class="dropdown-item" th:href="@{/medals/movies}">Filmy</a>
                             <a class="dropdown-item" th:href="@{/medals/artists}">Artyści</a>
                         </div>
                     </li>
@@ -35,9 +35,10 @@
                             Wszystkie i wszyscy
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/allMovies}">Filmy</a>
-                            <a class="dropdown-item" th:href="@{/allSongs}">Utwory</a>
-                            <a class="dropdown-item" th:href="@{/allArtists}">Artyści</a>
+                            <a class="dropdown-item" th:href="@{/all/songs}">Utwory</a>
+                            <a class="dropdown-item" th:href="@{/all/movies}">Filmy</a>
+                            <a class="dropdown-item" th:href="@{/all/artists}">Artyści</a>
+                            <a class="dropdown-item" th:href="@{/all/lists}">Listy</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -56,18 +57,18 @@
             </div>
         </nav>
 
-        <div class="jumbotron">
-            <div class="row justify-content-center">
-                <h2>Historia i statystyki Listy Przebojów Muzyki Filmowej</h2>
+        <!--<div class="jumbotron">-->
+            <!--<div class="row justify-content-center">-->
+                <!--<h2>Historia i statystyki Listy Przebojów Muzyki Filmowej</h2>-->
 
-            </div>
-            <div class="row justify-content-center">
-                <a href="https://www.rmfclassic.pl/lista-przebojow">
-                    <img src="../../static/images/LpmfLogo.jpg" width="100%"
-                         th:src="@{/images/LpmfLogo.jpg}"/>
-                </a>
-            </div>
-        </div>
+            <!--</div>-->
+            <!--<div class="row justify-content-center">-->
+                <!--<a href="https://www.rmfclassic.pl/lista-przebojow">-->
+                    <!--<img src="../../static/images/LpmfLogo.jpg" width="100%"-->
+                         <!--th:src="@{/images/LpmfLogo.jpg}"/>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
 
     </div>
 </div>

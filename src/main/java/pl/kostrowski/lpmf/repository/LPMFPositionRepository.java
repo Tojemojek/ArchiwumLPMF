@@ -13,12 +13,14 @@ public interface LPMFPositionRepository extends CrudRepository<LPMFPosition, Lon
 
     List<LPMFPosition> findAllByPos(Integer position);
 
-    List<LPMFPosition> findByNoOfList(Integer noOfList);
+    List<LPMFPosition> findAll();
+
+    List<LPMFPosition> findByNoOfListOrderByPos(Integer noOfList);
 
     LPMFPosition findByNoOfListAndPos(Integer pos, Integer noOfList);
 
-    @Query("SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s where s.id = :songId")
-    List<LPMFPosition> customFindBySong(@Param("songId") Long songId);
+    @Query("SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s where s.id = :songId order by lpmf.noOfList")
+    List<LPMFPosition> customFindBySongId(@Param("songId") Long songId);
 
 
 }

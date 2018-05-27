@@ -8,20 +8,20 @@
 <div class="container">
     <div th:if="${not #lists.isEmpty(allArtists)}">
 
-        <h2>Tabela medalowa artystów</h2>
+        <h2>Wszyscy Artyści Listy</h2>
 
         <table class="table table-striped">
             <tr>
                 <th>Artysta</th>
                 <th>Data pierwszego wystąpienia w liście</th>
                 <th>Nr listy w której wystąpił po raz pierwszy</th>
-                <th>Link do statystyk artysty</th>
             </tr>
             <tr th:each="pos : ${allArtists}">
-                <td th:text="${pos.getFullName()}"></td>
+                <td>
+                    <a th:href="@{/single/artist(artistId=${pos.getId()})}" th:text="${pos.getFullName()}"></a>
+                </td>
                 <td th:text="${pos.getFirstTimeInList().getDateOfList()}"></td>
                 <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
-                <td><a th:href="@{/single/artist(artistId=${pos.getId()})}">Link</a></td>
             </tr>
         </table>
         </span>

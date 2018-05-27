@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.kostrowski.lpmf.dto.LPMFPositionWrapperDto;
 import pl.kostrowski.lpmf.dto.MedalTableSongs;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.LPMFPosition;
@@ -19,9 +20,6 @@ import java.util.List;
 public class AllController {
 
     @Autowired
-    LPMFPositionRepository lpmfPositionRepository;
-
-    @Autowired
     DisplayService displayService;
 
     @RequestMapping(value = "/")
@@ -29,42 +27,32 @@ public class AllController {
         return "index";
     }
 
-    @RequestMapping(value = "/single/lists")
-    public String showSingleList(@RequestParam(value = "fromList", defaultValue = "1") Integer fromList,
-                                 @RequestParam(value = "toList", defaultValue = "1") Integer toList,
-                                 Model model) {
-        List<LPMFPosition> allByNoOfListOOrderByPos = lpmfPositionRepository.findByNoOfList(fromList);
-        model.addAttribute("lists", allByNoOfListOOrderByPos);
-        return "/singleList";
-    }
-
-    @RequestMapping(value = "/single/songPos")
-    public String showMe(@RequestParam(value = "songId", defaultValue = "32") Integer songId, Model model) {
-        List<LPMFPosition> findOne = lpmfPositionRepository.customFindBySong(Long.valueOf(songId));
-        model.addAttribute("singleSong",findOne);
-        return "/singleSongPos";
-    }
-
-    @RequestMapping(value = "/allSongs")
+    @RequestMapping(value = "/all/songs")
     public String showAllSongs(Model model) {
         List<Song> allSongs = displayService.showAllSongs();
         model.addAttribute("allSongs", allSongs);
         return "/all/songs";
     }
 
-    @RequestMapping(value = "/allMovies")
+    @RequestMapping(value = "/all/movies")
     public String showAllMovies(Model model) {
         List<Movie> allMovies = displayService.showAllMovies();
         model.addAttribute("allMovies", allMovies);
         return "/all/movies";
     }
 
-    @RequestMapping(value = "/allArtists")
+    @RequestMapping(value = "/all/artists")
     public String showAllArtists(Model model) {
         List<Artist> allArtists = displayService.showAllArtists();
         model.addAttribute("allArtists", allArtists);
         return "/all/artists";
     }
 
+    @RequestMapping(value = "/all/lists")
+    public String showAllLists(Model model) {
+        List<LPMFPositionWrapperDto> allLists = displayService.showAllLists();
+        model.addAttribute("allLists", allLists);
+        return "/all/lists";
+    }
 
 }

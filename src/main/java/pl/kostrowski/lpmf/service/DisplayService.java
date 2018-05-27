@@ -2,21 +2,21 @@ package pl.kostrowski.lpmf.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.dto.MedalTableArtist;
-import pl.kostrowski.lpmf.dto.MedalTableMovie;
-import pl.kostrowski.lpmf.dto.MedalTableSongs;
+import pl.kostrowski.lpmf.dto.*;
 import pl.kostrowski.lpmf.model.Artist;
+import pl.kostrowski.lpmf.model.LPMFPosition;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
-import pl.kostrowski.lpmf.repository.ArtistRepository;
-import pl.kostrowski.lpmf.repository.MedalTablesRepository;
-import pl.kostrowski.lpmf.repository.MovieRepository;
-import pl.kostrowski.lpmf.repository.SongRepository;
+import pl.kostrowski.lpmf.repository.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class DisplayService {
+
+    @Autowired
+    LPMFPositionRepository lpmfPositionRepository;
 
     @Autowired
     SongRepository songRepository;
@@ -61,4 +61,58 @@ public class DisplayService {
         return medalTableDataFromDb;
     }
 
+    public List<LPMFPosition> findByNoOfList(Integer listNo) {
+        List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.findByNoOfListOrderByPos(listNo);
+        return byNoOfListOOrderByPos;
+    }
+
+    public List<LPMFPosition> customFindBySongId(Long songId) {
+        List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.customFindBySongId(songId);
+        return byNoOfListOOrderByPos;
+    }
+
+    public List<LPMFPositionWrapperDto> showAllLists() {
+        List<LPMFPosition> all = lpmfPositionRepository.findAll();
+        List<LPMFPositionWrapperDto> allDto = new LinkedList<>();
+        LPMFPositionWrapperDto tmpWrapper;
+        int counter = 0;
+        List<LPMFPosition> tmp = new LinkedList<>();
+
+        for (LPMFPosition lpmfPosition : all) {
+            counter++;
+            tmp.add(lpmfPosition);
+            if (counter % 20 == 0) {
+                tmpWrapper = new LPMFPositionWrapperDto();
+                tmpWrapper.setNoOfList(lpmfPosition.getNoOfList());
+                tmpWrapper.setDateOfList(lpmfPosition.getDateOfList());
+                tmpWrapper.getLpmfPositionList().addAll(tmp);
+                allDto.add(tmpWrapper);
+                tmp.clear();
+            }
+        }
+
+        return allDto;
+    }
+
+    public ArtistSongsDto customFindArtistById(Long artistId) {
+
+        Artist artist = artistRepository.findById(artistId).get();
+        List<Song> songsByArtist = songRepository.customFindByArtistId(artistId);
+
+        ArtistSongsDto artistSongsDto = new ArtistSongsDto(artist, songsByArtist);
+
+        return artistSongsDto;
+
+    }
+
+    public MovieSongsDto customFindMovieById(Long movieId) {
+
+        Movie movie = movieRepository.findById(movieId).get();
+        List<Song> songsByMovie = songRepository.customFindByMovieId(movieId);
+
+        MovieSongsDto movieSongsDto = new MovieSongsDto(movie, songsByMovie);
+
+        return movieSongsDto;
+
+    }
 }
