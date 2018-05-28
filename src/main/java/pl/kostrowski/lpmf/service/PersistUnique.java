@@ -3,10 +3,12 @@ package pl.kostrowski.lpmf.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import pl.kostrowski.lpmf.model.*;
 import pl.kostrowski.lpmf.repository.*;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -98,11 +100,9 @@ public class PersistUnique {
     public Song persistSong(Song song) {
 
         List<Song> songsFromDb = null;
-
         try {
             songsFromDb = songRepository.findAllByTitle(song.getTitle());
         } catch (Exception e) {
-
         }
 
         for (Song songFromDb : songsFromDb) {
@@ -111,13 +111,27 @@ public class PersistUnique {
                 return song;
             }
         }
-
         songRepository.save(song);
         LOG.debug(song + "dodano do bazy danych");
         newSongCount++;
 
         return song;
     }
+
+    public void findDuplicatedSongs() {
+        List<Object[]> zdublowane = songRepository.doubledSongs();
+        List<Song> songsFromDb = new LinkedList<>();
+
+        for (Object[] objects : zdublowane) {
+            songsFromDb.addAll(songRepository.customfindAllByTitleAndMovieTitle((String) objects[0], (String) objects[1]));
+        }
+
+        for (Song song : songsFromDb) {
+            song.setHasDuplicates(Boolean.TRUE);
+            songRepository.saveAndFlush(song);
+        }
+    }
+
 
     public ListInfo persistListInfo(ListInfo listInfo) {
 

@@ -22,6 +22,9 @@ public class Song {
     @Column(name = "title")
     private String title;
 
+    @Column(name ="has_duplicates")
+    private Boolean hasDuplicates;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     private ListInfo firstTimeInList;
 
@@ -60,6 +63,22 @@ public class Song {
         this.title = title;
     }
 
+    public Boolean getHasDuplicates() {
+        return hasDuplicates;
+    }
+
+    public void setHasDuplicates(Boolean hasDuplicates) {
+        this.hasDuplicates = hasDuplicates;
+    }
+
+    public ListInfo getFirstTimeInList() {
+        return firstTimeInList;
+    }
+
+    public void setFirstTimeInList(ListInfo firstTimeInList) {
+        this.firstTimeInList = firstTimeInList;
+    }
+
     public Movie getMovie() {
         return movie;
     }
@@ -74,28 +93,5 @@ public class Song {
 
     public void setAuthors(List<Artist> authors) {
         this.authors = authors;
-    }
-
-    public ListInfo getFirstTimeInList() {
-        return firstTimeInList;
-    }
-
-    public void setFirstTimeInList(ListInfo firstTimeInList) {
-        this.firstTimeInList = firstTimeInList;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Song song = (Song) o;
-        return Objects.equals(title, song.title) &&
-                Objects.equals(movie, song.movie) &&
-                Objects.equals(authors, song.authors);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, movie, authors);
     }
 }

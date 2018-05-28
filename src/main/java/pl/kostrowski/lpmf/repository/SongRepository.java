@@ -1,5 +1,6 @@
 package pl.kostrowski.lpmf.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -9,10 +10,11 @@ import pl.kostrowski.lpmf.model.LPMFPosition;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @Repository
-public interface SongRepository extends CrudRepository<Song, Long> {
+public interface SongRepository extends JpaRepository<Song, Long> {
 
     Song findSongByTitleAndMovieAndAuthors (String title, Movie movie, List<Artist> authors);
     Song findSongByTitleAndMovie (String title, Movie movie);
@@ -26,4 +28,16 @@ public interface SongRepository extends CrudRepository<Song, Long> {
 
     @Query("SELECT s from Song s left join s.movie m where m.id = :movieId")
     List<Song> customFindByMovieId(@Param("movieId") Long movieId);
+
+    @Query("SELECT s from Song s left join s.movie m where s.title=:songTitle and m.title = :movieTitle")
+    List<Song> customfindAllByTitleAndMovieTitle(@Param("songTitle") String songTitle,@Param("movieTitle") String movieTitle);
+
+
+    @Query(nativeQuery=true, value = "select total.songTitle, total.movieTitle  from " +
+            "(select s.title as songTitle, m.title as movieTitle, s.id as sid, count(concat(s.title, m.title)) as zliczenie " +
+            "from song s left join movie m on m.id = s.movie_id " +
+            "group by concat(s.title, m.title)) " +
+            "total where  total.zliczenie > 1")
+    List<Object[]> doubledSongs();
+
 }

@@ -26,12 +26,11 @@ public class SingleController {
         return "/single/list";
     }
 
-    //Todo przerobić by szukało po tytule i filmie - żeby pokazywało też piosnki róznych wykonawców
     @RequestMapping(value = "/single/song")
     public String showMeSong(@RequestParam(value = "songId", defaultValue = "32") Integer songId,
                          Model model) {
-        List<LPMFPosition> findOne = displayService.customFindBySongId(Long.valueOf(songId));
-        model.addAttribute("singleSong", findOne);
+        List<LPMFPosition> findSongs = displayService.customFindBySongId(Long.valueOf(songId));
+        model.addAttribute("singleSong", findSongs);
         return "/single/song";
     }
 

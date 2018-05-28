@@ -68,6 +68,16 @@ public class DisplayService {
 
     public List<LPMFPosition> customFindBySongId(Long songId) {
         List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.customFindBySongId(songId);
+
+        if (byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()) {
+            byNoOfListOOrderByPos = lpmfPositionRepository.
+                    customFindBySongTitleAndMovieTitle(
+                            byNoOfListOOrderByPos.get(0).getSong().getTitle(),
+                            byNoOfListOOrderByPos.get(0).getSong().getMovie().getTitle());
+
+
+        }
+
         return byNoOfListOOrderByPos;
     }
 

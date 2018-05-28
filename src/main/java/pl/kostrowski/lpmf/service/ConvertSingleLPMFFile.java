@@ -75,4 +75,7 @@ public class ConvertSingleLPMFFile {
 
         }
     }
+    public void markDuplicateSongs(){
+        persistUnique.findDuplicatedSongs();
+    }
 }

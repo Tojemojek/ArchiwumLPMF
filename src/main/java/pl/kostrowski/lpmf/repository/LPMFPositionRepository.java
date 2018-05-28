@@ -22,5 +22,6 @@ public interface LPMFPositionRepository extends CrudRepository<LPMFPosition, Lon
     @Query("SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s where s.id = :songId order by lpmf.noOfList")
     List<LPMFPosition> customFindBySongId(@Param("songId") Long songId);
 
-
+    @Query("SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s left join s.movie as m where (s.title = :songTitle and m.title = :movieTitle) order by lpmf.noOfList")
+    List<LPMFPosition> customFindBySongTitleAndMovieTitle(@Param("songTitle") String songTitle, @Param("movieTitle") String movieTitle);
 }

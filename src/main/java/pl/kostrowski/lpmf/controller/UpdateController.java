@@ -48,12 +48,18 @@ public class UpdateController {
 
         long stop = System.currentTimeMillis();
         LOG.info("Konwersja od pliku nr " + fromList + " do pliku numer " + toList + " zajęła " + (stop - start) + " milisekund.");
-        return "redirect:/";
+        return "redirect:/duplicates";
     }
 
     @RequestMapping(value = "/persist/singleFile", method = RequestMethod.GET)
     public String  processOneFile(@RequestParam(value = "noOfList", defaultValue = "1") Integer noOfList) {
         convertSingleLPMFFile.convertAndPersistSingleLPMFFile(noOfList);
+        return "redirect:/duplicates";
+    }
+
+    @RequestMapping(value = "/duplicates", method = RequestMethod.GET)
+    public String findAndMarkDuplicates(){
+        convertSingleLPMFFile.markDuplicateSongs();
         return "redirect:/";
     }
 
