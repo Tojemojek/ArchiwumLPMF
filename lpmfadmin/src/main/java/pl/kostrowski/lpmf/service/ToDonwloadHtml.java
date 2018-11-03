@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import pl.kostrowski.lpmf.HistorOfLPMFApp;
 import pl.kostrowski.lpmf.dictionaries.PathsToUrls;
 
 import java.io.FileWriter;
@@ -15,7 +14,7 @@ import java.io.IOException;
 @Service
 public class ToDonwloadHtml {
 
-    private final Logger LOG = LoggerFactory.getLogger(HistorOfLPMFApp.class);
+    private final Logger LOG = LoggerFactory.getLogger(ToDonwloadHtml.class);
 
     private final String URL_ADDRESS = PathsToUrls.REMOTE_URL.getPath();
     private String pathToSaveFiles = PathsToUrls.LOCAL_COPY_OF_HTML.getPath();

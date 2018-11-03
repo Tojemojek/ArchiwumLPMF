@@ -10,6 +10,7 @@ import pl.kostrowski.lpmf.converters.NrAndDateOfListConverter;
 import pl.kostrowski.lpmf.converters.SongTitleConverter;
 import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
+import pl.kostrowski.lpmf.model.*;
 
 import java.util.LinkedList;
 import java.util.List;

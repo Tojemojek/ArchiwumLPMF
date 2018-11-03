@@ -24,7 +24,7 @@
         <dependency>
             <groupId>pl.kostrowski.lpmf</groupId>
             <artifactId>lpmfcommon</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
