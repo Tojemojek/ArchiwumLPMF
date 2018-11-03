@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Lista przebojow</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(lists)}">
+
+        <h2 th:text="${'Notowanie nr ' + lists.get(0).getNoOfList()}"> >
+            <span th:text="${'Notowanie nr '}"></span>
+            <b th:text="${lists.get(0).getNoOfList()}"></b>
+        </h2>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Pozycja</th>
+                <th>Tytuł filmu</th>
+                <th>Tytuł listy</th>
+                <th>Autorzy</th>
+            </tr>
+            <tr th:each="pos : ${lists}">
+                <td th:text="${pos.getPos()}">id</td>
+                <td th:text="${pos.getSong().getMovie().getTitle()}">id</td>
+                <td th:text="${pos.getSong().getTitle()}">id</td>
+                <td>
+                    <span th:each="artist, iter: ${pos.getSong().getAuthors()}">
+                        <span th:text="${artist.getFullName()}"></span>
+                        <span th:if="${iter.index+1!=pos.getSong().getAuthors().size()}">
+                            <br></br>
+                        </span>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<th:block th:include="layout/footer"></th:block>
+</body>
+</html>

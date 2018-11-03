@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Lista przebojow</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(singleSong)}">
+
+        <h3 th:text="${'Utwór '}"></h3>
+        <h2>
+            <b th:text="${singleSong.get(0).getSong().getTitle()}"></b>
+        </h2>
+        <h3 th:text="${' z filmu '}"></h3>
+        <h2>
+            <b>
+                <a th:href="@{/single/movie(movieId=${singleSong.get(0).getSong().getMovie().getId()})}"
+                   th:text="${singleSong.get(0).getSong().getMovie().getTitle()}"></a>
+            </b>
+        </h2>
+
+        <h3>
+            <span th:text="${'Pierwszy raz w liście nr '}"></span>
+            <b th:text="${singleSong.get(0).getSong().getFirstTimeInList().getNoOfList()}"></b>
+            <span th:text="${' z dnia '}"></span>
+            <b th:text="${singleSong.get(0).getSong().getFirstTimeInList().getDateOfList()}"></b>
+        </h3>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Pozycja</th>
+                <th>Nr Listy</th>
+                <th>Data Listy</th>
+            </tr>
+            <tr th:each="pos : ${singleSong}">
+                <td th:text="${pos.getPos()}">id</td>
+                <td th:text="${pos.getNoOfList()}">id</td>
+                <td th:text="${pos.getDateOfList()}">id</td>
+            </tr>
+        </table>
+        </span>
+    </div>
+</div>
+
+<th:block th:include="layout/footer"></th:block>
+</body>
+</html>

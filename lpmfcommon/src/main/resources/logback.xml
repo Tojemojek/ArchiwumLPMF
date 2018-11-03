@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property resource="logback.properties"/>
+
+    <appender name="RootFile" class="ch.qos.logback.core.FileAppender">
+        <file>${my.logging.path.root}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <root level="${my.logging.level.root}">
+        <appender-ref ref="RootFile"/>
+    </root>
+
+    <appender name="MyFile" class="ch.qos.logback.core.FileAppender">
+        <file>${my.logging.path.myClasses}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="shout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <root level="${my.logging.level.root}">
+        <appender-ref ref="shout"/>
+    </root>
+
+    <logger name="pl.kostrowski.lpmf" additivity="false" level="${my.logging.level.myClasses}">
+        <appender-ref ref="MyFile"/>
+        <appender-ref ref="shout"/>
+    </logger>
+
+</configuration>

@@ -29,3 +29,6 @@ nbdist/
 
 /.metadata/
 /.metadata/
+log/
+db/
+pomocnicze/

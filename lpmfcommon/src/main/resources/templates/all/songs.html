@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Lista utworów</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(allSongs)}">
+
+        <h2>Wszystkie utwory <i>Listy Przebojów Muzyki Filmowej RMF Classic</i></h2>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Tytuł filmu</th>
+                <th>Tytuł utworu</th>
+                <th>Autorzy</th>
+            </tr>
+            <tr th:each="pos : ${allSongs}">
+                <td>
+                    <a th:href="@{/single/movie(movieId=${pos.getMovie().getId()})}"
+                       th:text="${pos.getMovie().getTitle()}"></a>
+                </td>
+                <td>
+                    <a th:href="@{/single/song(songId=${pos.getId()})}" th:text="${pos.getTitle()}"></a>
+                </td>
+                <td>
+                    <span th:each="artist, iter: ${pos.getAuthors()}">
+                        <span>
+                            <a th:href="@{/single/artist(artistId=${artist.getId()})}"
+                               th:text="${artist.getFullName()}"></a>
+                        </span>
+                        <span th:if="${iter.index+1!=pos.getAuthors().size()}">
+                            <br></br>
+                        </span>
+                    </span>
+                </td>
+
+            </tr>
+        </table>
+        </span>
+    </div>
+</div>
+
+<th:block th:include="layout/footer"></th:block>
+</body>
+</html>
