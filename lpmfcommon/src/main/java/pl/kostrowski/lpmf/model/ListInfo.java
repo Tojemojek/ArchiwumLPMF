@@ -1,6 +1,9 @@
 package pl.kostrowski.lpmf.model;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +11,8 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "list_info")
 public class ListInfo{
@@ -18,25 +23,6 @@ public class ListInfo{
 
     @Column(name = "date_of_list")
     private LocalDate dateOfList;
-
-    public ListInfo() {
-    }
-
-    public Integer getNoOfList() {
-        return noOfList;
-    }
-
-    public void setNoOfList(Integer noOfList) {
-        this.noOfList = noOfList;
-    }
-
-    public LocalDate getDateOfList() {
-        return dateOfList;
-    }
-
-    public void setDateOfList(LocalDate dateOfList) {
-        this.dateOfList = dateOfList;
-    }
 
     @Override
     public boolean equals(Object o) {

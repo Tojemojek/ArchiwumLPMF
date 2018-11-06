@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lpmfadmin</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>Lista Przebojów Muzyki Filmowej - zarządzanie</name>
 

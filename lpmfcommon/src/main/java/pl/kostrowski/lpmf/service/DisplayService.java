@@ -69,7 +69,7 @@ public class DisplayService {
     public List<LPMFPosition> customFindBySongId(Long songId) {
         List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.customFindBySongId(songId);
 
-        if (byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()) {
+        if (byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()!=null && byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()) {
             byNoOfListOOrderByPos = lpmfPositionRepository.
                     customFindBySongTitleAndMovieTitle(
                             byNoOfListOOrderByPos.get(0).getSong().getTitle(),
@@ -93,8 +93,8 @@ public class DisplayService {
             tmp.add(lpmfPosition);
             if (counter % 20 == 0) {
                 tmpWrapper = new LPMFPositionWrapperDto();
-                tmpWrapper.setNoOfList(lpmfPosition.getNoOfList());
-                tmpWrapper.setDateOfList(lpmfPosition.getDateOfList());
+                tmpWrapper.setNoOfList(lpmfPosition.getListInfo().getNoOfList());
+                tmpWrapper.setDateOfList(lpmfPosition.getListInfo().getDateOfList());
                 tmpWrapper.getLpmfPositionList().addAll(tmp);
                 allDto.add(tmpWrapper);
                 tmp.clear();

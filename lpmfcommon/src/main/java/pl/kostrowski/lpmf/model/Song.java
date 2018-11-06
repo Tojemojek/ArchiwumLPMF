@@ -1,8 +1,13 @@
 package pl.kostrowski.lpmf.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "song")
 public class Song {
@@ -33,61 +38,6 @@ public class Song {
             joinColumns = {@JoinColumn(name = "song_id")},
             inverseJoinColumns = {@JoinColumn(name = "artist_id")}
     )
-    private List<Artist> authors;
+    private List<Artist> artists;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCoverLink() {
-        return coverLink;
-    }
-
-    public void setCoverLink(String coverLink) {
-        this.coverLink = coverLink;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Boolean getHasDuplicates() {
-        return hasDuplicates;
-    }
-
-    public void setHasDuplicates(Boolean hasDuplicates) {
-        this.hasDuplicates = hasDuplicates;
-    }
-
-    public ListInfo getFirstTimeInList() {
-        return firstTimeInList;
-    }
-
-    public void setFirstTimeInList(ListInfo firstTimeInList) {
-        this.firstTimeInList = firstTimeInList;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public List<Artist> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<Artist> authors) {
-        this.authors = authors;
-    }
 }

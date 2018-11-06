@@ -155,7 +155,7 @@ public class PersistUnique {
         LPMFPosition lpmfPositionDb = null;
 
         try {
-            lpmfPositionDb = lpmfPositionRepository.findByNoOfListAndPos(lpmfPosition.getNoOfList(), lpmfPosition.getPos());
+            lpmfPositionDb = lpmfPositionRepository.findByNoOfListAndPos(lpmfPosition.getListInfo().getNoOfList(), lpmfPosition.getPos());
         } catch (Exception e) {
 
         }
@@ -169,8 +169,8 @@ public class PersistUnique {
     }
 
     private boolean twoAuthorsListsAreSame(Song fromDB, Song song) {
-        List<Artist> authorsdb = fromDB.getAuthors();
-        List<Artist> authors = song.getAuthors();
+        List<Artist> authorsdb = fromDB.getArtists();
+        List<Artist> authors = song.getArtists();
 
         if (authorsdb.size() != authors.size()) {
             return false;

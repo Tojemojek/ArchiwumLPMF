@@ -13,20 +13,17 @@ import java.util.List;
 @Repository
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-    Song findSongByTitleAndMovieAndAuthors (String title, Movie movie, List<Artist> authors);
-    Song findSongByTitleAndMovie (String title, Movie movie);
-    Song findSongByTitle (String title);
     List<Song> findAllByTitle (String title);
     List<Song> findAll ();
 
 
-    @Query("SELECT s from Song s left join s.authors a where a.id = :artistId")
+    @Query(value = "SELECT s from Song s left join s.artists a where a.id = :artistId")
     List<Song> customFindByArtistId(@Param("artistId") Long artistId);
 
-    @Query("SELECT s from Song s left join s.movie m where m.id = :movieId")
+    @Query(value = "SELECT s from Song s left join s.movie m where m.id = :movieId")
     List<Song> customFindByMovieId(@Param("movieId") Long movieId);
 
-    @Query("SELECT s from Song s left join s.movie m where s.title=:songTitle and m.title = :movieTitle")
+    @Query(value = "SELECT s from Song s left join s.movie m where s.title=:songTitle and m.title = :movieTitle")
     List<Song> customfindAllByTitleAndMovieTitle(@Param("songTitle") String songTitle,@Param("movieTitle") String movieTitle);
 
 

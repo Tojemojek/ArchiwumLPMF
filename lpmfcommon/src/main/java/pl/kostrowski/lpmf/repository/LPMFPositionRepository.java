@@ -15,13 +15,15 @@ public interface LPMFPositionRepository extends CrudRepository<LPMFPosition, Lon
 
     List<LPMFPosition> findAll();
 
+    @Query(value = "SELECT lpmf FROM LPMFPosition lpmf left join lpmf.listInfo as listInfo where (listInfo.noOfList = :noOfList)")
     List<LPMFPosition> findByNoOfListOrderByPos(Integer noOfList);
 
-    LPMFPosition findByNoOfListAndPos(Integer pos, Integer noOfList);
+    @Query(value = "SELECT lpmf FROM LPMFPosition lpmf left join lpmf.listInfo as listInfo where (lpmf.pos = :pos and listInfo.noOfList = :noOfList)")
+    LPMFPosition findByNoOfListAndPos(@Param("noOfList")Integer noOfList, @Param("pos")Integer pos);
 
-    @Query("SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s where s.id = :songId order by lpmf.noOfList")
+    @Query(value = "SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s left join lpmf.listInfo as listInfo where s.id = :songId order by listInfo.noOfList")
     List<LPMFPosition> customFindBySongId(@Param("songId") Long songId);
 
-    @Query("SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s left join s.movie as m where (s.title = :songTitle and m.title = :movieTitle) order by lpmf.noOfList")
+    @Query(value = "SELECT lpmf FROM LPMFPosition lpmf left join lpmf.song as s left join s.movie as m left join lpmf.listInfo as listInfo where (s.title = :songTitle and m.title = :movieTitle) order by listInfo.noOfList")
     List<LPMFPosition> customFindBySongTitleAndMovieTitle(@Param("songTitle") String songTitle, @Param("movieTitle") String movieTitle);
 }

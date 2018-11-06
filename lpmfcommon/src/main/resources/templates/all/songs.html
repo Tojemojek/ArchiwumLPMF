@@ -12,30 +12,33 @@
 
         <table class="table table-striped">
             <tr>
-                <th>Tytuł filmu</th>
                 <th>Tytuł utworu</th>
                 <th>Autorzy</th>
+                <th>Tytuł filmu</th>
+                <th>Data pierwszego wystąpienia w liście</th>
+                <th>Nr listy w której wystąpił po raz pierwszy</th>
             </tr>
             <tr th:each="pos : ${allSongs}">
-                <td>
-                    <a th:href="@{/single/movie(movieId=${pos.getMovie().getId()})}"
-                       th:text="${pos.getMovie().getTitle()}"></a>
-                </td>
                 <td>
                     <a th:href="@{/single/song(songId=${pos.getId()})}" th:text="${pos.getTitle()}"></a>
                 </td>
                 <td>
-                    <span th:each="artist, iter: ${pos.getAuthors()}">
+                    <span th:each="artist, iter: ${pos.getArtists()}">
                         <span>
                             <a th:href="@{/single/artist(artistId=${artist.getId()})}"
                                th:text="${artist.getFullName()}"></a>
                         </span>
-                        <span th:if="${iter.index+1!=pos.getAuthors().size()}">
+                        <span th:if="${iter.index+1!=pos.getArtists().size()}">
                             <br></br>
                         </span>
                     </span>
                 </td>
-
+                <td>
+                    <a th:href="@{/single/movie(movieId=${pos.getMovie().getId()})}"
+                       th:text="${pos.getMovie().getTitle()}"></a>
+                </td>
+                <td th:text="${pos.getFirstTimeInList().getDateOfList()}"></td>
+                <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
             </tr>
         </table>
         </span>

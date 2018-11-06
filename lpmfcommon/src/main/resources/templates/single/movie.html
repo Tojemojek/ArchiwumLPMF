@@ -25,12 +25,24 @@
         <table class="table table-striped">
             <tr>
                 <th>Utwór</th>
+                <th>Artyści</th>
                 <th>Pierwszy raz w liście nr</th>
                 <th>Data Listy</th>
             </tr>
             <tr th:each="pos : ${singleMovie.getSongList()}">
                 <td>
                     <a th:href="@{/single/song(songId=${pos.getId()})}" th:text="${pos.getTitle()}"></a>
+                </td>
+                <td>
+                    <span th:each="artist, iter: ${pos.getArtists()}">
+                        <span>
+                            <a th:href="@{/single/artist(artistId=${artist.getId()})}"
+                               th:text="${artist.getFullName()}"></a>
+                        </span>
+                        <span th:if="${iter.index+1!=pos.getArtists().size()}">
+                            <br></br>
+                        </span>
+                    </span>
                 </td>
                 <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
                 <td th:text="${pos.getFirstTimeInList().getDateOfList()}"></td>

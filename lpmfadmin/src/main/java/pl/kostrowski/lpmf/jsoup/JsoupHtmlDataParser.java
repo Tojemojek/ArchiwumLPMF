@@ -6,43 +6,51 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.kostrowski.lpmf.dictionaries.PathsToUrls;
+import org.springframework.web.util.HtmlUtils;
 import pl.kostrowski.lpmf.dto.SingleLpmfDto;
+import pl.kostrowski.lpmf.model.RawLpmfData;
+import pl.kostrowski.lpmf.repository.RawDataRepository;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
 @Component
-public class JsoupFileParser {
+public class JsoupHtmlDataParser {
 
-    private final Logger LOG = LoggerFactory.getLogger(JsoupFileParser.class);
+    private final Logger LOG = LoggerFactory.getLogger(JsoupHtmlDataParser.class);
 
-    private final String path = PathsToUrls.LOCAL_COPY_OF_HTML.getPath();
+    private RawDataRepository rawDataRepository;
 
-    public List<SingleLpmfDto> parseSingleFileToObjects(int i) {
+    @Autowired
+    public JsoupHtmlDataParser(RawDataRepository rawDataRepository) {
+        this.rawDataRepository = rawDataRepository;
+    }
+
+    public List<SingleLpmfDto> parseSingleFileToObjects(int listId) {
+
 
         long start = System.currentTimeMillis();
-        File processed = new File(path + "lista" + i + ".html");
 
-        LOG.debug("Przetwarzenie pliku:" + processed.toString());
-
-        Document doc = null;
-        try {
-            doc = Jsoup.parse(processed, "UTF-8", "");
-        } catch (IOException e) {
-            e.printStackTrace();
+        Optional<RawLpmfData> byId = rawDataRepository.findById(listId);
+        RawLpmfData rawLpmfData;
+        if (byId.isPresent()) {
+            rawLpmfData = byId.get();
+        } else {
+            return null;
         }
+
+        LOG.debug("Przetwarzenie listy nr:" + listId);
+
+        Document doc = Jsoup.parse(HtmlUtils.htmlUnescape(rawLpmfData.getRawPage()));
 
         List<SingleLpmfDto> wholeSingleList = new LinkedList<>();
 
-
         String nrIDataListy = doc.getElementsByClass("lpmf-not-head").text();
-
 
         Elements singleList = doc.getElementsByClass("inner-p");
 

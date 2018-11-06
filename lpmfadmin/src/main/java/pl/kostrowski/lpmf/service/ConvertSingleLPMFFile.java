@@ -9,7 +9,7 @@ import pl.kostrowski.lpmf.converters.MovieConverter;
 import pl.kostrowski.lpmf.converters.NrAndDateOfListConverter;
 import pl.kostrowski.lpmf.converters.SongTitleConverter;
 import pl.kostrowski.lpmf.dto.SingleLpmfDto;
-import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
+import pl.kostrowski.lpmf.jsoup.JsoupHtmlDataParser;
 import pl.kostrowski.lpmf.model.*;
 
 import java.util.LinkedList;
@@ -21,7 +21,7 @@ public class ConvertSingleLPMFFile {
     private final Logger LOG = LoggerFactory.getLogger(ConvertSingleLPMFFile.class);
 
     @Autowired
-    JsoupFileParser jsoupFileParser;
+    JsoupHtmlDataParser jsoupFileParser;
 
     @Autowired
     PersistUnique persistUnique;
@@ -61,14 +61,13 @@ public class ConvertSingleLPMFFile {
             artists = persistUnique.persistArtists(artists);
 
             song = songTitleConverter.convert(singleEntryInListDto.getFullSongTitle(), listInfo);
-            song.setAuthors(artists);
+            song.setArtists(artists);
             song.setMovie(movie);
             song.setCoverLink(singleEntryInListDto.getCoverLink());
 
             song = persistUnique.persistSong(song);
 
-            lpmfPosition.setNoOfList(listInfo.getNoOfList());
-            lpmfPosition.setDateOfList(listInfo.getDateOfList());
+            lpmfPosition.setListInfo(listInfo);
             lpmfPosition.setSong(song);
             lpmfPosition.setPos(singleEntryInListDto.getPosition());
             persistUnique.persistLPMFPosition(lpmfPosition);

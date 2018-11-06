@@ -2,8 +2,7 @@ package pl.kostrowski.lpmf.dictionaries;
 
 public enum PathsToUrls {
 
-    REMOTE_URL("http://www.rmfclassic.pl/lista-przebojow/notowanie/"),
-    LOCAL_COPY_OF_HTML("/media/Dane/Temp/LPMF/dane/");
+    REMOTE_URL("http://www.rmfclassic.pl/lista-przebojow/notowanie/");
 
     private String path;
 

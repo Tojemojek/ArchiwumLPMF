@@ -7,10 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.kostrowski.lpmf.jsoup.JsoupFileParser;
 import pl.kostrowski.lpmf.repository.SongRepository;
 import pl.kostrowski.lpmf.service.ConvertSingleLPMFFile;
-import pl.kostrowski.lpmf.service.ToDonwloadHtml;
+import pl.kostrowski.lpmf.service.ToDonwloadAndPersist;
 
 @Controller
 public class UpdateController {
@@ -18,10 +17,7 @@ public class UpdateController {
     Logger LOG = LoggerFactory.getLogger(UpdateController.class);
 
     @Autowired
-    ToDonwloadHtml toDonwloadHtml;
-
-    @Autowired
-    JsoupFileParser jsoupFileParser;
+    ToDonwloadAndPersist toDonwloadAndPersist;
 
     @Autowired
     ConvertSingleLPMFFile convertSingleLPMFFile;
@@ -65,7 +61,7 @@ public class UpdateController {
 
         long startDownload = System.currentTimeMillis();
 
-        toDonwloadHtml.downloadLists(fromList, toList);
+        toDonwloadAndPersist.downloadLists(fromList, toList);
 
         long endDownload = System.currentTimeMillis();
 
@@ -75,7 +71,7 @@ public class UpdateController {
 
     @RequestMapping(value = "/download/single", method = RequestMethod.GET)
     public String downloadSingleListToDrive(@RequestParam(value = "noOfList", defaultValue = "1") Integer noOfLists) {
-        toDonwloadHtml.downloadSingleList(noOfLists);
+        toDonwloadAndPersist.downloadSingleList(noOfLists);
         return "redirect:/";
     }
 }

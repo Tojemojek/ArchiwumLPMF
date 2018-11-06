@@ -1,8 +1,13 @@
 package pl.kostrowski.lpmf.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "movie")
 public class Movie {
@@ -17,30 +22,6 @@ public class Movie {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private ListInfo firstTimeInList;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public ListInfo getFirstTimeInList() {
-        return firstTimeInList;
-    }
-
-    public void setFirstTimeInList(ListInfo firstTimeInList) {
-        this.firstTimeInList = firstTimeInList;
-    }
 
     @Override
     public boolean equals(Object o) {

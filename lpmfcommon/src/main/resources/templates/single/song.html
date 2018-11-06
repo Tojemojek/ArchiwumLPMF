@@ -35,8 +35,8 @@
             </tr>
             <tr th:each="pos : ${singleSong}">
                 <td th:text="${pos.getPos()}">id</td>
-                <td th:text="${pos.getNoOfList()}">id</td>
-                <td th:text="${pos.getDateOfList()}">id</td>
+                <td th:text="${pos.getListInfo().getNoOfList()}">id</td>
+                <td th:text="${pos.getListInfo().getDateOfList()}">id</td>
             </tr>
         </table>
         </span>

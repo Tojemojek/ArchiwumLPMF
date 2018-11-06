@@ -42,12 +42,12 @@
                         </td>
 
                          <td>
-                            <span th:each="artist, iter: ${list.getSong().getAuthors()}" th:remove="tag">
+                            <span th:each="artist, iter: ${list.getSong().getArtists()}" th:remove="tag">
                                 <span>
                                     <a th:href="@{/single/artist(artistId=${artist.getId()})}"
                                        th:text="${artist.getFullName()}"></a>
                                 </span>
-                                <span th:if="${iter.index+1!=list.getSong().getAuthors().size()}">
+                                <span th:if="${iter.index+1!=list.getSong().getArtists().size()}">
                                     <br></br>
                                 </span>
                             </span>
