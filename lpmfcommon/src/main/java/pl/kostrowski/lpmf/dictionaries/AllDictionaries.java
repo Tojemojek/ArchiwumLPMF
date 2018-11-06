@@ -33,10 +33,8 @@ public class AllDictionaries {
 		moviesDictionary.put("Labirynt fauna", "Labirynt Fauna");
 		moviesDictionary.put("Mandela", "Mandela - Long Walk to Freedom");
 		moviesDictionary.put("Opowieści z Narnii", "Opowieści z Narnii - Lew, Czarownica i Stara Szafa");
-		moviesDictionary.put("Opowieści z Narnii: Lew, czarownica i stara szafa",
-				"Opowieści z Narnii - Lew, Czarownica i Stara Szafa");
-		moviesDictionary.put("Opowieści z Narnii: lew, czarownica i stara szafa",
-				"Opowieści z Narnii - Lew, Czarownica i Stara Szafa");
+		moviesDictionary.put("Opowieści z Narnii: Lew, czarownica i stara szafa", "Opowieści z Narnii - Lew, Czarownica i Stara Szafa");
+		moviesDictionary.put("Opowieści z Narnii: lew, czarownica i stara szafa", "Opowieści z Narnii - Lew, Czarownica i Stara Szafa");
 		moviesDictionary.put("Piraci z Karaibów", "Piraci z Karaibów - Klątwa Czarnej Perły");
 		moviesDictionary.put("Piraci z Karaibów - klątwa Czarnej Perły", "Piraci z Karaibów - Klątwa Czarnej Perły");
 		moviesDictionary.put("Piraci z Karaibów - na krańcu świata", "Piraci z Karaibów - Na krańcu świata");

@@ -17,6 +17,6 @@ public class RawLpmfData {
 
     @Lob
     @Column(name = "rawPage")
-    String rawPage;
+    byte[] rawPage;
 
 }

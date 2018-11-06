@@ -13,29 +13,6 @@ import java.util.Map;
 @Service
 public class MovieConverter {
 
-    public List<Movie> convertOLD(List<SingleLpmfDto> singleEntryInListDtos) {
-
-        Map<String, String> moviesDictionary = AllDictionaries.getMoviesDictionary();
-
-        List<Movie> movies = new LinkedList<>();
-        String listNumberAndDate;
-
-
-        for (SingleLpmfDto singleEntryInListDto : singleEntryInListDtos) {
-            Movie movie = new Movie();
-            String title = singleEntryInListDto.getFullMovieTitle();
-            listNumberAndDate = singleEntryInListDto.getNrAndDateOfList();
-
-            if (moviesDictionary.containsKey(title)) {
-                title = moviesDictionary.get(movie.getTitle());
-            }
-            movie.setTitle(title);
-//            movie.setFirstTimeInList(listNumberAndDate);
-            movies.add(movie);
-        }
-        return movies;
-    }
-
     public Movie convert(String singleEntryInListDtos, ListInfo listInfo) {
 
         Map<String, String> moviesDictionary = AllDictionaries.getMoviesDictionary();

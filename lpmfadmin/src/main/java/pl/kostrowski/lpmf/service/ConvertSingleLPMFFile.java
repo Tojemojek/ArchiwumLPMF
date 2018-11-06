@@ -11,33 +11,31 @@ import pl.kostrowski.lpmf.converters.SongTitleConverter;
 import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 import pl.kostrowski.lpmf.jsoup.JsoupHtmlDataParser;
 import pl.kostrowski.lpmf.model.*;
+import pl.kostrowski.lpmf.repository.CleanUpRepository;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ConvertSingleLPMFFile {
 
     private final Logger LOG = LoggerFactory.getLogger(ConvertSingleLPMFFile.class);
 
-    @Autowired
     JsoupHtmlDataParser jsoupFileParser;
-
-    @Autowired
     PersistUnique persistUnique;
-
-    @Autowired
     MovieConverter movieConverter;
-
-    @Autowired
     ArtistConverter artistConverter;
-
-    @Autowired
     SongTitleConverter songTitleConverter;
-
-    @Autowired
     NrAndDateOfListConverter nrAndDateOfListConverter;
 
+    @Autowired
+    public ConvertSingleLPMFFile(JsoupHtmlDataParser jsoupFileParser, PersistUnique persistUnique, MovieConverter movieConverter, ArtistConverter artistConverter, SongTitleConverter songTitleConverter, NrAndDateOfListConverter nrAndDateOfListConverter) {
+        this.jsoupFileParser = jsoupFileParser;
+        this.persistUnique = persistUnique;
+        this.movieConverter = movieConverter;
+        this.artistConverter = artistConverter;
+        this.songTitleConverter = songTitleConverter;
+        this.nrAndDateOfListConverter = nrAndDateOfListConverter;
+    }
 
     public void convertAndPersistSingleLPMFFile(Integer noOfProcessedFile) {
 
@@ -74,7 +72,7 @@ public class ConvertSingleLPMFFile {
 
         }
     }
-    public void markDuplicateSongs(){
+    public void markDuplicateSongs() {
         persistUnique.findDuplicatedSongs();
     }
 }

@@ -6,7 +6,150 @@
     <th:block th:include="./layout/header"></th:block>
 </head>
 <body>
-<th:block th:include="./layout/footer"></th:block>
-</body>
+<div class="container">
+<h2>Witaj!</h2>
+<h3>na całkowicie amatorskiej liście przebojów muzyki filmowej...</h3>
 
+<p>Żeby zrozumieć czym tak naprawdę jest ta strona i jej podstrony:</p>
+<p>Proszę nie zrażać się, że strona działa bardzo wolno... na razie każde zapytanie generuje KOMPLETNE zestawienie
+    medalowe / listę utworów. Konsekwencją jest bardzo duża strona...</p>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    Metodologia - czyli kto i jak to robi</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <ul>
+                    <li>Autorem niniejszego opracowania jest, fan i wierny słuchacz Listy Przebojów Muzyki Filmowej
+                        (dalej w skrócie LPMF).
+                        Zestawienie zostało przygotowane hobbystycznie i nie mogę zagwarantować, że nie wkradły się
+                        błędy (mimo najszczerszych chęci i wielu spędzonych nad nim godzin).
+                    </li>
+                    <li>Wszystkie dane do niniejszego zestawienia pochodzą ze strony: <a
+                            href="http://www.rmfclassic.pl/lista-przebojow/">http://www.rmfclassic.pl/lista-przebojow/</a>.
+                    </li>
+                    <li>Do opracowania danych wykorzystano napisany w Java program + bazę danych.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    Założenia - czyli co tak naprawdę jest w tym zestawieniu</a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                Podstawowym założeniem jest poprawność danych na stronie.
+                Założeniem wtórnym jest poprawność działania stosowanych funkcji i
+                algorytmów.
+                Kolejne to:
+                <ul>
+                    <li>
+                        Notowanie 39 z dnia 30-06-2012 i 02-09-2013 mimo dwóch „audycji” <strong>BĘDZIE</strong> liczone
+                        jest jako jedno.
+                    </li>
+                    <li>
+                        Notowanie 0 nie jest w ogóle liczone do statystyk.
+                    </li>
+                    <li>
+                        Mimo różnych zmian w notowaniach (m.in. funkcjonowania przez jakiś
+                        czas pozycji 21, zmiany liczby propozycji, dawania niektórym utworom 2.
+                        szansy) założono, że LPMF to 20 utworów w notowaniu, propozycje nie są w zestawieniu
+                        uwzględniane.
+                    </li>
+                    <li>
+                        Literówki i różne wersje nazewnictwa tego samego utworu (np. „Afera
+                        Tomasza Crowna” i „Afera Thomasa Crowna”) zostały ujednolicone (a
+                        przynajmniej te różnice które znalazłem - poprawiłem) - ich listy są na podstronach
+                    </li>
+                </ul>
+
+                Założenia bardziej dyskusyjne to:
+                <ul>
+                    <li>
+                        Artyści zostali potraktowani jako jednostki. Jeśli utwór ma 3 współautorów to zakładam że są to
+                        oddzielni artyści i dla każdego z nich oddzielnie liczę statystykę.
+                        Efektem jest "więcej medali" dla artystów niż wynikałoby to z prostej matematyki. (Bo jeśli "Now
+                        we are free" wygrywa, to złoty medal wędruje na konto Hansa Zimmera i Lisy Gerard).
+                    </li>
+                    <li>
+                        Wiąże się to np. z podziałem "Simon & Garfunkel" na Paul Simon i Art Garfunkel.
+                    </li>
+                    <li>
+                        W statystykach utworów
+                        <string>STARAŁEM SIĘ</string>
+                        aby ten sam utwór w różnych aranżacjach był liczony jako jeden. Przykładem jest Over the Rainbow
+                        w wykonaniu Judy Garland, które jest do statystyk liczone razem z wykonaniem Kayah i Włodka
+                        Pawlika.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    Klasyfikacje</a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <ul>
+                    <li>
+                        Na razie dostępna jest tylko klasyfikacja medalowa. Jest liczona tak jak w sporcie, gdzie zawsze
+                        liczy się najpierw liczbę złotych
+                        medali, później srebrnych i na końcu brązowych – czyli np. utwór z jednym
+                        złotym medalem jest wyżej w klasyfikacji niż utwór z 10 srebrnymi i 30
+                        brązowymi. Na stronie z tą klasyfikacją jest też dostępna lista innych miejsc zajmowanych przez
+                        utwory.
+                    </li>
+                    <li>
+                        Planuję stworzenie klasyfikacji punktowej gdzie jak w skokach narciarskich przyznawane będą
+                        punkty za miejsca. Ale to później...
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                        Plany</a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ol>
+                        <li>
+                            Poprawienie wydajności
+                        </li>
+                        <li>
+                            Paging (czyli pokazywanie maks 50 wyników na stronę i dodanie przycisków "pokaż następne,
+                            pokaż poprzednie")
+                        </li>
+                        <li>
+                            Klasyfikacja punktowa
+                        </li>
+                        <li>
+                            Przejęcie władzy nad światem
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <th:block th:include="./layout/footer"></th:block>
+</footer>
 </html>

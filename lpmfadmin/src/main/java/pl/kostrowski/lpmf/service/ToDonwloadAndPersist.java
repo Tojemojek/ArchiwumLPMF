@@ -21,9 +21,12 @@ public class ToDonwloadAndPersist {
 
     private RawDataRepository rawDataRepository;
 
+    private GzipUtil gzipUtil;
+
     @Autowired
-    public ToDonwloadAndPersist(RawDataRepository rawDataRepository) {
+    public ToDonwloadAndPersist(RawDataRepository rawDataRepository, GzipUtil gzipUtil) {
         this.rawDataRepository = rawDataRepository;
+        this.gzipUtil = gzipUtil;
     }
 
     public void downloadLists(int fromList, int toList) {
@@ -55,9 +58,9 @@ public class ToDonwloadAndPersist {
 
         RawLpmfData rawLpmfData = new RawLpmfData();
         rawLpmfData.setId(noOfList);
-        rawLpmfData.setRawPage(HtmlUtils.htmlEscape(rawHtml));
-
+        rawLpmfData.setRawPage(gzipUtil.zip(HtmlUtils.htmlEscape(rawHtml)));
         rawDataRepository.save(rawLpmfData);
+        LOG.info("zapisano listę nr " + noOfList);
 
     }
 }
