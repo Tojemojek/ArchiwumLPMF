@@ -4,6 +4,7 @@ use lpmf;
 DROP VIEW IF EXISTS `songs_medal_view`;
 DROP VIEW IF EXISTS `artists_medal_view`;
 DROP VIEW IF EXISTS `movies_medal_view`;
+DROP VIEW IF EXISTS `sanity_check`;
 
 CREATE VIEW `songs_medal_view` AS (SELECT s.title                                       as song_title,
                                           m.title                                       as movie_title,
@@ -155,3 +156,48 @@ CREATE VIEW `artists_medal_view` AS (SELECT a.full_name                         
                                               poz19 desc,
                                               poz20 desc,
                                               artist_name asc);
+
+CREATE VIEW `sanity_check` AS
+  select sum(poz1) as pos1,
+         sum(poz2) as pos2,
+         sum(poz3) as pos3,
+         sum(poz4) as pos4,
+         sum(poz5) as pos5,
+         sum(poz6) as pos6,
+         sum(poz7) as pos7,
+         sum(poz8) as pos8,
+         sum(poz9) as pos9,
+         sum(poz10) as pos10,
+         sum(poz11) as pos11,
+         sum(poz12) as pos12,
+         sum(poz13) as pos13,
+         sum(poz14) as pos14,
+         sum(poz15) as pos15,
+         sum(poz16) as pos16,
+         sum(poz17) as pos17,
+         sum(poz18) as pos18,
+         sum(poz19) as pos19,
+         sum(poz20) as pos20
+  from movies_medal_view
+  union all
+  select sum(poz1) as pos1,
+         sum(poz2) as pos2,
+         sum(poz3) as pos3,
+         sum(poz4) as pos4,
+         sum(poz5) as pos5,
+         sum(poz6) as pos6,
+         sum(poz7) as pos7,
+         sum(poz8) as pos8,
+         sum(poz9) as pos9,
+         sum(poz10) as pos10,
+         sum(poz11) as pos11,
+         sum(poz12) as pos12,
+         sum(poz13) as pos13,
+         sum(poz14) as pos14,
+         sum(poz15) as pos15,
+         sum(poz16) as pos16,
+         sum(poz17) as pos17,
+         sum(poz18) as pos18,
+         sum(poz19) as pos19,
+         sum(poz20) as pos20
+  from songs_medal_view;
