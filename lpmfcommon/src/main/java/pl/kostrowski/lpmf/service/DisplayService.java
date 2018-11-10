@@ -2,12 +2,17 @@ package pl.kostrowski.lpmf.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.dto.*;
+import pl.kostrowski.lpmf.dto.ArtistSongsDto;
+import pl.kostrowski.lpmf.dto.LPMFPositionWrapperDto;
+import pl.kostrowski.lpmf.dto.MovieSongsDto;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.LPMFPosition;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
-import pl.kostrowski.lpmf.repository.*;
+import pl.kostrowski.lpmf.repository.ArtistRepository;
+import pl.kostrowski.lpmf.repository.LPMFPositionRepository;
+import pl.kostrowski.lpmf.repository.MovieRepository;
+import pl.kostrowski.lpmf.repository.SongRepository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,21 +20,21 @@ import java.util.List;
 @Service
 public class DisplayService {
 
-    @Autowired
-    LPMFPositionRepository lpmfPositionRepository;
+    private final LPMFPositionRepository lpmfPositionRepository;
+
+    private final SongRepository songRepository;
+
+    private final ArtistRepository artistRepository;
+
+    private final MovieRepository movieRepository;
 
     @Autowired
-    SongRepository songRepository;
-
-    @Autowired
-    ArtistRepository artistRepository;
-
-    @Autowired
-    MovieRepository movieRepository;
-
-    @Autowired
-    MedalTablesRepository medalTablesRepository;
-
+    public DisplayService(LPMFPositionRepository lpmfPositionRepository, SongRepository songRepository, ArtistRepository artistRepository, MovieRepository movieRepository) {
+        this.lpmfPositionRepository = lpmfPositionRepository;
+        this.songRepository = songRepository;
+        this.artistRepository = artistRepository;
+        this.movieRepository = movieRepository;
+    }
 
     public List<Song> showAllSongs() {
         List<Song> songs = songRepository.findAll();
@@ -46,21 +51,6 @@ public class DisplayService {
         return artists;
     }
 
-    public List<MedalTableSongs> medalTableSongs() {
-        List<MedalTableSongs> medalTableDataFromDb = medalTablesRepository.createMedalTableSongsFromDb();
-        return medalTableDataFromDb;
-    }
-
-    public List<MedalTableArtist> medalTableArtists() {
-        List<MedalTableArtist> medalTableDataFromDb = medalTablesRepository.createMedalTableArtistFromDb();
-        return medalTableDataFromDb;
-    }
-
-    public List<MedalTableMovie> medalTableMovies() {
-        List<MedalTableMovie> medalTableDataFromDb = medalTablesRepository.createMedalTableMoviesFromDb();
-        return medalTableDataFromDb;
-    }
-
     public List<LPMFPosition> findByNoOfList(Integer listNo) {
         List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.findByNoOfListOrderByPos(listNo);
         return byNoOfListOOrderByPos;
@@ -69,13 +59,11 @@ public class DisplayService {
     public List<LPMFPosition> customFindBySongId(Long songId) {
         List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.customFindBySongId(songId);
 
-        if (byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()!=null && byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()) {
+        if (byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates() != null && byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()) {
             byNoOfListOOrderByPos = lpmfPositionRepository.
                     customFindBySongTitleAndMovieTitle(
                             byNoOfListOOrderByPos.get(0).getSong().getTitle(),
                             byNoOfListOOrderByPos.get(0).getSong().getMovie().getTitle());
-
-
         }
 
         return byNoOfListOOrderByPos;
