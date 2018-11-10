@@ -22,7 +22,7 @@
             </tr>
             <tr th:each="pos : ${allMedalArtists}">
                 <td>
-                    <a th:href="@{/single/artist(artistId=${pos.getArtistId()})}" th:text="${pos.getArtistName()}"></a>
+                    <a th:href="@{/single/artist(artistId=${pos.getId()})}" th:text="${pos.getArtistName()}"></a>
                 </td>
                 <td th:text="${pos.getTotalInList()}"></td>
                 <td th:text="${pos.getMedals().get(1)}"></td>

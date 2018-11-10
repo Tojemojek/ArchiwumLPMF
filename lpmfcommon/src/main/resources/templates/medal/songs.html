@@ -21,9 +21,11 @@
                 <th>Pozostałe pozycje</th>
             </tr>
             <tr th:each="pos : ${allMedalSongs}">
-                <td th:text="${pos.getSongTitle()}">
+                <td>
+                    <a th:href="@{/single/song(songId=${pos.getId()})}" th:text="${pos.getSongTitle()}"></a>
                 </td>
-                <td th:text="${pos.getMovieTitle()}">
+                <td>
+                    <a th:href="@{/single/movie(movieId=${pos.getMovieId()})}" th:text="${pos.getMovieTitle()}"></a>
                 </td>
                 <td th:text="${pos.getTotalInList()}"></td>
                 <td th:text="${pos.getMedals().get(1)}"></td>
