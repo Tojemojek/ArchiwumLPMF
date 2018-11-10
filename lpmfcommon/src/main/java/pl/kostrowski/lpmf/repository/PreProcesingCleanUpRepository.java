@@ -7,7 +7,9 @@ import pl.kostrowski.lpmf.model.PreProcesingCleanUpData;
 import java.util.List;
 
 @Repository
-public interface CleanUpRepository extends CrudRepository<CleanUpData, Long> {
+public interface PreProcesingCleanUpRepository extends JpaRepository<PreProcesingCleanUpData, Long> {
 
-    List<CleanUpData> findCleanUpDataByCategory(String category);
+    List<PreProcesingCleanUpData> findCleanUpDataByCategory(String category);
+
+
 }

@@ -10,6 +10,11 @@ import java.util.TimeZone;
 @SpringBootApplication(scanBasePackages = "pl.kostrowski.lpmf")
 public class LPMFUser {
 
+    @PostConstruct
+    public void init(){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(LPMFUser.class, args);
     }
