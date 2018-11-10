@@ -12,11 +12,16 @@ import pl.kostrowski.lpmf.service.DisplayService;
 
 import java.util.List;
 
+@SuppressWarnings("SameReturnValue")
 @Controller
 public class AllController {
 
+    private final DisplayService displayService;
+
     @Autowired
-    DisplayService displayService;
+    public AllController(DisplayService displayService) {
+        this.displayService = displayService;
+    }
 
     @RequestMapping(value = "/")
     public String displayMenu() {

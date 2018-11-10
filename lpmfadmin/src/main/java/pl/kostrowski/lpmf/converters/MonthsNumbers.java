@@ -15,7 +15,7 @@ public enum MonthsNumbers {
     LISTOPADA(11),
     GRUDNIA(12);
 
-    private int monthNumber;
+    private final int monthNumber;
 
     MonthsNumbers(int monthNumber) {
         this.monthNumber = monthNumber;

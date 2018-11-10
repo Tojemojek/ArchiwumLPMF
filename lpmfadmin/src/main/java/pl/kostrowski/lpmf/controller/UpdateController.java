@@ -7,57 +7,50 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.kostrowski.lpmf.repository.SongRepository;
-import pl.kostrowski.lpmf.service.ConvertSingleLPMFFile;
+import pl.kostrowski.lpmf.service.BatchConvertLPMFFile;
 import pl.kostrowski.lpmf.service.ToDonwloadAndPersist;
 
+@SuppressWarnings("SameReturnValue")
 @Controller
 public class UpdateController {
 
-    Logger LOG = LoggerFactory.getLogger(UpdateController.class);
+    private final ToDonwloadAndPersist toDonwloadAndPersist;
+    private final BatchConvertLPMFFile batchConvertLPMFFile;
+    private final Logger LOG = LoggerFactory.getLogger(UpdateController.class);
 
     @Autowired
-    ToDonwloadAndPersist toDonwloadAndPersist;
-
-    @Autowired
-    ConvertSingleLPMFFile convertSingleLPMFFile;
-
-    @Autowired
-    SongRepository songRepository;
+    public UpdateController(ToDonwloadAndPersist toDonwloadAndPersist, BatchConvertLPMFFile batchConvertLPMFFile) {
+        this.toDonwloadAndPersist = toDonwloadAndPersist;
+        this.batchConvertLPMFFile = batchConvertLPMFFile;
+    }
 
 
     @RequestMapping(value = "/persist/manyFiles", method = RequestMethod.GET)
     public String processManyFiles(@RequestParam(value = "fromList", defaultValue = "1") Integer fromList,
-                                       @RequestParam(value = "toList", defaultValue = "1") Integer toList) {
+                                   @RequestParam(value = "toList", defaultValue = "1") Integer toList) {
 
         long start = System.currentTimeMillis();
-        for (int i = fromList; i <= toList; i++) {
-            long startIn = System.currentTimeMillis();
-            convertSingleLPMFFile.convertAndPersistSingleLPMFFile(i);
-            long stopIn = System.currentTimeMillis();
-            LOG.info("Konwersja pliku nr " + i + " zajęła " + (stopIn - startIn) + " milisekund.");
-        }
-
+        batchConvertLPMFFile.batchConvertAndPersist(fromList, toList);
         long stop = System.currentTimeMillis();
         LOG.info("Konwersja od pliku nr " + fromList + " do pliku numer " + toList + " zajęła " + (stop - start) + " milisekund.");
         return "redirect:/duplicates";
     }
 
     @RequestMapping(value = "/persist/singleFile", method = RequestMethod.GET)
-    public String  processOneFile(@RequestParam(value = "noOfList", defaultValue = "1") Integer noOfList) {
-        convertSingleLPMFFile.convertAndPersistSingleLPMFFile(noOfList);
+    public String processOneFile(@RequestParam(value = "noOfList", defaultValue = "1") Integer noOfList) {
+        batchConvertLPMFFile.batchConvertAndPersist(noOfList, noOfList);
         return "redirect:/duplicates";
     }
 
     @RequestMapping(value = "/duplicates", method = RequestMethod.GET)
-    public String findAndMarkDuplicates(){
-        convertSingleLPMFFile.markDuplicateSongs();
+    public String findAndMarkDuplicates() {
+        batchConvertLPMFFile.markDuplicateSongs();
         return "redirect:/";
     }
 
     @RequestMapping(value = "/download/many", method = RequestMethod.GET)
     public String downloadListsToDrive(@RequestParam(value = "fromList", defaultValue = "1") Integer fromList,
-                                     @RequestParam(value = "toList", defaultValue = "1") Integer toList) {
+                                       @RequestParam(value = "toList", defaultValue = "1") Integer toList) {
 
         long startDownload = System.currentTimeMillis();
 

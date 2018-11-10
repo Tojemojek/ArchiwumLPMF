@@ -12,7 +12,7 @@ import java.util.zip.GZIPOutputStream;
 @Service
 public class GzipUtil {
  
-    public static byte[] zip(final String str) {
+    public byte[] zip(final String str) {
         if ((str == null) || (str.length() == 0)) {
             throw new IllegalArgumentException("Cannot zip null or empty string");
         }
@@ -27,7 +27,7 @@ public class GzipUtil {
         }
     }
  
-    public static String unzip(final byte[] compressed) {
+    public String unzip(final byte[] compressed) {
         if ((compressed == null) || (compressed.length == 0)) {
             throw new IllegalArgumentException("Cannot unzip null or empty bytes");
         }
@@ -53,7 +53,7 @@ public class GzipUtil {
         }
     }
  
-    public static boolean isZipped(final byte[] compressed) {
+    private boolean isZipped(final byte[] compressed) {
         return (compressed[0] == (byte) (GZIPInputStream.GZIP_MAGIC)) && (compressed[1] == (byte) (GZIPInputStream.GZIP_MAGIC >> 8));
     }
 }

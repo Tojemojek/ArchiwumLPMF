@@ -12,11 +12,16 @@ import pl.kostrowski.lpmf.service.DisplayService;
 
 import java.util.List;
 
+@SuppressWarnings("SameReturnValue")
 @Controller
 public class SingleController {
 
+    private final DisplayService displayService;
+
     @Autowired
-    DisplayService displayService;
+    public SingleController(DisplayService displayService) {
+        this.displayService = displayService;
+    }
 
     @RequestMapping(value = "/single/list")
     public String showSingleList(@RequestParam(value = "listNo", defaultValue = "1") Integer listNo,
@@ -28,7 +33,7 @@ public class SingleController {
 
     @RequestMapping(value = "/single/song")
     public String showMeSong(@RequestParam(value = "songId", defaultValue = "32") Integer songId,
-                         Model model) {
+                             Model model) {
         List<LPMFPosition> findSongs = displayService.customFindBySongId(Long.valueOf(songId));
         model.addAttribute("singleSong", findSongs);
         return "single/song";
@@ -36,7 +41,7 @@ public class SingleController {
 
     @RequestMapping(value = "/single/artist")
     public String showMeArtist(@RequestParam(value = "artistId", defaultValue = "32") Integer artistId,
-                         Model model) {
+                               Model model) {
         ArtistSongsDto singleArtist = displayService.customFindArtistById(Long.valueOf(artistId));
         model.addAttribute("singleArtist", singleArtist);
         return "single/artist";
@@ -44,7 +49,7 @@ public class SingleController {
 
     @RequestMapping(value = "/single/movie")
     public String showMeMovie(@RequestParam(value = "movieId", defaultValue = "32") Integer movieId,
-                               Model model) {
+                              Model model) {
         MovieSongsDto singleMovie = displayService.customFindMovieById(Long.valueOf(movieId));
         model.addAttribute("singleMovie", singleMovie);
         return "single/movie";

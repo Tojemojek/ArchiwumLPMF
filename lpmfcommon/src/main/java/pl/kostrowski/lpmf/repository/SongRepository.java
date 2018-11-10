@@ -4,8 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.kostrowski.lpmf.model.Artist;
-import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
 
 import java.util.List;

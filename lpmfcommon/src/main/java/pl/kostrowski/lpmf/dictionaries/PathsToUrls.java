@@ -4,7 +4,7 @@ public enum PathsToUrls {
 
     REMOTE_URL("http://www.rmfclassic.pl/lista-przebojow/notowanie/");
 
-    private String path;
+    private final String path;
 
     PathsToUrls(String path) {
         this.path = path;

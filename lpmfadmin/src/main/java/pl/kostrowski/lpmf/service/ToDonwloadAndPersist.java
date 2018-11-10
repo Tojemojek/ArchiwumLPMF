@@ -19,9 +19,9 @@ public class ToDonwloadAndPersist {
 
     private final String URL_ADDRESS = PathsToUrls.REMOTE_URL.getPath();
 
-    private RawDataRepository rawDataRepository;
+    private final RawDataRepository rawDataRepository;
 
-    private GzipUtil gzipUtil;
+    private final GzipUtil gzipUtil;
 
     @Autowired
     public ToDonwloadAndPersist(RawDataRepository rawDataRepository, GzipUtil gzipUtil) {

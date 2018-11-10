@@ -25,8 +25,8 @@ public class JsoupHtmlDataParser {
 
     private final Logger LOG = LoggerFactory.getLogger(JsoupHtmlDataParser.class);
 
-    private RawDataRepository rawDataRepository;
-    private GzipUtil gzipUtil;
+    private final RawDataRepository rawDataRepository;
+    private final GzipUtil gzipUtil;
 
     @Autowired
     public JsoupHtmlDataParser(RawDataRepository rawDataRepository, GzipUtil gzipUtil) {
@@ -38,13 +38,13 @@ public class JsoupHtmlDataParser {
         List<List<SingleLpmfDto>> allFilesData = new LinkedList<>();
 
         for (int i = fromList; i <= toList; i++){
-            allFilesData.add(parseSingleFileToObjects(i));
+            List<SingleLpmfDto> singleLpmfDtos = parseSingleFileToObjects(i);
+            allFilesData.add(singleLpmfDtos);
         }
         return allFilesData;
     }
 
-    public List<SingleLpmfDto> parseSingleFileToObjects(int listId) {
-
+    private List<SingleLpmfDto> parseSingleFileToObjects(int listId) {
 
         long start = System.currentTimeMillis();
 

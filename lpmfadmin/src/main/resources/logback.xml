@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property resource="logback.properties"/>
+
+    <appender name="shout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <root level="${my.logging.level.root}">
+        <appender-ref ref="shout"/>
+    </root>
+
+    <logger name="pl.kostrowski.lpmf" additivity="false" level="${my.logging.level.myClasses}">
+        <appender-ref ref="shout"/>
+    </logger>
+
+    <logger name="pl.kostrowski.lpmf.service" additivity="false" level="${my.logging.level.service}">
+        <appender-ref ref="shout"/>
+    </logger>
+
+
+</configuration>
