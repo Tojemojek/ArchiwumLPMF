@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +26,17 @@ public class LPMFPosition {
     @ManyToOne(cascade = CascadeType.MERGE)
     Song song;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LPMFPosition that = (LPMFPosition) o;
+        return Objects.equals(pos, that.pos) &&
+                Objects.equals(listInfo.getNoOfList(), that.listInfo.getNoOfList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pos, listInfo);
+    }
 }

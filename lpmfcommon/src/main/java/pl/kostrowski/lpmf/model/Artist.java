@@ -28,11 +28,18 @@ public class Artist {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Artist artist = (Artist) o;
-        return Objects.equals(id, artist.id);
+        return Objects.equals(fullName, artist.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(fullName);
+    }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "fullName='" + fullName + '\'' +
+                '}';
     }
 }
