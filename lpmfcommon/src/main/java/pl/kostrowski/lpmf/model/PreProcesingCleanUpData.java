@@ -9,12 +9,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "clean_up_maps")
-public class CleanUpData {
+public class PreProcesingCleanUpData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "from")
     private String from;

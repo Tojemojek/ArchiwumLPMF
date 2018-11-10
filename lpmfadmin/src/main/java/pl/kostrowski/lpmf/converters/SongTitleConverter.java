@@ -1,18 +1,18 @@
 package pl.kostrowski.lpmf.converters;
 
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.dictionaries.AllDictionaries;
 import pl.kostrowski.lpmf.model.ListInfo;
 import pl.kostrowski.lpmf.model.Song;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class SongTitleConverter {
 
-    public Song convert(String singleEntryInListDtos, ListInfo listInfo) {
+    private Map<String, String> songDictionary = new HashMap<>();
 
-        Map<String, String> songDictionary = AllDictionaries.getSongDictionary();
+    public Song convert(String singleEntryInListDtos, ListInfo listInfo) {
 
         String songTitlefromDto = singleEntryInListDtos.trim();
 
@@ -27,4 +27,7 @@ public class SongTitleConverter {
         return song;
     }
 
+    public void setSongDictionary(Map<String, String> songDictionary) {
+        this.songDictionary = songDictionary;
+    }
 }

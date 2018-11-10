@@ -1,11 +1,10 @@
 package pl.kostrowski.lpmf.converters;
 
 import org.springframework.stereotype.Service;
-import pl.kostrowski.lpmf.dictionaries.AllDictionaries;
-import pl.kostrowski.lpmf.dto.SingleLpmfDto;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.ListInfo;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +12,10 @@ import java.util.Map;
 @Service
 public class ArtistConverter {
 
+    private Map<String, String> artistDictionary = new HashMap<>();
+
     public List<Artist> convert(String singleEntryFromDtos, ListInfo listInfo) {
 
-        Map<String, String> artistDictionary = AllDictionaries.getArtistDictionary();
         List<Artist> allArtists = new LinkedList<>();
 
         String artistNameFromDto = singleEntryFromDtos.trim();
@@ -30,6 +30,10 @@ public class ArtistConverter {
         for (int i = 0; i < splitedArtists.length; i++) {
             trimmed = splitedArtists[i].trim();
 
+            if (artistDictionary.containsKey(trimmed)) {
+                trimmed = artistDictionary.get(trimmed);
+            }
+
             Artist artist = new Artist();
             artist.setFullName(trimmed);
             artist.setFirstTimeInList(listInfo);
@@ -39,4 +43,7 @@ public class ArtistConverter {
         return allArtists;
     }
 
+    public void setArtistDictionary(Map<String, String> artistDictionary) {
+        this.artistDictionary = artistDictionary;
+    }
 }
