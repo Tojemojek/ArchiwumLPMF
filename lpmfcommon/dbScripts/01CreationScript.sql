@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `artist`;
 
 DROP TABLE IF EXISTS `list_info`;
 DROP TABLE IF EXISTS `hibernate_sequence`;
-DROP TABLE IF EXISTS `raw_lpmf_data`;
+# DROP TABLE IF EXISTS `raw_lpmf_data`;
 DROP TABLE IF EXISTS `clean_up_maps`;
 
 CREATE TABLE `clean_up_maps` (
@@ -23,13 +23,13 @@ CREATE TABLE `clean_up_maps` (
   DEFAULT CHARSET = utf8
   COLLATE = utf8_polish_ci;
 
-CREATE TABLE `raw_lpmf_data` (
-`id`       int(11) NOT NULL,
-`raw_page` LONGBLOB,
-PRIMARY KEY (`id`)
-)
-DEFAULT CHARSET = utf8
-COLLATE = utf8_polish_ci;
+# CREATE TABLE `raw_lpmf_data` (
+# `id`       int(11) NOT NULL,
+# `raw_page` LONGBLOB,
+# PRIMARY KEY (`id`)
+# )
+# DEFAULT CHARSET = utf8
+# COLLATE = utf8_polish_ci;
 
 CREATE TABLE `hibernate_sequence` (
 `next_val` bigint(20) DEFAULT NULL

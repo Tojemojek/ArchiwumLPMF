@@ -72,5 +72,12 @@ public class MedalTableMovie {
         medals.put(18,poz18.intValue());
         medals.put(19,poz19.intValue());
         medals.put(20,poz20.intValue());
+
+        totalInList = 0;
+
+        for (int i = 1; i <= 20; i++) {
+            totalInList += medals.get(i);
+        }
+
     }
 }

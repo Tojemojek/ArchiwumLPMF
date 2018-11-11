@@ -1,4 +1,5 @@
-sudo docker cp 01CreationScript.sql mysql-janki:/
+#!/usr/bin/env bash
+sudo docker cp 01aFullCreationScript.sql mysql-janki:/
 sudo docker cp 02CreationViews.sql mysql-janki:/
 sudo docker cp 03InsertsIntoCleanUpMaps.sql mysql-janki:/
 sudo docker cp 04InsertsIntoRawData.sql mysql-janki:/

@@ -3,14 +3,18 @@ package pl.kostrowski.lpmf.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.kostrowski.lpmf.model.*;
 import pl.kostrowski.lpmf.repository.*;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
 public class PersistUniqueBatch {
+
+    private final int MAX_BATCH_SIZE = 100;
 
     private final Logger LOG = LoggerFactory.getLogger(PersistUniqueBatch.class);
 
@@ -34,22 +38,23 @@ public class PersistUniqueBatch {
     }
 
 
+    @Transactional
     public Map<Integer, ListInfo> persistListInfos(Set<ListInfo> listInfoS) {
 
-        Map<Integer, ListInfo> ret = new HashMap<>();
-        Set<ListInfo> all1 = new HashSet<>(listInfoRepository.findAll());
+        Set<ListInfo> fromDb = new HashSet<>(listInfoRepository.findAll());
 
-        LOG.debug("Przed BatchUpdate w bazie było " + all1.size() + " listInfo");
+        LOG.debug("Przed BatchUpdate w bazie było " + fromDb.size() + " listInfo");
 
-        all1.addAll(listInfoS);
-
-        for (ListInfo listInfo : all1) {
-            listInfoRepository.saveAndFlush(listInfo);
+        for (ListInfo listInfo : fromDb) {
+            listInfoS.remove(listInfo);
         }
-        listInfoRepository.flush();
+
+        LOG.debug("Zapisuję klasę ListInfo");
+        saveBatch(listInfoS, listInfoRepository);
 
         List<ListInfo> all = listInfoRepository.findAll();
 
+        Map<Integer, ListInfo> ret = new HashMap<>();
         for (ListInfo listInfo : all) {
             ret.put(listInfo.getNoOfList(), listInfo);
         }
@@ -59,23 +64,23 @@ public class PersistUniqueBatch {
         return ret;
     }
 
+    @Transactional
     public Map<String, Movie> persistMovies(Set<Movie> movieS) {
 
-        Map<String, Movie> ret = new HashMap<>();
-        Set<Movie> all1 = new HashSet<>(movieRepository.findAll());
+        Set<Movie> fromDb = new HashSet<>(movieRepository.findAll());
 
-        LOG.debug("Przed BatchUpdate w bazie było " + all1.size() + " filmów");
+        LOG.debug("Przed BatchUpdate w bazie było " + fromDb.size() + " filmów");
 
-        all1.addAll(movieS);
-
-        for (Movie movie : all1) {
-            movieRepository.save(movie);
+        for (Movie movie : fromDb) {
+            movieS.remove(movie);
         }
 
-        movieRepository.flush();
+        LOG.debug("Zapisuję klasę Movie");
+        saveBatch(movieS, movieRepository);
 
         List<Movie> all = movieRepository.findAll();
 
+        Map<String, Movie> ret = new HashMap<>();
         for (Movie movie : all) {
             ret.put(movie.toString(), movie);
         }
@@ -85,22 +90,23 @@ public class PersistUniqueBatch {
         return ret;
     }
 
+    @Transactional
     public Map<String, Artist> persistArtists(Set<Artist> artistS) {
 
-        Map<String, Artist> ret = new HashMap<>();
-        Set<Artist> all1 = new HashSet<>(artistRepository.findAll());
+        Set<Artist> fromDb = new HashSet<>(artistRepository.findAll());
 
-        LOG.debug("Przed BatchUpdate w bazie było " + all1.size() + " artystów");
+        LOG.debug("Przed BatchUpdate w bazie było " + fromDb.size() + " artystów");
 
-        all1.addAll(artistS);
-
-        for (Artist artist : all1) {
-            artistRepository.save(artist);
+        for (Artist artist : fromDb) {
+            artistS.remove(artist);
         }
-        artistRepository.flush();
+
+        LOG.debug("Zapisuję klasę Artist");
+        saveBatch(artistS, artistRepository);
 
         List<Artist> all = artistRepository.findAll();
 
+        Map<String, Artist> ret = new HashMap<>();
         for (Artist artist : all) {
             ret.put(artist.toString(), artist);
         }
@@ -110,23 +116,23 @@ public class PersistUniqueBatch {
         return ret;
     }
 
+    @Transactional
     public Map<String, Song> persistSongs(Set<Song> songS) {
 
-        Map<String, Song> ret = new HashMap<>();
-        Set<Song> all1 = new HashSet<>(songRepository.findAll());
+       Set<Song> fromDb = new HashSet<>(songRepository.findAll());
 
-        LOG.debug("Przed BatchUpdate w bazie było " + all1.size() + " utworów");
+        LOG.debug("Przed BatchUpdate w bazie było " + fromDb.size() + " utworów");
 
-        all1.addAll(songS);
-
-        for (Song song : all1) {
-            songRepository.save(song);
+        for (Song song : fromDb) {
+            songS.remove(song);
         }
-        songRepository.flush();
+
+        LOG.debug("Zapisuję klasę Song");
+        saveBatch(songS, songRepository);
 
         List<Song> all = songRepository.findAll();
 
-
+        Map<String, Song> ret = new HashMap<>();
         for (Song song : all) {
             ret.put(song.toString(), song);
         }
@@ -137,22 +143,56 @@ public class PersistUniqueBatch {
 
     }
 
+    @Transactional
     public void persistLPMFPosition(Set<LPMFPosition> lpmfPositionS) {
 
-        Set<LPMFPosition> all1 = new HashSet<>(lpmfPositionRepository.findAll());
+        Set<LPMFPosition> fromDb = new HashSet<>(lpmfPositionRepository.findAll());
 
-        LOG.debug("Przed BatchUpdate w bazie było " + all1.size() + " pozycji");
+        LOG.debug("Przed BatchUpdate w bazie było " + fromDb.size() + " pozycji");
 
-        all1.addAll(lpmfPositionS);
-        for (LPMFPosition lpmfPosition : all1) {
-            lpmfPositionRepository.save(lpmfPosition);
+        for (LPMFPosition lpmfPosition : fromDb) {
+            lpmfPositionS.remove(lpmfPosition);
         }
-        lpmfPositionRepository.flush();
+
+        LOG.debug("Zapisuję klasę Song");
+        saveBatch(lpmfPositionS, lpmfPositionRepository);
 
         long count = lpmfPositionRepository.count();
 
         LOG.debug("Po BatchUpdate w bazie jest " + count + " pozycji");
 
+    }
+
+
+    public <T> void saveBatch(Set<T> listToSave, JpaRepository<T, ? extends Object> jpaRepository) {
+
+        if (!(listToSave.size() > 0)){
+            return;
+        }
+
+        List<T> tmpList = new LinkedList<>();
+        int size = listToSave.size();
+        int i = 0;
+        int j = 0;
+
+        LOG.debug("Do zapisania jest " + listToSave.size() + " elementów");
+
+        for (T t : listToSave) {
+            i++;
+            j++;
+            tmpList.add(t);
+            if (i == MAX_BATCH_SIZE){
+                jpaRepository.saveAll(tmpList);
+                jpaRepository.flush();
+                tmpList.clear();
+                i=0;
+                LOG.debug("Zapisano " + j + " z " + size + " czyli " + ((j*1.0/size*1.0)*100) + "%");
+            }
+        }
+        jpaRepository.saveAll(tmpList);
+        jpaRepository.flush();
+        listToSave.clear();
+        LOG.debug("Zapisano " + j + " z " + size + " czyli " + ((j*1.0/size*1.0)*100) + "%");
     }
 
     public void findDuplicatedSongs() {

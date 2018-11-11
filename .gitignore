@@ -32,5 +32,6 @@ nbdist/
 log/
 db/
 pomocnicze/
+dbScriptsProd/
 
 application-prodmysql.properties

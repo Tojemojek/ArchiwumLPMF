@@ -13,7 +13,6 @@ import pl.kostrowski.lpmf.jsoup.JsoupHtmlDataParser;
 import pl.kostrowski.lpmf.model.*;
 import pl.kostrowski.lpmf.repository.PreProcesingCleanUpRepository;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -51,7 +50,6 @@ public class BatchConvertLPMFFile {
 
     }
 
-    @Transactional
     public void batchConvertAndPersist(Integer fromFile, Integer toFile) {
 
         initMaps();

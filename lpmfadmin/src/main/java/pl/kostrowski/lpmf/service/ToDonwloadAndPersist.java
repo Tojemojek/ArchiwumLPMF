@@ -10,6 +10,7 @@ import pl.kostrowski.lpmf.dictionaries.PathsToUrls;
 import pl.kostrowski.lpmf.model.RawLpmfData;
 import pl.kostrowski.lpmf.repository.RawDataRepository;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Service
@@ -29,6 +30,7 @@ public class ToDonwloadAndPersist {
         this.gzipUtil = gzipUtil;
     }
 
+    @Transactional
     public void downloadLists(int fromList, int toList) {
 
         for (int i = fromList; i <= toList; i++) {
@@ -41,6 +43,7 @@ public class ToDonwloadAndPersist {
         }
     }
 
+    @Transactional
     public void downloadSingleList(int noOfList) {
             persistToDb(noOfList);
     }
