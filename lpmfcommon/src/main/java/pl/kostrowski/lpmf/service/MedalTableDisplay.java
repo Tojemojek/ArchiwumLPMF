@@ -1,6 +1,9 @@
 package pl.kostrowski.lpmf.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.kostrowski.lpmf.dto.views.MedalTableArtist;
 import pl.kostrowski.lpmf.dto.views.MedalTableMovie;
@@ -27,38 +30,72 @@ public class MedalTableDisplay {
         this.songMedalTablesRepository = songMedalTablesRepository;
     }
 
-    public List<MedalTableArtist> medalTableArtists() {
+    public Page<MedalTableArtist> pagebleMedalTableArtists(Integer pageNumber, Integer pageSize) {
 
-        LinkedList<MedalTableArtist> all = artistMedalTablesRepository.findAll();
+        if (pageNumber < 1) {
+            pageNumber = 1;
+        }
 
-        for (MedalTableArtist medalTableArtist : all) {
+        Pageable pageRequest = createPageRequest(pageNumber-1, pageSize);
+        Page<MedalTableArtist> ret = artistMedalTablesRepository.findAll(pageRequest);
+
+        for (MedalTableArtist medalTableArtist : ret) {
             medalTableArtist.prepare();
         }
 
-        return all;
+        return ret;
     }
 
 
-    public List<MedalTableMovie> medalTableMovies() {
+    public Page<MedalTableMovie> pagebleMedalTableMovies(Integer pageNumber, Integer pageSize) {
 
-        LinkedList<MedalTableMovie> all = movieMedalTablesRepository.findAll();
-
-        for (MedalTableMovie MedalTableMovie : all) {
-            MedalTableMovie.prepare();
+        if (pageNumber < 1) {
+            pageNumber = 1;
         }
 
-        return all;
+        Pageable pageRequest = createPageRequest(pageNumber-1, pageSize);
+        Page<MedalTableMovie> ret = movieMedalTablesRepository.findAll(pageRequest);
+
+        for (MedalTableMovie medalTableMovie : ret) {
+            medalTableMovie.prepare();
+        }
+
+        return ret;
     }
 
-    public List<MedalTableSong> medalTableSongs() {
 
-        LinkedList<MedalTableSong> all = songMedalTablesRepository.findAll();
 
-        for (MedalTableSong MedalTableSong : all) {
+    public Page<MedalTableSong> pagebleMedalTableSongs(Integer pageNumber, Integer pageSize) {
+
+        if (pageNumber < 1) {
+            pageNumber = 1;
+        }
+
+        Pageable pageRequest = createPageRequest(pageNumber-1, pageSize);
+        Page<MedalTableSong> ret = songMedalTablesRepository.findAll(pageRequest);
+
+        for (MedalTableSong MedalTableSong : ret) {
             MedalTableSong.prepare();
         }
 
-        return all;
+        return ret;
+    }
+
+    public Long medalTableSongsSize() {
+        return songMedalTablesRepository.count();
+    }
+
+    public Long medalTableArtistsSize() {
+        return artistMedalTablesRepository.count();
+    }
+
+    public Long medalTableMoviesSize() {
+        return movieMedalTablesRepository.count();
+    }
+
+
+    private Pageable createPageRequest(Integer pageNumber, Integer pageSize) {
+        return new PageRequest(pageNumber, pageSize);
     }
 
 }

@@ -9,3 +9,19 @@
 .navbar-default .navbar-nav > li > a {
     color: #822025;
 }
+
+.table-striped-medals>tbody>tr:nth-of-type(4n+1)>td{
+    background-color: white; // Choose your own color here
+}
+
+.table-striped-medals>tbody>tr:nth-of-type(4n+2)>td{
+    background-color: white; // Choose your own color here
+}
+
+.table-striped-medals>tbody>tr:nth-of-type(4n+3)>td{
+    background-color: lightgrey; // Choose your own color here
+}
+
+.table-striped-medals>tbody>tr:nth-of-type(4n)>td{
+    background-color: lightgrey; // Choose your own color here
+}

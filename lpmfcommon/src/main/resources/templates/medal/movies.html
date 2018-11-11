@@ -10,34 +10,95 @@
 
         <h2>Medale filmów</h2>
 
-        <table class="table table-striped">
+        <nav aria-label="MojaNawigacja">
+            <ul class="pagination justify-content-center">
+                <span th:switch="${displayPreviousNext[0]}">
+                    <li th:case='true' class="page-item">
+                         <a class="page-link" th:href="@{/medals/movies(pageNo=${pageNo-1})}" th:text="Poprzednia"></a></li>
+                    <li th:case='false' class="page-item disabled"><span class="page-link">Poprzednia</span></li>
+                </span>
+
+                <li class="page-item" th:each="i : ${#numbers.sequence( fromTo[0], fromTo[1])}">
+                    <a class="page-link" th:href="@{/medals/movies(pageNo=${i})}" th:text="${i}"></a></li>
+
+                <span th:switch="${displayPreviousNext[1]}">
+                <li th:case='true' class="page-item">
+                    <a class="page-link" th:href="@{/medals/movies(pageNo=${pageNo+1})}" th:text="Następna"></a></li>
+                <li th:case='false' class="page-item disabled"><span class="page-link">Następna</span></li>
+                </span>
+            </ul>
+        </nav>
+
+        <table class="table table-striped-medals" th:with="pozInMedalTable=${(pageNo-1)* pageSize + 1}">
+            <thead>
             <tr>
+                <th>Pozycja</th>
                 <th>Film</th>
-                <th>Łącznie w liście</th>
                 <th>Złoto</th>
                 <th>Srebro</th>
                 <th>Brąz</th>
-                <th>Pozostałe pozycje</th>
+                <th>Łącznie w liście</th>
+                <th>Detale</th>
             </tr>
-            <tr th:each="pos : ${allMedalMovies}">
-                <td>
-                    <a th:href="@{/single/movie(movieId=${pos.getId()})}" th:text="${pos.getMovieTitle()}"></a>
-                </td>
-                <td th:text="${pos.getTotalInList()}"></td>
-                <td th:text="${pos.getMedals().get(1)}"></td>
-                <td th:text="${pos.getMedals().get(2)}"></td>
-                <td th:text="${pos.getMedals().get(3)}"></td>
-                <td>
-                    <span th:each="i : ${#numbers.sequence( 4, 20)}">
-                        <span th:text="${'miejsce ' + i + ': ' + pos.getMedals().get(i)}" th:remove="tag"></span>
-                        <span th:if="${i != 20}" th:remove="tag">,&nbsp;</span>
-                        <span th:if="${(i%3) ==0 }" th:remove="tag"><br></span>
-                    </span>
-                </td>
-            </tr>
+            </thead>
+            <th:block th:each="pos,stat : ${allMedalMovies}">
+                <tr th:attr="data-target='#accordion_'+${pos.getId()}" data-toggle="collapse" class="accordion-toggle">
+                    <td th:text="${stat.index + pozInMedalTable}"></td>
+                    <td>
+                        <a th:href="@{/single/movie(movieId=${pos.getId()})}" th:text="${pos.getMovieTitle()}"></a>
+                    </td>
+                    <td th:text="${pos.getMedals().get(1)}"></td>
+                    <td th:text="${pos.getMedals().get(2)}"></td>
+                    <td th:text="${pos.getMedals().get(3)}"></td>
+                    <td th:text="${pos.getTotalInList()}"></td>
+                    <td><a data-toggle="collapse" class="accordion-toggle" href="">Detale</a></td>
+                </tr>
+                <tr class="accordion-body collapse" th:id="'accordion_'+${pos.getId()}">
+                    <td colspan="6" th:text="${
+                    'miejsce 4:&nbsp;' + pos.getMedals().get(4) + 'x, '+
+                    'miejsce 5:&nbsp;' + pos.getMedals().get(5) + 'x, '+
+                    'miejsce 6:&nbsp;' + pos.getMedals().get(6) + 'x, '+
+                    'miejsce 7:&nbsp;' + pos.getMedals().get(7) + 'x, '+
+                    'miejsce 8:&nbsp;' + pos.getMedals().get(8) + 'x, '+
+                    'miejsce 9:&nbsp;' + pos.getMedals().get(9) + 'x, '+
+                    'miejsce 10:&nbsp;' + pos.getMedals().get(10) + 'x, '+
+                    'miejsce 11:&nbsp;' + pos.getMedals().get(11) + 'x, '+
+                    'miejsce 12:&nbsp;' + pos.getMedals().get(12) + 'x, '+
+                    'miejsce 13:&nbsp;' + pos.getMedals().get(13) + 'x, '+
+                    'miejsce 14:&nbsp;' + pos.getMedals().get(14) + 'x, '+
+                    'miejsce 15:&nbsp;' + pos.getMedals().get(15) + 'x, '+
+                    'miejsce 16:&nbsp;' + pos.getMedals().get(16) + 'x, '+
+                    'miejsce 17:&nbsp;' + pos.getMedals().get(17) + 'x, '+
+                    'miejsce 18:&nbsp;' + pos.getMedals().get(18) + 'x, '+
+                    'miejsce 19:&nbsp;' + pos.getMedals().get(19) + 'x, '+
+                    'miejsce 20:&nbsp;' + pos.getMedals().get(20) + 'x'}">
+                    </td>
+                </tr>
+            </th:block>
+
         </table>
         </span>
     </div>
+
+    <nav aria-label="MojaNawigacja">
+        <ul class="pagination justify-content-center">
+                <span th:switch="${displayPreviousNext[0]}">
+                    <li th:case='true' class="page-item">
+                         <a class="page-link" th:href="@{/medals/movies(pageNo=${pageNo-1})}" th:text="Poprzednia"></a></li>
+                    <li th:case='false' class="page-item disabled"><span class="page-link">Poprzednia</span></li>
+                </span>
+
+            <li class="page-item" th:each="i : ${#numbers.sequence( fromTo[0], fromTo[1])}">
+                <a class="page-link" th:href="@{/medals/movies(pageNo=${i})}" th:text="${i}"></a></li>
+
+            <span th:switch="${displayPreviousNext[1]}">
+                <li th:case='true' class="page-item">
+                    <a class="page-link" th:href="@{/medals/movies(pageNo=${pageNo+1})}" th:text="Następna"></a></li>
+                <li th:case='false' class="page-item disabled"><span class="page-link">Następna</span></li>
+                </span>
+        </ul>
+    </nav>
+
 </div>
 
 <th:block th:include="layout/footer"></th:block>
