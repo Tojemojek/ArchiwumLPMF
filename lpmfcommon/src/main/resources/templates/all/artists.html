@@ -5,10 +5,12 @@
     <th:block th:include="layout/header"></th:block>
 </head>
 <body>
-<div class="container">
+<div class="container" th:with="pagingMainLink='/all/artists'">
     <div th:if="${not #lists.isEmpty(allArtists)}">
 
         <h2>Wszyscy artyści <i>Listy Przebojów Muzyki Filmowej RMF Classic</i></h2>
+
+        <th:block th:include="layout/paging_controls"></th:block>
 
         <table class="table table-striped">
             <tr>
@@ -24,7 +26,9 @@
                 <td th:text="${pos.getFirstTimeInList().getNoOfList()}"></td>
             </tr>
         </table>
-        </span>
+
+        <th:block th:include="layout/paging_controls"></th:block>
+
     </div>
 </div>
 

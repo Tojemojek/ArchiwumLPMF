@@ -115,8 +115,7 @@ public class BatchConvertLPMFFile {
                     artistFromDb.add(stringArtistMap.get(artist.toString()));
                 }
 
-                Song song = new Song();
-                song = songTitleConverter.convert(singleLpmfDto.getFullSongTitle(), listInfo);
+                Song song = songTitleConverter.convert(singleLpmfDto.getFullSongTitle(), listInfo);
                 song.setArtists(artistFromDb);
                 song.setMovie(movie);
                 song.setCoverLink(singleLpmfDto.getCoverLink());
@@ -142,8 +141,7 @@ public class BatchConvertLPMFFile {
                     artistFromDb.add(stringArtistMap.get(artist.toString()));
                 }
 
-                Song song = new Song();
-                song = songTitleConverter.convert(singleLpmfDto.getFullSongTitle(), listInfo);
+                Song song = songTitleConverter.convert(singleLpmfDto.getFullSongTitle(), listInfo);
                 song.setArtists(artistFromDb);
                 song.setMovie(movie);
 

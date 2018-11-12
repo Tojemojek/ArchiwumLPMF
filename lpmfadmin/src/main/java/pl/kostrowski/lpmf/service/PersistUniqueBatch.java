@@ -14,6 +14,7 @@ import java.util.*;
 @Service
 public class PersistUniqueBatch {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final int MAX_BATCH_SIZE = 100;
 
     private final Logger LOG = LoggerFactory.getLogger(PersistUniqueBatch.class);
@@ -154,7 +155,7 @@ public class PersistUniqueBatch {
             lpmfPositionS.remove(lpmfPosition);
         }
 
-        LOG.debug("Zapisuję klasę Song");
+        LOG.debug("Zapisuję klasę LPMFPosition");
         saveBatch(lpmfPositionS, lpmfPositionRepository);
 
         long count = lpmfPositionRepository.count();
@@ -164,7 +165,8 @@ public class PersistUniqueBatch {
     }
 
 
-    public <T> void saveBatch(Set<T> listToSave, JpaRepository<T, ? extends Object> jpaRepository) {
+    @SuppressWarnings("TypeParameterExplicitlyExtendsObject")
+    private <T> void saveBatch(Set<T> listToSave, JpaRepository<T, ? extends Object> jpaRepository) {
 
         if (!(listToSave.size() > 0)){
             return;

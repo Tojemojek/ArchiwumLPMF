@@ -5,31 +5,14 @@
     <th:block th:include="layout/header"></th:block>
 </head>
 <body>
-<div class="container">
+<div class="container" th:with="pagingMainLink='/medals/songs'">
 
 
     <div th:if="${not #lists.isEmpty(allMedalSongs)}">
 
         <h2>Medale utworów</h2>
 
-        <nav aria-label="MojaNawigacja">
-            <ul class="pagination justify-content-center">
-                <span th:switch="${displayPreviousNext[0]}">
-                    <li th:case='true' class="page-item">
-                         <a class="page-link" th:href="@{/medals/songs(pageNo=${pageNo-1})}" th:text="Poprzednia"></a></li>
-                    <li th:case='false' class="page-item disabled"><span class="page-link">Poprzednia</span></li>
-                </span>
-
-                <li class="page-item" th:each="i : ${#numbers.sequence( fromTo[0], fromTo[1])}">
-                    <a class="page-link" th:href="@{/medals/songs(pageNo=${i})}" th:text="${i}"></a></li>
-
-                <span th:switch="${displayPreviousNext[1]}">
-                <li th:case='true' class="page-item">
-                    <a class="page-link" th:href="@{/medals/songs(pageNo=${pageNo+1})}" th:text="Następna"></a></li>
-                <li th:case='false' class="page-item disabled"><span class="page-link">Następna</span></li>
-                </span>
-            </ul>
-        </nav>
+        <th:block th:include="layout/paging_controls"></th:block>
 
         <table class="table table-striped-medals" th:with="pozInMedalTable=${(pageNo-1)* pageSize + 1}">
             <thead>
@@ -82,27 +65,10 @@
                 </tr>
             </th:block>
         </table>
-        </span>
     </div>
 
-    <nav aria-label="MojaNawigacja">
-        <ul class="pagination justify-content-center">
-                <span th:switch="${displayPreviousNext[0]}">
-                    <li th:case='true' class="page-item">
-                         <a class="page-link" th:href="@{/medals/songs(pageNo=${pageNo-1})}" th:text="Poprzednia"></a></li>
-                    <li th:case='false' class="page-item disabled"><span class="page-link">Poprzednia</span></li>
-                </span>
+    <th:block th:include="layout/paging_controls"></th:block>
 
-            <li class="page-item" th:each="i : ${#numbers.sequence( fromTo[0], fromTo[1])}">
-                <a class="page-link" th:href="@{/medals/songs(pageNo=${i})}" th:text="${i}"></a></li>
-
-            <span th:switch="${displayPreviousNext[1]}">
-                <li th:case='true' class="page-item">
-                    <a class="page-link" th:href="@{/medals/songs(pageNo=${pageNo+1})}" th:text="Następna"></a></li>
-                <li th:case='false' class="page-item disabled"><span class="page-link">Następna</span></li>
-                </span>
-        </ul>
-    </nav>
 </div>
 
 <th:block th:include="layout/footer"></th:block>

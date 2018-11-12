@@ -1,5 +1,6 @@
 package pl.kostrowski.lpmf.converters;
 
+@SuppressWarnings("unused")
 public enum MonthsNumbers {
 
     STYCZNIA(1),

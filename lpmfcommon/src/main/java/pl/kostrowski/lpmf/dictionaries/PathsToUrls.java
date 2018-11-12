@@ -1,5 +1,6 @@
 package pl.kostrowski.lpmf.dictionaries;
 
+@SuppressWarnings("SameParameterValue")
 public enum PathsToUrls {
 
     REMOTE_URL("http://www.rmfclassic.pl/lista-przebojow/notowanie/");

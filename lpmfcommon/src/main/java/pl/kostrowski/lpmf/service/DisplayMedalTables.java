@@ -12,11 +12,9 @@ import pl.kostrowski.lpmf.repository.views.ArtistMedalTablesRepository;
 import pl.kostrowski.lpmf.repository.views.MovieMedalTablesRepository;
 import pl.kostrowski.lpmf.repository.views.SongMedalTablesRepository;
 
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
-public class MedalTableDisplay {
+public class DisplayMedalTables {
 
 
     private final ArtistMedalTablesRepository artistMedalTablesRepository;
@@ -24,7 +22,7 @@ public class MedalTableDisplay {
     private final SongMedalTablesRepository songMedalTablesRepository;
 
     @Autowired
-    public MedalTableDisplay(ArtistMedalTablesRepository artistMedalTablesRepository, MovieMedalTablesRepository movieMedalTablesRepository, SongMedalTablesRepository songMedalTablesRepository) {
+    public DisplayMedalTables(ArtistMedalTablesRepository artistMedalTablesRepository, MovieMedalTablesRepository movieMedalTablesRepository, SongMedalTablesRepository songMedalTablesRepository) {
         this.artistMedalTablesRepository = artistMedalTablesRepository;
         this.movieMedalTablesRepository = movieMedalTablesRepository;
         this.songMedalTablesRepository = songMedalTablesRepository;
@@ -95,7 +93,7 @@ public class MedalTableDisplay {
 
 
     private Pageable createPageRequest(Integer pageNumber, Integer pageSize) {
-        return new PageRequest(pageNumber, pageSize);
+        return PageRequest.of(pageNumber, pageSize);
     }
 
 }

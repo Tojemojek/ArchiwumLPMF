@@ -11,10 +11,6 @@ import java.util.List;
 @Repository
 public interface LPMFPositionRepository extends JpaRepository<LPMFPosition, Long> {
 
-    List<LPMFPosition> findAllByPos(Integer position);
-
-    List<LPMFPosition> findAll();
-
     @Query(value = "SELECT lpmf FROM LPMFPosition lpmf left join lpmf.listInfo as listInfo where (listInfo.noOfList = :noOfList)")
     List<LPMFPosition> findByNoOfListOrderByPos(Integer noOfList);
 

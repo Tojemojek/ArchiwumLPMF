@@ -4,11 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.kostrowski.lpmf.model.ListInfo;
 
-import java.util.List;
-
 @Repository
 public interface ListInfoRepository extends JpaRepository<ListInfo, Integer> {
 
-    ListInfo findByNoOfList(Integer noOfList);
-    List<ListInfo> findAll();
 }

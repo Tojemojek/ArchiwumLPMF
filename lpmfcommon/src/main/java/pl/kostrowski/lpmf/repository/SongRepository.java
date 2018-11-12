@@ -11,10 +11,6 @@ import java.util.List;
 @Repository
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-    List<Song> findAllByTitle (String title);
-    List<Song> findAll ();
-
-
     @Query(value = "SELECT s from Song s left join s.artists a where a.id = :artistId")
     List<Song> customFindByArtistId(@Param("artistId") Long artistId);
 

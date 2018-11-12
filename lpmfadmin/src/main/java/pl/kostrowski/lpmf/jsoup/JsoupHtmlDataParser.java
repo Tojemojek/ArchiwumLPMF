@@ -44,6 +44,7 @@ public class JsoupHtmlDataParser {
         return allFilesData;
     }
 
+    @SuppressWarnings("UnusedAssignment")
     private List<SingleLpmfDto> parseSingleFileToObjects(int listId) {
 
         long start = System.currentTimeMillis();

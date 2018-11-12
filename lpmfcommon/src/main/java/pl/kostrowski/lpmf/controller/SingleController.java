@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.kostrowski.lpmf.dto.ArtistSongsDto;
 import pl.kostrowski.lpmf.dto.MovieSongsDto;
 import pl.kostrowski.lpmf.model.LPMFPosition;
-import pl.kostrowski.lpmf.service.DisplayService;
+import pl.kostrowski.lpmf.service.DisplayAllService;
 
 import java.util.List;
 
@@ -16,17 +16,17 @@ import java.util.List;
 @Controller
 public class SingleController {
 
-    private final DisplayService displayService;
+    private final DisplayAllService displayAllService;
 
     @Autowired
-    public SingleController(DisplayService displayService) {
-        this.displayService = displayService;
+    public SingleController(DisplayAllService displayAllService) {
+        this.displayAllService = displayAllService;
     }
 
     @RequestMapping(value = "/single/list")
     public String showSingleList(@RequestParam(value = "listNo", defaultValue = "1") Integer listNo,
                                  Model model) {
-        List<LPMFPosition> allByNoOfListOOrderByPos = displayService.findByNoOfList(listNo);
+        List<LPMFPosition> allByNoOfListOOrderByPos = displayAllService.findByNoOfList(listNo);
         model.addAttribute("lists", allByNoOfListOOrderByPos);
         return "single/list";
     }
@@ -34,7 +34,7 @@ public class SingleController {
     @RequestMapping(value = "/single/song")
     public String showMeSong(@RequestParam(value = "songId", defaultValue = "32") Integer songId,
                              Model model) {
-        List<LPMFPosition> findSongs = displayService.customFindBySongId(Long.valueOf(songId));
+        List<LPMFPosition> findSongs = displayAllService.customFindBySongId(Long.valueOf(songId));
         model.addAttribute("singleSong", findSongs);
         return "single/song";
     }
@@ -42,7 +42,7 @@ public class SingleController {
     @RequestMapping(value = "/single/artist")
     public String showMeArtist(@RequestParam(value = "artistId", defaultValue = "32") Integer artistId,
                                Model model) {
-        ArtistSongsDto singleArtist = displayService.customFindArtistById(Long.valueOf(artistId));
+        ArtistSongsDto singleArtist = displayAllService.customFindArtistById(Long.valueOf(artistId));
         model.addAttribute("singleArtist", singleArtist);
         return "single/artist";
     }
@@ -50,7 +50,7 @@ public class SingleController {
     @RequestMapping(value = "/single/movie")
     public String showMeMovie(@RequestParam(value = "movieId", defaultValue = "32") Integer movieId,
                               Model model) {
-        MovieSongsDto singleMovie = displayService.customFindMovieById(Long.valueOf(movieId));
+        MovieSongsDto singleMovie = displayAllService.customFindMovieById(Long.valueOf(movieId));
         model.addAttribute("singleMovie", singleMovie);
         return "single/movie";
     }
