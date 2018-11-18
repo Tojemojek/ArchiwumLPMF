@@ -62,7 +62,7 @@ public class BatchConvertLPMFFileTest {
     @Test
     public void singleBatchConvertAndPersist() {
 
-        batchConvertLPMFFile.batchConvertAndPersist(257,257);
+        batchConvertLPMFFile.batchConvertAndPersist(258,258);
 
     }
 

@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Historia Listy Przebojów Muzyki Filmowej</title>
-    <th:block th:include="./layout/header"></th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head th:replace="fragments/common :: header">Tu będzie nagłówek
+    <title>Historia Listy Przebojów Muzyki Filmowej RMF Classic</title>
+    <meta http-equiv="Content-Type"
+          content="text/html" charset="UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"
+          href="https://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet" media="screen"/>
+    <link th:href="@{/css/style.css}"
+          href="../../static/css/style.css"
+          rel="stylesheet"/>
 </head>
+
 <body>
 
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
 
 <div class="jumbotron">
     <div class="row justify-content-center">
         <h2>Historia i statystyki Listy Przebojów Muzyki Filmowej</h2>
-
     </div>
     <div class="row justify-content-center">
         <a href="https://www.rmfclassic.pl/lista-przebojow">
-            <img src="../../static/images/LpmfLogo.jpg" width="100%"
+            <img src="../static/images/LpmfLogo.jpg" width="100%"
                  th:src="@{/images/LpmfLogo.jpg}"/>
         </a>
     </div>
@@ -25,18 +34,35 @@
     <h2>Witaj!</h2>
     <h3>na całkowicie amatorskiej stronie ze statystykami Listy Przebojów Muzyki Filmowej</h3>
 
-    <p>Żeby zrozumieć czym tak naprawdę jest ta strona i jej podstrony:</p>
-    <p>Strona działa wolno bo... jestem początkującym programistą a do tego korzystam z darmowych usług żeby strona działała (więc ich prędkość nie powala)</p>
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                        Metodologia - czyli kto i jak to robi</a>
-                </h4>
+    <p>Nie zrażaj się że strona działa wolno bo... </p>
+    <ul>
+        <li>
+            jestem początkującym programistą
+        </li>
+        <li>
+            korzystam z darmowych usług do pokazywania tej strony i trzymania bazy danych
+        </li>
+        <li>
+            szybkość działania się poprawia z każdą wersją
+        </li>
+    </ul>
+
+    <h4>Żeby zrozumieć czym tak naprawdę jest ta strona i jej podstrony:</h4>
+
+
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="glowka1">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#zwin1" aria-expanded="true"
+                            aria-controls="zwin1">
+                        <span th:text="#{index.page.accordion.title.1}">Tekst1</span>
+                    </button>
+                </h5>
             </div>
-            <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
+
+            <div id="zwin1" class="collapse show" aria-labelledby="glowka1" data-parent="#accordion">
+                <div class="card-body">
                     <ul>
                         <li>Autorem niniejszego opracowania jest, fan i wierny słuchacz Listy Przebojów Muzyki Filmowej
                             (dalej w skrócie LPMF).
@@ -51,19 +77,21 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                        Założenia - czyli co tak naprawdę jest w tym zestawieniu</a>
-                </h4>
+        <div class="card">
+            <div class="card-header" id="glowka2">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#zwin2"
+                            aria-expanded="false" aria-controls="zwin2">
+                        <span th:text="#{index.page.accordion.title.2}">Tekst2</span>
+                    </button>
+                </h5>
             </div>
-            <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    Podstawowym założeniem jest poprawność danych na stronie.
-                    Założeniem wtórnym jest poprawność działania stosowanych funkcji i
-                    algorytmów.
-                    Kolejne to:
+            <div id="zwin2" class="collapse" aria-labelledby="glowka2" data-parent="#accordion">
+                <div class="card-body">
+                    <p> Podstawowym założeniem jest poprawność danych na stronie.
+                        Założeniem wtórnym jest poprawność działania stosowanych funkcji i
+                        algorytmów.</p>
+                    <p> Kolejne to: </p>
                     <ul>
                         <li>
                             Notowanie 39 z dnia 30-06-2012 i 02-09-2013 mimo dwóch „audycji” jest
@@ -82,7 +110,8 @@
                         <li>
                             Literówki i różne wersje nazewnictwa tego samego utworu (np. „Afera
                             Tomasza Crowna” i „Afera Thomasa Crowna”) zostały ujednolicone (a
-                            przynajmniej te różnice które znalazłem - poprawiłem) - ich listy <strong>będą</strong> na podstronach
+                            przynajmniej te różnice które znalazłem - poprawiłem) - ich listy <strong>będą</strong> na
+                            podstronach
                         </li>
                     </ul>
 
@@ -111,15 +140,17 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                        Klasyfikacje</a>
-                </h4>
+        <div class="card">
+            <div class="card-header" id="glowka3">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#zwin3"
+                            aria-expanded="false" aria-controls="zwin3">
+                        <span th:text="#{index.page.accordion.title.3}">Tekst3</span>
+                    </button>
+                </h5>
             </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
+            <div id="zwin3" class="collapse" aria-labelledby="glowka3" data-parent="#accordion">
+                <div class="card-body">
                     <ul>
                         <li>
                             Na razie dostępna jest tylko klasyfikacja medalowa. Jest liczona tak jak w sporcie, gdzie
@@ -139,15 +170,17 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                        Plany</a>
-                </h4>
+        <div class="card">
+            <div class="card-header" id="glowka4">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#zwin4"
+                            aria-expanded="false" aria-controls="zwin4">
+                        <span th:text="#{index.page.accordion.title.4}">Tekst4</span>
+                    </button>
+                </h5>
             </div>
-            <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
+            <div id="zwin4" class="collapse" aria-labelledby="glowka3" data-parent="#accordion">
+                <div class="card-body">
                     <ol>
                         <li>
                             Poprawienie wydajności
@@ -156,7 +189,14 @@
                             Klasyfikacja punktowa i jej podstrony
                         </li>
                         <li>
-                            Podstrony pokazujące jakie tytuły utworów / tytuły filmów / nazwy autorów zamieniam i ujednolicam
+                            Podstrony pokazujące jakie tytuły utworów / tytuły filmów / nazwy autorów zamieniam i
+                            ujednolicam
+                        </li>
+                        <li>
+                            Wyszukiwarki utworów / filmów / artystów
+                        </li>
+                        <li>
+                            Wykresy pokazujące jak sobie radzą utwory w
                         </li>
                         <li>
                             Przejęcie władzy nad światem
@@ -167,8 +207,10 @@
         </div>
     </div>
 </div>
+
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
+
 </body>
-<footer>
-    <th:block th:include="./layout/footer"></th:block>
-</footer>
 </html>

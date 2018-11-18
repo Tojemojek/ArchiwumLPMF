@@ -22,6 +22,6 @@ public class ToDonwloadAndPersistTest {
 
     @Test
     public void downloadSingleList() {
-        toDonwloadAndPersist.downloadSingleList(257);
+        toDonwloadAndPersist.downloadSingleList(258);
     }
 }

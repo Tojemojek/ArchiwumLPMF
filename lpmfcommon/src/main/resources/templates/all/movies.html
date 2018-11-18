@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>Lista filmów</title>
-    <th:block th:include="layout/header"></th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
 </head>
+
 <body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
 <div class="container" th:with="pagingMainLink='/all/movies'">
     <div th:if="${not #lists.isEmpty(allMovies)}">
 
         <h2>Wszystkie filmy <i>Listy Przebojów Muzyki Filmowej RMF Classic</i></h2>
 
-        <th:block th:include="layout/paging_controls"></th:block>
+        <nav th:replace="fragments/paging :: myPaging"></nav>
 
         <table class="table table-striped">
             <tr>
@@ -25,11 +30,13 @@
             </tr>
         </table>
 
-        <th:block th:include="layout/paging_controls"></th:block>
+        <nav th:replace="fragments/paging :: myPaging"></nav>
 
     </div>
 </div>
 
-<th:block th:include="layout/footer"></th:block>
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
 </body>
 </html>

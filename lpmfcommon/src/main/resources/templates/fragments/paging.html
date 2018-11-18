@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head>
+    <meta http-equiv="Content-Type"
+          content="text/html" charset="UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"
+          href="https://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet" media="screen"/>
+    <link th:href="@{/css/style.css}"
+          href="../../static/css/style.css"
+          rel="stylesheet"/>
+</head>
+<body>
+
+<nav aria-label="MojaNawigacja" th:fragment="myPaging">
+    <ul class="pagination justify-content-center">
+        <span th:switch="${displayPreviousNext[0]}">
+            <li th:case='true' class="page-item">
+                <a class="page-link" th:href="@{${pagingMainLink}(pageNo=${pageNo-1})}"
+                   th:text="Poprzednia"></a>
+            </li>
+            <li th:case='false' class="page-item disabled">
+                <span class="page-link">Poprzednia</span>
+            </li>
+        </span>
+
+        <span th:each="i : ${#numbers.sequence( fromTo[0], fromTo[1])}" th:remove="tag">
+            <li th:if="${pageNo == i}" class="page-item active">
+                <a class="page-link" th:href="@{${pagingMainLink}(pageNo=${i})}" th:text="${i}">1</a>
+            </li>
+            <li th:unless="${pageNo == i}" class="page-item">
+                <a class="page-link" th:href="@{${pagingMainLink}(pageNo=${i})}" th:text="${i}"></a>
+            </li>
+        </span>
+
+        <span th:switch="${displayPreviousNext[1]}">
+            <li th:case='true' class="page-item">
+                <a class="page-link" th:href="@{${pagingMainLink}(pageNo=${pageNo+1})}" th:text="Następna"></a>
+            </li>
+            <li th:case='false' class="page-item disabled">
+                <span class="page-link">Następna</span>
+            </li>
+        </span>
+    </ul>
+</nav>
+
+</body>
+</html>

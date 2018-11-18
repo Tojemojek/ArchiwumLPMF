@@ -25,3 +25,12 @@
 .table-striped-medals>tbody>tr:nth-of-type(4n)>td{
     background-color: lightgrey; // Choose your own color here
 }
+
+.make-space-under-navbar{
+    padding-bottom: 60px;
+}
+
+.make-space-above-footer{
+    padding-top: 60px;
+}
+

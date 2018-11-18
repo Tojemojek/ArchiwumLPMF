@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>Lista przebojow</title>
-    <th:block th:include="layout/header"></th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
 </head>
+
 <body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
 <div class="container">
     <div th:if="${not #lists.isEmpty(singleSong)}">
 
@@ -42,6 +47,7 @@
     </div>
 </div>
 
-<th:block th:include="layout/footer"></th:block>
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
 </body>
 </html>

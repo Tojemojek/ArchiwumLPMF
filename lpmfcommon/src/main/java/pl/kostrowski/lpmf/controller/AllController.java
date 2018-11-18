@@ -13,6 +13,8 @@ import pl.kostrowski.lpmf.model.Song;
 import pl.kostrowski.lpmf.service.DisplayAllService;
 import pl.kostrowski.lpmf.service.DisplayServiceUtil;
 
+import java.util.List;
+
 @SuppressWarnings("SameReturnValue")
 @Controller
 public class AllController {
@@ -78,14 +80,14 @@ public class AllController {
     public String showAllLists(Model model, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
 
         Long size = displayAllService.listsTableSize();
-        Page<LPMFPosition> allLists = displayAllService.pagableShowAllLists(pageNo, PAGE_SIZE * 10);
+        List<List<LPMFPosition>> allLists = displayAllService.pagableShowAllLists(pageNo, PAGE_SIZE * 10);
 
         displayServiceUtil.preparePaging(model, pageNo, size, PAGE_SIZE * 10);
 
         model.addAttribute("pageSize", PAGE_SIZE);
         model.addAttribute("allLists", allLists);
 
-        return "all/lists";
+        return "all/lists.html";
     }
 
 }

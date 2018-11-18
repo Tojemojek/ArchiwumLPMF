@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Historia Listy Przebojów Muzyki Filmowej</title>
-    <th:block th:include="layout/header"></th:block>
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
 </head>
+
 <body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
 
 <div class="container">
     <h2>Konwertuj wiele list</h2>
@@ -53,7 +55,7 @@
     </div>
 </div>
 
-<th:block th:include="layout/footer"></th:block>
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
 </body>
 
 </html>

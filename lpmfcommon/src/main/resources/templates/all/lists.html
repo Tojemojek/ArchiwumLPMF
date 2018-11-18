@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>Notowania</title>
-    <th:block th:include="layout/header"></th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
 </head>
+
 <body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
 <div class="container" th:with="pagingMainLink='/all/lists'">
+
     <div th:if="${not #lists.isEmpty(allLists)}">
 
         <h2>Wszystkie notowania <i>Listy Przebojów Muzyki Filmowej RMF Classic</i></h2>
-        <th:block th:include="layout/paging_controls"></th:block>
 
-        <span th:each="pos : ${allLists}" th:remove="tag">
-            <span th:with="pozOfElement=${pos.getPos()}" th:remove="tag">
+        <nav th:replace="fragments/paging :: myPaging"></nav>
 
-            <h3 th:if="${pozOfElement == 1}" th:utext=
-                    "'Notowanie numer <strong>'
-                    + ${pos.getListInfo().getNoOfList()}
+        <!--/*@thymesVar id="allLists" type="java.util.LinkedList<java.util.LinkedList<pl.kostrowski.lpmf.model.LPMFPosition>>"*/-->
+        <div th:each="list : ${allLists}" th:remove="tag">
+            <h3 th:utext="'Notowanie numer <strong>'
+                    + ${list.getFirst().getListInfo().getNoOfList()}
                     + '</strong> z dnia <strong>'
-                    + ${pos.getListInfo().getDateOfList()}
+                    + ${list.getFirst().getListInfo().getDateOfList()}
                     + '</strong>'">
             </h3>
-                <myTag th:if="${pozOfElement == 1}" th:remove="tag">
             <table class="table table-striped">
                 <tr>
                     <th>Pozycja</th>
@@ -29,8 +33,7 @@
                     <th>Film</th>
                     <th>Artyści</th>
                 </tr>
-                </myTag>
-
+                <th:block th:each="pos: ${list}">
                     <tr>
                         <td th:text="${pos.getPos()}"></td>
                         <td>
@@ -43,27 +46,27 @@
                                th:text="${pos.getSong().getMovie().getTitle()}"> </a>
                         </td>
 
-                         <td>
+                        <td>
                             <span th:each="artist, iter: ${pos.getSong().getArtists()}" th:remove="tag">
                                 <span>
                                     <a th:href="@{/single/artist(artistId=${artist.getId()})}"
                                        th:text="${artist.getFullName()}"></a>
                                 </span>
                                 <span th:if="${iter.index+1!=pos.getSong().getArtists().size()}">
-                                    <br></br>
+                                    <br/>
                                 </span>
                             </span>
                         </td>
                     </tr>
-                <myTag th:if="${pozOfElement == 20}" th:remove="tag">
+                </th:block>
             </table>
-                </myTag>
-            </span>
-        </span>
-        <th:block th:include="layout/paging_controls"></th:block>
+        </div>
+        <nav th:replace="fragments/paging :: myPaging"></nav>
     </div>
 </div>
 
-<th:block th:include="layout/footer"></th:block>
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
 </body>
 </html>

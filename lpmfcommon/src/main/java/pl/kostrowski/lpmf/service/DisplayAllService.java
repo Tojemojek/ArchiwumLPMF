@@ -17,6 +17,7 @@ import pl.kostrowski.lpmf.repository.LPMFPositionRepository;
 import pl.kostrowski.lpmf.repository.MovieRepository;
 import pl.kostrowski.lpmf.repository.SongRepository;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -120,7 +121,7 @@ public class DisplayAllService {
         return artistRepository.findAll(pageRequest);
     }
 
-    public Page<LPMFPosition> pagableShowAllLists(Integer pageNumber, Integer pageSize) {
+    public List<List<LPMFPosition>> pagableShowAllLists(Integer pageNumber, Integer pageSize) {
 
         if (pageNumber < 1) {
             pageNumber = 1;
@@ -132,8 +133,22 @@ public class DisplayAllService {
 
         Pageable pageRequest = createPageRequest(pageNumber - 1, pageSize, sort);
 
-        return lpmfPositionRepository.findAll(pageRequest);
+        Page<LPMFPosition> all = lpmfPositionRepository.findAll(pageRequest);
 
+        List<List<LPMFPosition>> listaList = new LinkedList<>();
+
+        int i = 0;
+        List<LPMFPosition> listaWew = new LinkedList<>();
+        for (LPMFPosition lpmfPosition : all) {
+            i++;
+            listaWew.add(lpmfPosition);
+            if (i==20) {
+                i=0;
+                listaList.add(listaWew);
+                listaWew = new LinkedList<>();
+            }
+        }
+        return listaList;
     }
 
     private Pageable createPageRequest(Integer pageNumber, Integer pageSize, Sort sort) {

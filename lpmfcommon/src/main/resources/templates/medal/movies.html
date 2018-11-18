@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>Medale filmów</title>
-    <th:block th:include="layout/header"></th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
 </head>
+
 <body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
 <div class="container" th:with="pagingMainLink='/medals/movies'">
     <div th:if="${not #lists.isEmpty(allMedalMovies)}">
 
         <h2>Medale filmów</h2>
 
-        <th:block th:include="layout/paging_controls"></th:block>
+        <nav th:replace="fragments/paging :: myPaging"></nav>
 
         <table class="table table-striped-medals" th:with="pozInMedalTable=${(pageNo-1)* pageSize + 1}">
             <thead>
@@ -34,7 +39,7 @@
                     <td th:text="${pos.getMedals().get(2)}"></td>
                     <td th:text="${pos.getMedals().get(3)}"></td>
                     <td th:text="${pos.getTotalInList()}"></td>
-                    <td><a data-toggle="collapse" class="accordion-toggle" href="">Detale</a></td>
+                    <td><button type="button" class="btn btn-primary">Detale</button></td>
                 </tr>
                 <tr class="accordion-body collapse" th:id="'accordion_'+${pos.getId()}">
                     <td colspan="6" th:text="${
@@ -62,10 +67,11 @@
         </table>
     </div>
 
-    <th:block th:include="layout/paging_controls"></th:block>
+    <nav th:replace="fragments/paging :: myPaging"></nav>
 
 </div>
 
-<th:block th:include="layout/footer"></th:block>
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
 </body>
 </html>
