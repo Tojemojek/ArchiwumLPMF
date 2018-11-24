@@ -28,4 +28,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             "total where  total.zliczenie > 1")
     List<Object[]> doubledSongs();
 
+    List<Song> findAllByTitleContaining(String title);
+
 }

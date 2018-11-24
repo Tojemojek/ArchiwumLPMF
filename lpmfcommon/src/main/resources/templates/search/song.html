@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
+</head>
+
+<body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
+<div class="container">
+
+    <div th:if="${not #lists.isEmpty(songs)}">
+
+        <h2>Utwory</h2>
+
+        <table class="table table-striped">
+            <thead>
+
+            <tr>
+                <th>Tytuł utworu</th>
+                <th>Tytuł filmu</th>
+                <th>Autorzy</th>
+            </tr>
+
+            </thead>
+
+            <th:block th:each="pos : ${songs}">
+                <tr>
+                    <td>
+                        <a th:href="@{/single/song(songId=${pos.getId()})}" th:text="${pos.getTitle()}"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/single/movie(movieId=${pos.getMovie().getId()})}"
+                           th:text="${pos.getMovie().getTitle()}"></a>
+                    </td>
+                    <td>
+                    <span th:each="artist, iter: ${pos.getArtists()}">
+                        <span>
+                            <a th:href="@{/single/artist(artistId=${artist.getId()})}"
+                               th:text="${artist.getFullName()}"></a>
+                        </span>
+                        <span th:if="${iter.index+1!=pos.getArtists().size()}">
+                            <br></br>
+                        </span>
+                    </span>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+</div>
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
+</head>
+
+<body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
+<div class="container">
+
+    <div th:if="${not #lists.isEmpty(movies)}">
+
+        <h2>Utwory</h2>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Tytuł filmu</th>
+            </tr>
+            </thead>
+            <th:block th:each="pos : ${movies}">
+                <tr>
+                    <td>
+                        <a th:href="@{/single/movie(movieId=${pos.getId()})}"
+                           th:text="${pos.getTitle()}"></a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+</div>
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
+</body>
+</html>

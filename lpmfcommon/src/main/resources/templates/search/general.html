@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
+</head>
+
+<body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
+<div class="container">
+
+    <h2>Witaj w przeszukiwarce archiwum</h2>
+    <h2><i>Listy Przebojów Muzyki Filmowej RMF Classic</i></h2>
+
+    <br/>
+    <br/>
+
+    <div class="border">
+        <form method="post" th:action="@{/search/songs}">
+            <h3>Wyszukaj utwór</h3>
+            <div class="row">
+                <div class="col">
+                    <input aria-describedby="songTitleHelp" class="form-control" id="songTitle" name="songTitle"
+                           placeholder="tytuł utworu"
+                           type="text">
+                    <small class="form-text text-muted" id="songTitleHelp">Wpisz fragment tytułu utworu.</small>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary col" type="submit">Szukaj utworu!</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br/>
+    <br/>
+    <div class="border">
+        <form method="post" th:action="@{/search/movies}">
+            <h3>Wyszukaj film</h3>
+            <div class="row">
+                <div class="col">
+                    <input aria-describedby="artistNameHelp" class="form-control" id="movieTitle"  name="movieTitle"
+                           placeholder="film"
+                           type="text">
+                    <small class="form-text text-muted" id="filmTitleHelp">Wpisz fragment tyutułu filmu.</small>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary col" type="submit">Szukaj filmu!</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br/>
+    <br/>
+    <div class="border">
+        <form method="post" th:action="@{/search/artists}">
+            <h3>Wyszukaj artystę</h3>
+            <div class="row">
+                <div class="col">
+                    <input aria-describedby="artistNameHelp" class="form-control" id="artistName"  name="artistName"
+                           placeholder="artysta"
+                           type="text">
+                    <small class="form-text text-muted" id="artistNameHelp">Wpisz fragment nazwy artysty.</small>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary col" type="submit">Szukaj artysty!</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
+</body>
+</html>
