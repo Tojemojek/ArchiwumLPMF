@@ -5,7 +5,7 @@
 
     <groupId>pl.kostrowski.lpmf</groupId>
     <artifactId>lpmf</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.1.5-SNAPSHOT</version>
 
     <modules>
         <module>lpmfcommon</module>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+
+<head th:replace="fragments/common :: header">
+    Tu będzie nagłówek
+</head>
+
+<body>
+
+<div class="container" th:replace="fragments/navigational :: nawigacja">Tu będzie menu nawigacyjne</div>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(mappings)}">
+
+        <h2 th:text="#{${title}}"></h2>
+
+
+        <table class="table table-striped">
+            <tr>
+                <th>Wartość oryginalna</th>
+                <th>Wartość na którą zmieniam</th>
+            </tr>
+            <tr th:each="pos : ${mappings}">
+                <td th:text="${pos.getFrom()}"></td>
+                <td th:text="${pos.getTo()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="container" th:replace="fragments/common :: footer">Tu będzie stopka</div>
+
+</body>
+</html>
