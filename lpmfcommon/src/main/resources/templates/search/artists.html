@@ -14,12 +14,12 @@
 
     <div th:if="${not #lists.isEmpty(artists)}">
 
-        <h2>Utwory</h2>
+        <h2>Artyści</h2>
 
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Tytuł filmu</th>
+                <th>Nazwa / Nazwisko / Pseudonim artysty</th>
             </tr>
             </thead>
             <th:block th:each="pos : ${artists}">

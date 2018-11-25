@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    List<Movie> findAllByTitleContaining(String title);
+    List<Movie> findAllByTitleContainingOrderByTitle(String title);
 }

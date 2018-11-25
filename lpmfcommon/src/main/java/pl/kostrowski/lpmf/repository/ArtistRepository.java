@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
-    List<Artist> findAllByFullNameContaining(String name);
+    List<Artist> findAllByFullNameContainingOrderByFullName(String name);
 }
