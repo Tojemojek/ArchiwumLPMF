@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      lang="pl">
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="header">
     <title>Historia Listy Przebojów Muzyki Filmowej RMF Classic</title>
-    <meta http-equiv="Content-Type"
-          content="text/html" charset="UTF-8"/>
-    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"
-          href="https://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
-          rel="stylesheet" media="screen"/>
-    <link th:href="@{/css/style.css}"
-          href="../../static/css/style.css"
-          rel="stylesheet"/>
+    <meta charset="UTF-8"
+          content="text/html" http-equiv="Content-Type"/>
+    <link href="https://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
+          media="screen"
+          rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"/>
+    <link href="../../static/css/style.css"
+          rel="stylesheet"
+          th:href="@{/css/style.css}"/>
 </head>
 
 <body>
@@ -21,29 +21,29 @@
     <div class="container">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" th:href="@{/}">Home</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                    data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#" id="navbarDropdown1" role="button">
                             Klasyfikacje medalowe
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div aria-labelledby="navbarDropdown" class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/medals/songs}">Utwory</a>
                             <a class="dropdown-item" th:href="@{/medals/movies}">Filmy</a>
                             <a class="dropdown-item" th:href="@{/medals/artists}">Artyści</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#" id="navbarDropdown2" role="button">
                             Wszystkie i wszyscy
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div aria-labelledby="navbarDropdown" class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/all/songs}">Utwory</a>
                             <a class="dropdown-item" th:href="@{/all/movies}">Filmy</a>
                             <a class="dropdown-item" th:href="@{/all/artists}">Artyści</a>
@@ -58,11 +58,54 @@
     </div>
 </div>
 
+<div th:fragment="medale" th:remove="tag">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Złoto</th>
+            <th>Srebro</th>
+            <th>Brąz</th>
+            <th>Ile razy w liście</th>
+        </tr>
+        </thead>
+        <th:block>
+            <tr>
+                <td th:text="${medals.get(1)}"></td>
+                <td th:text="${medals.get(2)}"></td>
+                <td th:text="${medals.get(3)}"></td>
+                <td th:text="${inLists}"></td>
+
+            </tr>
+            <tr>
+                <td colspan="4" th:text="${
+                    'miejsce 4:&nbsp;' + medals.get(4) + 'x, '+
+                    'miejsce 5:&nbsp;' + medals.get(5) + 'x, '+
+                    'miejsce 6:&nbsp;' + medals.get(6) + 'x, '+
+                    'miejsce 7:&nbsp;' + medals.get(7) + 'x, '+
+                    'miejsce 8:&nbsp;' + medals.get(8) + 'x, '+
+                    'miejsce 9:&nbsp;' + medals.get(9) + 'x, '+
+                    'miejsce 10:&nbsp;' + medals.get(10) + 'x, '+
+                    'miejsce 11:&nbsp;' + medals.get(11) + 'x, '+
+                    'miejsce 12:&nbsp;' + medals.get(12) + 'x, '+
+                    'miejsce 13:&nbsp;' + medals.get(13) + 'x, '+
+                    'miejsce 14:&nbsp;' + medals.get(14) + 'x, '+
+                    'miejsce 15:&nbsp;' + medals.get(15) + 'x, '+
+                    'miejsce 16:&nbsp;' + medals.get(16) + 'x, '+
+                    'miejsce 17:&nbsp;' + medals.get(17) + 'x, '+
+                    'miejsce 18:&nbsp;' + medals.get(18) + 'x, '+
+                    'miejsce 19:&nbsp;' + medals.get(19) + 'x, '+
+                    'miejsce 20:&nbsp;' + medals.get(20) + 'x'}">
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
 
 <div th:fragment="footer" th:remove="tag">
     <div class="make-space-above-footer">
     </div>
-    <div class="container" >
+    <div class="container">
 
         <nav class="navbar fixed-bottom navbar-light bg-light">
             <div class="container">
@@ -70,18 +113,18 @@
             </div>
         </nav>
 
-        <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"
-                src="https://cdn.jsdelivr.net/webjars/jquery/3.0.0/jquery.min.js">
+        <script src="https://cdn.jsdelivr.net/webjars/jquery/3.0.0/jquery.min.js"
+                th:src="@{/webjars/jquery/3.0.0/jquery.min.js}">
         </script>
-        <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
-                src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/popper.min.js">
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/popper.min.js"
+                th:src="@{/webjars/popper.js/1.14.3/popper.min.js}">
         </script>
-        <script th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"
-                src="https://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/js/bootstrap.min.js">
+        <script src="https://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/js/bootstrap.min.js"
+                th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}">
         </script>
     </div>
-
 </div>
+
 
 </body>
 </html>

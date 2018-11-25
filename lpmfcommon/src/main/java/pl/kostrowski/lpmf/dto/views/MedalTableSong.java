@@ -14,7 +14,7 @@ import java.util.Map;
 @Entity
 @Immutable
 @Table(name = "songs_medal_view")
-public class MedalTableSong {
+public class MedalTableSong extends MedalTable{
 
     @Column(name = "song_title")
     private String songTitle;

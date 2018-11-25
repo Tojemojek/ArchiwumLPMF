@@ -22,7 +22,7 @@ public class ManualUpdateList {
 
     @Before
     public void init() {
-        NUMBER_OF_LIST = 259;
+        NUMBER_OF_LIST = 260;
     }
 
 

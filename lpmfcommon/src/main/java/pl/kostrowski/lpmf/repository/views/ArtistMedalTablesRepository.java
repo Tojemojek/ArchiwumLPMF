@@ -10,4 +10,5 @@ import pl.kostrowski.lpmf.dto.views.MedalTableArtist;
 public interface ArtistMedalTablesRepository extends JpaRepository<MedalTableArtist, Long> {
 
     Page<MedalTableArtist> findAll(Pageable pageable);
+    MedalTableArtist findFirstByArtistName (String artistName);
 }

@@ -27,6 +27,16 @@
             <b th:text="${singleArtist.getArtist().getFirstTimeInList().getDateOfList()}"></b>
         </h3>
 
+        <br/>
+        <h3>
+            Medale zdobyte przez artystę
+        </h3>
+        <div th:replace="fragments/common :: medale">
+            Tu będą statystyki
+        </div>
+
+        <br/>
+
         <table class="table table-striped">
             <tr>
                 <th>Utwór</th>

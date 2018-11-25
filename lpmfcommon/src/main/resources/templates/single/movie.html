@@ -27,6 +27,16 @@
             <b th:text="${singleMovie.getMovie().getFirstTimeInList().getDateOfList()}"></b>
         </h3>
 
+        <br/>
+        <h3>
+            Medale zdobyte przez film
+        </h3>
+        <div th:replace="fragments/common :: medale">
+            Tu będą statystyki
+        </div>
+
+        <br/>
+
         <table class="table table-striped">
             <tr>
                 <th>Utwór</th>

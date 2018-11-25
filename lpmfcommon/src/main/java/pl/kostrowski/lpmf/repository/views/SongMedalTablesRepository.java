@@ -10,4 +10,5 @@ import pl.kostrowski.lpmf.dto.views.MedalTableSong;
 public interface SongMedalTablesRepository extends JpaRepository<MedalTableSong, String> {
 
     Page<MedalTableSong> findAll(Pageable pageable);
+    MedalTableSong findFirstBySongTitle(String songTitle);
 }

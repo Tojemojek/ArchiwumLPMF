@@ -6,16 +6,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import pl.kostrowski.lpmf.dto.ArtistSongsDto;
 import pl.kostrowski.lpmf.dto.MovieSongsDto;
+import pl.kostrowski.lpmf.dto.views.MedalTable;
 import pl.kostrowski.lpmf.model.Artist;
 import pl.kostrowski.lpmf.model.LPMFPosition;
 import pl.kostrowski.lpmf.model.Movie;
 import pl.kostrowski.lpmf.model.Song;
-import pl.kostrowski.lpmf.repository.ArtistRepository;
-import pl.kostrowski.lpmf.repository.LPMFPositionRepository;
-import pl.kostrowski.lpmf.repository.MovieRepository;
-import pl.kostrowski.lpmf.repository.SongRepository;
+import pl.kostrowski.lpmf.repository.*;
+import pl.kostrowski.lpmf.repository.views.ArtistMedalTablesRepository;
+import pl.kostrowski.lpmf.repository.views.MovieMedalTablesRepository;
+import pl.kostrowski.lpmf.repository.views.SongMedalTablesRepository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,26 +26,33 @@ import java.util.List;
 public class DisplayAllService {
 
     private final LPMFPositionRepository lpmfPositionRepository;
-
     private final SongRepository songRepository;
-
     private final ArtistRepository artistRepository;
-
     private final MovieRepository movieRepository;
 
+    private final ArtistMedalTablesRepository artistMedalTablesRepository;
+    private final MovieMedalTablesRepository movieMedalTablesRepository;
+    private final SongMedalTablesRepository songMedalTablesRepository;
+
+    private final RawDataRepository rawDataRepository;
+
     @Autowired
-    public DisplayAllService(LPMFPositionRepository lpmfPositionRepository, SongRepository songRepository, ArtistRepository artistRepository, MovieRepository movieRepository) {
+    public DisplayAllService(LPMFPositionRepository lpmfPositionRepository, SongRepository songRepository, ArtistRepository artistRepository, MovieRepository movieRepository, ArtistMedalTablesRepository artistMedalTablesRepository, MovieMedalTablesRepository movieMedalTablesRepository, SongMedalTablesRepository songMedalTablesRepository, RawDataRepository rawDataRepository) {
         this.lpmfPositionRepository = lpmfPositionRepository;
         this.songRepository = songRepository;
         this.artistRepository = artistRepository;
         this.movieRepository = movieRepository;
+        this.artistMedalTablesRepository = artistMedalTablesRepository;
+        this.movieMedalTablesRepository = movieMedalTablesRepository;
+        this.songMedalTablesRepository = songMedalTablesRepository;
+        this.rawDataRepository = rawDataRepository;
     }
 
     public List<LPMFPosition> findByNoOfList(Integer listNo) {
         return lpmfPositionRepository.findByNoOfListOrderByPos(listNo);
     }
 
-    public List<LPMFPosition> customFindBySongId(Long songId) {
+    public List<LPMFPosition> customFindBySongId(Long songId, Model model) {
         List<LPMFPosition> byNoOfListOOrderByPos = lpmfPositionRepository.customFindBySongId(songId);
 
         if (byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates() != null && byNoOfListOOrderByPos.get(0).getSong().getHasDuplicates()) {
@@ -53,22 +62,40 @@ public class DisplayAllService {
                             byNoOfListOOrderByPos.get(0).getSong().getMovie().getTitle());
         }
 
+        MedalTable medalTable = songMedalTablesRepository.findFirstBySongTitle(byNoOfListOOrderByPos.get(0).getSong().getTitle());
+        medalTable.prepare();
+
+        model.addAttribute("medals", medalTable.getMedals());
+        model.addAttribute("inLists", medalTable.getTotalInList());
+
         return byNoOfListOOrderByPos;
     }
 
-    public ArtistSongsDto customFindArtistById(Long artistId) {
+    public ArtistSongsDto customFindArtistById(Long artistId, Model model) {
 
         Artist artist = artistRepository.findById(artistId).get();
         List<Song> songsByArtist = songRepository.customFindByArtistId(artistId);
+
+        MedalTable medalTable = artistMedalTablesRepository.findFirstByArtistName(artist.getFullName());
+        medalTable.prepare();
+
+        model.addAttribute("medals", medalTable.getMedals());
+        model.addAttribute("inLists", medalTable.getTotalInList());
 
         return new ArtistSongsDto(artist, songsByArtist);
 
     }
 
-    public MovieSongsDto customFindMovieById(Long movieId) {
+    public MovieSongsDto customFindMovieById(Long movieId, Model model) {
 
         Movie movie = movieRepository.findById(movieId).get();
         List<Song> songsByMovie = songRepository.customFindByMovieId(movieId);
+
+        MedalTable medalTable = movieMedalTablesRepository.findFirstByMovieTitle(movie.getTitle());
+        medalTable.prepare();
+
+        model.addAttribute("medals", medalTable.getMedals());
+        model.addAttribute("inLists", medalTable.getTotalInList());
 
         return new MovieSongsDto(movie, songsByMovie);
 
@@ -142,8 +169,8 @@ public class DisplayAllService {
         for (LPMFPosition lpmfPosition : all) {
             i++;
             listaWew.add(lpmfPosition);
-            if (i==20) {
-                i=0;
+            if (i == 20) {
+                i = 0;
                 listaList.add(listaWew);
                 listaWew = new LinkedList<>();
             }
@@ -172,4 +199,8 @@ public class DisplayAllService {
     }
 
 
+    public void prepareMain(Model model) {
+        model.addAttribute("min",rawDataRepository.findMinList());
+        model.addAttribute("max",rawDataRepository.findMaxList());
+    }
 }

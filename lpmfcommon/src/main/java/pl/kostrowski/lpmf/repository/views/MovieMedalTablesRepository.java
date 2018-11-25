@@ -10,4 +10,5 @@ import pl.kostrowski.lpmf.dto.views.MedalTableMovie;
 public interface MovieMedalTablesRepository extends JpaRepository<MedalTableMovie, Long> {
 
     Page<MedalTableMovie> findAll(Pageable pageable);
+    MedalTableMovie findFirstByMovieTitle(String movieTitle);
 }

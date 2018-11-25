@@ -31,7 +31,10 @@ public class AllController {
     }
 
     @RequestMapping(value = "/")
-    public String displayMenu() {
+    public String displayMenu(Model model) {
+
+        displayAllService.prepareMain(model);
+
         return "index";
     }
 

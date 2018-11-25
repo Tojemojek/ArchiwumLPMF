@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      lang="pl">
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/common :: header">
     Tu będzie nagłówek
@@ -32,15 +32,39 @@
             <b th:text="${singleSong.get(0).getSong().getFirstTimeInList().getDateOfList()}"></b>
         </h3>
 
+        <br/>
+        <h3>
+            Medale zdobyte przez utwór
+        </h3>
+        <div th:replace="fragments/common :: medale">
+            Tu będą statystyki
+        </div>
+
+        <br/>
+
         <table class="table table-striped">
             <tr>
                 <th>Pozycja</th>
+                <th>Artyści</th>
                 <th>Nr Listy</th>
                 <th>Data Listy</th>
             </tr>
             <tr th:each="pos : ${singleSong}">
                 <td th:text="${pos.getPos()}">id</td>
-                <td th:text="${pos.getListInfo().getNoOfList()}">id</td>
+                <td>
+                    <span th:each="artist, iter: ${pos.getSong().getArtists()}">
+                        <span>
+                            <a th:href="@{/single/artist(artistId=${artist.getId()})}"
+                               th:text="${artist.getFullName()}"></a>
+                        </span>
+                        <span th:if="${iter.index+1!=pos.getSong().getArtists().size()}">
+                            <br/>
+                        </span>
+                    </span>
+                </td>
+                <td><a th:href="@{/single/list(listNo=${pos.getListInfo().getNoOfList()})}"
+                       th:text="${pos.getListInfo().getNoOfList()}"></a>
+                </td>
                 <td th:text="${pos.getListInfo().getDateOfList()}">id</td>
             </tr>
         </table>
